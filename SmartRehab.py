@@ -16,6 +16,18 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 file_path = "Data/synthetic_data_spz.csv"  # Ensure the correct file path
 df = pd.read_csv(file_path)
 
+feature_name_mapping = {
+    "therapy_efficiency": "Therapy Efficiency",
+    "therapy_minutes_total": "Total Therapy Minutes",
+    "ergo": "Ergotherapy",
+    "non_med_ter": "Non-Medical Therapy",
+    "mean_nurs": "Average Nursing Time",
+    "nurs": "Nursing Cost",
+    "mean_los": "Average Length of Stay",
+    "total_cost": "Total Cost",
+    "high_therapy_patient": "High Therapy Patient"
+}
+
 # Step 1: Handle Missing Values
 df = df.dropna(subset=['SCIM_admission'])  # Drop rows with missing SCIM_admission
 
@@ -91,6 +103,10 @@ top_corr_features = corr_matrix['SCIM_admission'].abs().sort_values(ascending=Fa
 X = df[top_corr_features]  # Selecting top 10 correlated features
 y = df['SCIM_admission']   # Target variable
 
+# # Rename columns using the mapping dictionary
+# X = X.rename(columns=feature_name_mapping)
+
+
 # Step 10: Splitting the Data into Training and Testing Sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
@@ -144,6 +160,13 @@ model_performance_results = [
     evaluate_model(y_test, y_pred_rf_best, "Tuned Random Forest")
 ]
 
+#Convert Data to float64 Format
+X_train = X_train.astype('float64')
+X_test = X_test.astype('float64')
+
+#Verify That X_train is Numeric Before SHAP
+X_train = X_train.astype('float64')
+X_test = X_test.astype('float64')
 
 # Create SHAP Explainer
 explainer = shap.Explainer(gb_model, X_train)
@@ -170,9 +193,10 @@ patient_data = X_test.iloc[random_index].values
 # Generate LIME explanation for this patient
 lime_exp = lime_explainer.explain_instance(patient_data, gb_model.predict, num_features=5)
 
-# Show LIME explanation
-lime_exp.show_in_notebook()
+import matplotlib.pyplot as plt
 
+lime_exp.as_pyplot_figure()
+plt.show()
 
 
 from pprint import pprint
@@ -188,6 +212,38 @@ feature_importances = pd.Series(model.feature_importances_, index=top_corr_featu
 
 print("\n🔥 Feature Importance:")
 print(feature_importances)
+
+
+def recommend_therapy(new_patient_data, model=gb_model):
+    """
+    Suggests the most important therapy type based on the model's prediction.
+
+    Parameters:
+    new_patient_data (list): A list of feature values in the same order as X_train columns.
+    model (sklearn model): The trained Gradient Boosting model.
+
+    Returns:
+    str: Suggested therapy based on most important factor.
+    """
+    # Reshape input for prediction
+    new_patient_data = np.array(new_patient_data).reshape(1, -1)
+
+    # Get SHAP values for this new patient
+    shap_explanation = explainer(new_patient_data)
+
+    # Find the most important therapy factor
+    most_important_feature = X_train.columns[np.argmax(np.abs(shap_explanation.values))]
+
+    return f"Suggested therapy: Focus on {most_important_feature} for best recovery."
+
+# New patient data with a low therapy_efficiency value.
+# Order: therapy_efficiency, therapy_minutes_total, ergo, non_med_ter, mean_nurs, nurs, mean_los, total_cost, high_therapy_patient
+new_patient = [0.05, 2000, 2, 5, 10, 50, 3, 10000, 0]
+
+# Get Therapy Recommendation
+therapy_suggestion = recommend_therapy(new_patient)
+print(therapy_suggestion)
+
 
 
 # # Save cleaned dataset
