@@ -3,6 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import shap
+import lime.lime_tabular
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
@@ -141,6 +143,37 @@ model_performance_results = [
     evaluate_model(y_test, y_pred_gb, "Gradient Boosting"),
     evaluate_model(y_test, y_pred_rf_best, "Tuned Random Forest")
 ]
+
+
+# Create SHAP Explainer
+explainer = shap.Explainer(gb_model, X_train)
+
+# Generate SHAP values for test data
+shap_values = explainer(X_test)
+
+# SHAP Summary Plot
+shap.summary_plot(shap_values, X_test)
+
+
+
+# Create LIME Explainer
+lime_explainer = lime.lime_tabular.LimeTabularExplainer(
+    training_data=X_train.values,
+    feature_names=X_train.columns.tolist(),
+    mode="regression"
+)
+
+# Pick a random patient
+random_index = np.random.randint(0, X_test.shape[0])
+patient_data = X_test.iloc[random_index].values
+
+# Generate LIME explanation for this patient
+lime_exp = lime_explainer.explain_instance(patient_data, gb_model.predict, num_features=5)
+
+# Show LIME explanation
+lime_exp.show_in_notebook()
+
+
 
 from pprint import pprint
 pprint(model_performance_results)
