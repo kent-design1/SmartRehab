@@ -3,6 +3,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import joblib
 import shap
 import lime.lime_tabular
 from sklearn.model_selection import train_test_split
@@ -245,6 +246,13 @@ therapy_suggestion = recommend_therapy(new_patient)
 print(therapy_suggestion)
 
 
+# Save the model
+joblib.dump(gb_model, "SmartRehabModel.pkl")
+
+# Save the feature names
+joblib.dump(top_corr_features, "SmartRehabFeatures.pkl")
+
+print("✅ Model and features saved successfully!")
 
 # # Save cleaned dataset
 # df.to_csv("cleaned_data_spz.csv", index=False)
