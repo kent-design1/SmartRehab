@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/SmartApi.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Footer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Home.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Welcome.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SmartRehab.py" beforeDir="false" afterPath="$PROJECT_DIR$/SmartRehab.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Hero.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -80,7 +78,7 @@
       <option name="presentableId" value="Default" />
       <updated>1739963043855</updated>
       <workItem from="1739963044938" duration="95000" />
-      <workItem from="1739963149247" duration="29152000" />
+      <workItem from="1739963149247" duration="31083000" />
     </task>
     <servers />
   </component>

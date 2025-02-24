@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 
-export default function Home() {
+export default function Hero() {
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
             <div className="bg-white shadow-lg rounded-2xl p-8 max-w-lg text-center mt-10">
