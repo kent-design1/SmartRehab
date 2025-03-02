@@ -5,22 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Data/Synthetic_Rehabilitation_Data.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Smart2.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/Dashboard/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/Welcome/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/assets/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Mapped_and_Cleaned_Dataset.csv" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/SmartRehab.py" beforeDir="false" afterPath="$PROJECT_DIR$/SmartRehab.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cleaned_data_spz.csv" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignUp.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignUp/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Welcome.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/Footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Footer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +89,7 @@
       <updated>1739963043855</updated>
       <workItem from="1739963044938" duration="95000" />
       <workItem from="1739963149247" duration="34943000" />
-      <workItem from="1740395834706" duration="10863000" />
+      <workItem from="1740395834706" duration="11748000" />
     </task>
     <servers />
   </component>

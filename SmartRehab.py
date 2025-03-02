@@ -7,6 +7,7 @@ import joblib
 import shap
 import lime.lime_tabular
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import LabelEncoder, OneHotEncoder # Step 2: Convert Categorical Values
 from sklearn.impute import SimpleImputer # Step 1: Handle Missing Values
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import LinearRegression
@@ -73,15 +74,27 @@ df_large[numerical_cols] = num_imputer.fit_transform(df_large[numerical_cols])
 cat_imputer = SimpleImputer(strategy='most_frequent')
 df_large[categorical_cols] = cat_imputer.fit_transform(df_large[categorical_cols])
 
+# Apply Label Encoding to categorical columns
+label_encoders = {}
+for col in categorical_cols:
+    le = LabelEncoder()
+    df_large[col] = le.fit_transform(df_large[col])
+    label_encoders[col] = le  # Store encoder for inverse transformation if needed
+
+# Step 3: Check for Duplicate Records
+duplicate_records = df_large.duplicated().sum()
+if duplicate_records > 0:
+    df_large = df_large.drop_duplicates()
+    print(f"Removed {duplicate_records} duplicate records.")
+else:
+    print("No duplicate records found.")
+
+
 # Display the first few rows of the cleaned dataset
 print(df_large.head())
 
-# Save the dataset to a CSV file for review
-df_large.to_csv("Mapped_and_Cleaned_Dataset.csv", index=False)
 
-
-
-
+df_large.to_csv("processed_rehab_data.csv", index=False)
 
 
 
