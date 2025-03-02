@@ -1,0 +1,501 @@
+Patient_ID,Age,Gender,Height_cm,Weight_kg,BMI,Spinal_Injury_Type,Injury_Cause,Injury_Severity_Score,Time_Since_Injury_months,Previous_Surgeries,Rehabilitation_Type,Session_Frequency_per_week,Session_Duration_minutes,Exercise_Intensity,Use_of_Assistive_Devices,Patient_Adherence_Rate_%,Mobility_Score,Grip_Strength_kg,Muscle_Strength_Score,Pain_Level,Spasticity_Level,Balance_Test_Score,Quality_of_Life_Score,Mental_Health_Status,Sleep_Quality_Score,Fatigue_Level,Daily_Activity_Score,Gait_Speed_mps,Step_Count_per_Day,Heart_Rate_Variability,Joint_Range_of_Motion_degrees,Predicted_Recovery_Score,Recommended_Therapy_Adjustment,Anomalies_Detected_by_AI,Patient_Engagement_Score
+P0001,56,Female,165,60,30.5,Cervical,Degenerative Disease,D,83,1,Exoskeleton-Assisted Therapy,2,82,Low,Yes,47,9,9.8,3,2,0,50,60,Depressed,4,1,59,0.64,5798,100.0,108,32.4,Maintain Plan,Yes,7
+P0002,69,Other,180,51,20.2,Complete,Accident,E,43,0,Exoskeleton-Assisted Therapy,3,53,Low,No,6,2,24.1,4,9,1,26,22,Depressed,7,3,22,0.93,13581,78.1,32,67.9,Change Therapy,Unknown,7
+P0003,46,Female,160,116,30.2,Thoracic,Surgery,C,116,0,None,0,61,Moderate,Yes,58,8,25.4,1,8,3,36,26,Anxious,8,5,45,0.77,13639,97.3,147,56.3,Maintain Plan,No,9
+P0004,32,Other,165,61,33.5,Lumbar,Degenerative Disease,B,35,1,Physiotherapy,4,86,Moderate,No,68,7,38.0,3,8,3,45,53,Unknown,5,7,51,0.24,7517,53.3,171,16.2,Reduce Intensity,Unknown,2
+P0005,60,Other,157,69,21.1,Lumbar,Accident,D,104,1,Exoskeleton-Assisted Therapy,3,31,Low,No,10,2,42.8,1,9,0,48,9,Stable,1,4,9,1.38,8271,103.1,158,31.0,Increase Frequency,Yes,3
+P0006,25,Female,153,54,22.0,Incomplete,Accident,B,78,2,Exoskeleton-Assisted Therapy,1,39,High,No,14,12,29.5,1,7,1,34,88,Unknown,4,1,45,1.67,9067,47.5,71,90.0,Reduce Intensity,Unknown,4
+P0007,78,Female,189,86,34.5,Incomplete,Surgery,B,58,0,None,1,12,Moderate,No,63,5,8.9,3,9,3,3,76,Unknown,3,6,27,0.68,9415,74.6,36,68.8,Increase Frequency,Yes,1
+P0008,38,Female,153,87,21.1,Lumbar,Surgery,B,33,1,None,1,83,Moderate,No,2,12,15.7,0,2,2,15,15,Anxious,5,2,96,1.98,14398,41.4,32,98.6,Increase Frequency,Yes,7
+P0009,56,Male,174,58,32.5,Lumbar,Surgery,C,14,0,Exoskeleton-Assisted Therapy,3,34,None,Yes,68,19,12.4,3,6,1,15,40,Unknown,6,3,42,0.24,2413,67.6,103,76.7,Change Therapy,Yes,3
+P0010,75,Male,152,102,26.4,Thoracic,Degenerative Disease,A,34,1,Physiotherapy,3,4,High,Yes,22,19,10.6,4,3,1,20,97,Unknown,2,4,25,1.36,4797,51.8,116,94.2,Increase Frequency,No,3
+P0011,36,Male,181,93,22.2,Cervical,Accident,D,61,0,Exoskeleton-Assisted Therapy,3,72,High,No,52,11,21.5,2,6,3,25,54,Stable,7,6,54,0.95,11184,46.7,125,21.6,Reduce Intensity,No,3
+P0012,40,Other,152,73,32.8,Incomplete,Surgery,A,119,3,None,0,28,Low,No,36,12,15.3,3,3,2,35,60,Unknown,3,6,47,0.95,2442,116.7,115,77.1,Change Therapy,No,8
+P0013,28,Female,176,79,25.6,Cervical,Degenerative Disease,A,4,2,None,0,69,High,No,8,1,14.8,1,8,2,18,85,Stable,1,7,28,0.97,4504,36.0,27,2.0,Increase Frequency,Unknown,9
+P0014,28,Other,178,108,26.8,Thoracic,Degenerative Disease,A,88,0,Exoskeleton-Assisted Therapy,1,24,Low,Yes,14,15,7.5,1,4,2,16,80,Anxious,3,5,26,0.59,11036,98.7,75,67.1,Reduce Intensity,Yes,2
+P0015,41,Male,181,63,24.1,Lumbar,Degenerative Disease,B,59,3,Physiotherapy,2,21,None,No,2,5,5.8,3,6,1,44,86,Stable,9,7,17,1.46,1831,118.4,123,46.9,Increase Frequency,Unknown,1
+P0016,70,Female,199,58,28.1,Cervical,Surgery,E,29,0,Exoskeleton-Assisted Therapy,1,65,High,No,92,18,9.6,2,9,0,25,99,Depressed,6,2,59,1.47,8390,22.0,102,34.7,Increase Frequency,Unknown,9
+P0017,53,Other,168,89,20.8,Lumbar,Surgery,B,83,0,Exoskeleton-Assisted Therapy,4,44,Moderate,No,69,12,12.7,3,2,1,21,48,Depressed,6,1,73,0.64,5088,89.9,63,86.2,Change Therapy,Yes,6
+P0018,57,Female,170,115,24.6,Lumbar,Accident,B,6,3,None,0,68,None,No,16,16,24.4,2,2,1,54,72,Stable,4,8,68,1.69,837,45.3,122,85.4,Change Therapy,Unknown,9
+P0019,41,Other,154,74,34.5,Complete,Accident,A,97,0,Physiotherapy,3,88,Low,Yes,25,8,28.0,2,7,3,55,51,Depressed,8,1,73,0.7,14756,24.0,131,2.2,Reduce Intensity,Yes,6
+P0020,20,Female,167,71,22.4,Cervical,Surgery,B,49,0,Occupational Therapy,0,71,None,No,20,16,11.3,4,2,0,27,1,Anxious,5,2,20,1.48,7566,60.3,168,61.0,Change Therapy,Yes,2
+P0021,39,Male,177,53,29.2,Cervical,Degenerative Disease,A,40,2,Physiotherapy,3,0,Low,No,71,1,24.1,1,2,2,0,95,Depressed,7,6,23,0.33,8313,113.5,61,36.8,Change Therapy,Yes,1
+P0022,70,Male,191,75,23.5,Lumbar,Degenerative Disease,E,83,3,Exoskeleton-Assisted Therapy,4,83,None,Yes,20,18,20.4,1,4,3,43,49,Stable,9,1,2,0.42,10557,21.2,176,41.6,Maintain Plan,Yes,8
+P0023,19,Female,171,107,31.1,Thoracic,Degenerative Disease,D,117,3,Exoskeleton-Assisted Therapy,4,43,Low,No,10,18,13.3,2,9,1,35,85,Anxious,5,3,94,0.7,11829,78.8,164,83.2,Maintain Plan,Unknown,3
+P0024,41,Other,170,78,20.2,Complete,Accident,A,65,1,Exoskeleton-Assisted Therapy,0,86,High,No,37,6,5.3,1,8,0,42,42,Depressed,5,7,61,1.23,9483,70.1,49,31.0,Reduce Intensity,Unknown,1
+P0025,61,Male,155,86,34.5,Lumbar,Degenerative Disease,E,69,0,Physiotherapy,3,74,Moderate,Yes,71,9,26.0,0,2,2,36,76,Anxious,4,8,1,1.33,4111,107.3,45,94.3,Change Therapy,Unknown,8
+P0026,47,Male,150,119,25.7,Incomplete,Accident,D,27,2,None,4,38,Low,Yes,87,9,35.9,2,8,2,1,7,Stable,6,4,65,0.85,4200,28.4,144,18.0,Reduce Intensity,No,1
+P0027,55,Male,154,67,22.0,Incomplete,Accident,C,80,0,Exoskeleton-Assisted Therapy,1,53,None,Yes,34,19,15.2,1,4,1,16,58,Depressed,2,3,41,0.25,10208,88.2,38,66.3,Maintain Plan,Unknown,8
+P0028,19,Female,190,91,19.2,Complete,Degenerative Disease,A,6,0,Exoskeleton-Assisted Therapy,1,87,Low,No,13,8,10.9,0,2,2,39,64,Anxious,3,1,33,0.81,12645,88.0,72,67.2,Maintain Plan,Unknown,1
+P0029,77,Female,161,90,20.9,Thoracic,Degenerative Disease,A,104,1,Physiotherapy,3,74,Low,No,13,16,44.9,4,7,2,37,80,Anxious,1,9,41,1.41,6618,86.9,104,25.2,Maintain Plan,No,9
+P0030,38,Other,175,87,26.8,Lumbar,Surgery,C,13,0,Occupational Therapy,0,28,Low,Yes,9,14,17.4,1,6,0,20,11,Depressed,2,6,19,1.37,7605,114.2,36,32.5,Reduce Intensity,Yes,9
+P0031,50,Other,195,83,23.7,Cervical,Surgery,C,112,2,Occupational Therapy,4,53,None,Yes,11,1,15.1,0,5,3,8,3,Anxious,2,6,96,0.4,13729,102.3,123,83.5,Change Therapy,Yes,9
+P0032,29,Other,183,66,32.1,Complete,Degenerative Disease,A,64,2,None,0,89,Moderate,Yes,37,3,43.6,3,1,0,12,76,Anxious,8,9,67,0.11,12600,24.2,124,76.2,Increase Frequency,Yes,3
+P0033,75,Female,198,86,25.3,Thoracic,Accident,C,62,1,None,1,15,High,No,33,18,41.8,3,2,3,10,94,Stable,8,1,44,1.53,3173,67.1,123,32.9,Change Therapy,No,4
+P0034,39,Female,163,74,22.2,Cervical,Accident,B,99,0,Exoskeleton-Assisted Therapy,4,19,Moderate,No,40,16,25.2,0,8,3,15,40,Stable,2,6,74,0.3,2622,59.8,166,53.4,Reduce Intensity,Unknown,5
+P0035,78,Other,175,76,28.5,Incomplete,Accident,D,19,2,Physiotherapy,0,45,Low,Yes,9,4,27.0,2,1,3,15,6,Stable,6,5,41,0.26,12477,51.0,143,6.2,Maintain Plan,Unknown,6
+P0036,61,Other,194,106,30.0,Incomplete,Accident,D,76,0,Exoskeleton-Assisted Therapy,2,66,None,No,16,6,14.8,2,3,2,1,86,Stable,5,6,46,0.11,7582,65.1,100,20.9,Increase Frequency,Unknown,9
+P0037,42,Female,176,80,20.8,Cervical,Accident,D,80,0,None,3,64,Moderate,Yes,16,17,8.5,1,2,0,41,87,Stable,3,8,4,0.92,8750,58.4,56,48.6,Reduce Intensity,Unknown,4
+P0038,66,Other,158,55,20.8,Complete,Surgery,B,43,0,Physiotherapy,3,57,Low,No,66,6,30.8,3,5,2,43,68,Stable,5,5,88,1.06,11125,63.2,140,8.6,Maintain Plan,No,6
+P0039,44,Male,175,89,18.6,Incomplete,Degenerative Disease,C,74,1,Physiotherapy,2,52,High,No,61,16,9.4,2,4,1,7,68,Depressed,5,2,48,1.31,2562,117.9,89,84.3,Reduce Intensity,Unknown,1
+P0040,76,Female,196,61,30.5,Lumbar,Surgery,E,89,0,None,1,0,High,No,94,6,25.2,2,7,0,42,80,Stable,5,2,36,0.66,1754,28.9,173,71.8,Increase Frequency,Yes,2
+P0041,59,Other,171,102,29.3,Cervical,Accident,C,20,2,Occupational Therapy,4,80,High,No,0,3,47.3,3,5,3,41,29,Anxious,3,5,33,1.45,4188,112.2,149,94.4,Maintain Plan,No,8
+P0042,45,Female,196,59,26.1,Cervical,Accident,A,95,0,Occupational Therapy,3,65,Low,Yes,11,7,47.9,4,8,2,12,72,Depressed,3,3,72,0.42,4248,68.0,78,69.3,Change Therapy,No,4
+P0043,77,Male,179,94,32.4,Incomplete,Accident,D,68,2,Physiotherapy,2,28,None,No,3,12,15.8,2,4,2,16,5,Anxious,4,3,69,1.68,6842,82.4,137,94.0,Reduce Intensity,Yes,7
+P0044,33,Female,192,66,31.7,Complete,Accident,C,44,0,Exoskeleton-Assisted Therapy,2,83,Moderate,No,41,3,33.1,0,6,0,38,88,Stable,7,8,17,1.19,14165,103.0,152,55.5,Increase Frequency,Yes,4
+P0045,32,Female,197,75,28.0,Lumbar,Degenerative Disease,E,23,2,Occupational Therapy,1,69,High,Yes,12,5,26.3,1,4,0,23,18,Stable,2,7,77,1.21,4630,56.0,56,60.0,Change Therapy,Unknown,9
+P0046,79,Female,166,111,32.8,Complete,Accident,A,2,2,Exoskeleton-Assisted Therapy,1,7,Low,No,97,4,44.4,2,2,3,2,79,Anxious,4,1,18,0.5,4757,63.0,50,97.7,Increase Frequency,Yes,9
+P0047,79,Female,175,95,21.5,Thoracic,Degenerative Disease,B,22,0,Occupational Therapy,0,28,Low,Yes,84,11,17.2,2,1,3,29,84,Anxious,4,5,77,0.24,3529,61.0,118,64.2,Reduce Intensity,No,4
+P0048,64,Male,185,113,19.9,Thoracic,Accident,B,115,0,Occupational Therapy,3,50,Moderate,Yes,85,3,5.2,4,1,1,51,65,Anxious,1,9,39,0.98,3346,57.5,113,3.1,Increase Frequency,No,8
+P0049,79,Female,150,51,22.6,Incomplete,Degenerative Disease,E,57,2,Exoskeleton-Assisted Therapy,0,32,High,No,3,8,12.3,0,8,3,12,9,Unknown,8,4,16,1.27,13682,112.6,25,72.4,Maintain Plan,No,6
+P0050,68,Female,157,103,19.0,Incomplete,Surgery,A,101,3,None,2,2,Low,No,81,3,20.7,1,4,2,18,15,Unknown,1,1,59,0.28,9162,102.9,34,90.5,Increase Frequency,Unknown,1
+P0051,61,Other,198,114,27.0,Incomplete,Accident,D,72,1,Occupational Therapy,4,59,Moderate,Yes,68,18,19.2,2,5,1,6,36,Unknown,8,8,98,1.91,4535,30.9,162,79.6,Reduce Intensity,Unknown,7
+P0052,72,Female,184,100,33.9,Thoracic,Degenerative Disease,C,7,3,Occupational Therapy,4,34,None,Yes,18,13,40.6,1,8,1,8,78,Unknown,7,5,92,1.96,3399,30.8,35,58.4,Maintain Plan,Yes,1
+P0053,69,Other,164,102,18.7,Complete,Surgery,A,78,3,Exoskeleton-Assisted Therapy,1,68,None,Yes,1,4,35.6,3,7,1,18,76,Depressed,9,2,41,1.14,10138,62.8,39,67.1,Increase Frequency,Unknown,3
+P0054,74,Male,196,85,20.1,Complete,Accident,B,56,0,None,4,75,None,No,11,17,18.5,2,8,0,44,76,Stable,8,1,80,1.91,4943,29.9,96,99.0,Increase Frequency,Unknown,8
+P0055,20,Male,171,75,25.7,Incomplete,Accident,E,119,1,Occupational Therapy,4,83,High,Yes,80,9,25.6,2,8,3,53,31,Anxious,5,3,71,0.44,5289,81.9,63,9.1,Maintain Plan,No,9
+P0056,54,Male,163,78,33.9,Lumbar,Accident,E,67,3,Occupational Therapy,4,19,Moderate,Yes,73,18,9.3,3,6,1,39,46,Stable,8,9,64,0.15,13722,34.4,65,66.7,Change Therapy,No,3
+P0057,68,Male,175,70,23.4,Complete,Degenerative Disease,C,114,0,None,2,72,Moderate,Yes,97,11,45.4,4,2,0,21,71,Anxious,3,1,52,0.17,1412,72.2,114,28.3,Change Therapy,Yes,1
+P0058,24,Other,177,60,26.6,Thoracic,Degenerative Disease,E,16,3,Occupational Therapy,4,38,Low,No,5,17,47.1,2,6,0,17,42,Stable,7,4,99,1.22,4742,20.7,83,64.0,Maintain Plan,No,1
+P0059,38,Female,172,89,18.7,Cervical,Surgery,E,119,3,None,4,3,Low,Yes,7,16,49.1,1,1,1,22,81,Depressed,4,8,6,0.22,8041,51.7,176,60.8,Increase Frequency,Unknown,7
+P0060,26,Male,163,60,20.5,Cervical,Degenerative Disease,A,83,0,None,4,18,Low,No,50,10,44.1,0,1,1,1,35,Unknown,5,8,4,1.92,2211,87.7,150,15.3,Change Therapy,Yes,5
+P0061,56,Female,173,85,34.8,Cervical,Degenerative Disease,D,51,0,Exoskeleton-Assisted Therapy,0,44,Moderate,No,10,2,12.8,1,3,2,49,25,Stable,9,8,23,0.37,9366,68.4,28,20.7,Maintain Plan,Yes,1
+P0062,35,Other,151,108,34.4,Lumbar,Accident,C,82,0,Physiotherapy,2,42,Low,Yes,62,16,7.1,4,3,1,49,9,Anxious,7,8,27,0.68,1939,117.8,172,62.2,Reduce Intensity,No,6
+P0063,21,Other,194,88,18.1,Incomplete,Accident,A,116,1,None,1,12,Moderate,No,56,0,31.1,0,5,2,10,30,Stable,4,4,61,1.66,11426,107.4,61,12.8,Increase Frequency,No,6
+P0064,42,Other,175,103,34.2,Thoracic,Accident,D,80,3,Exoskeleton-Assisted Therapy,0,12,Moderate,Yes,11,14,46.1,1,1,1,30,96,Depressed,6,8,16,0.52,6113,55.9,92,26.5,Reduce Intensity,No,4
+P0065,77,Male,163,104,28.9,Lumbar,Accident,A,72,0,Physiotherapy,3,59,None,No,72,8,13.0,1,6,1,32,28,Depressed,7,9,19,0.56,4130,24.5,103,83.5,Increase Frequency,Yes,7
+P0066,31,Female,156,73,32.8,Thoracic,Accident,A,97,2,Occupational Therapy,2,56,Low,No,1,14,5.3,3,7,3,13,4,Stable,9,7,2,1.32,5875,104.6,78,32.7,Change Therapy,No,7
+P0067,67,Female,152,71,25.7,Thoracic,Accident,E,113,3,Physiotherapy,2,85,None,Yes,7,2,41.2,4,3,1,15,76,Unknown,4,2,36,0.62,7603,111.1,40,48.8,Reduce Intensity,Unknown,9
+P0068,75,Female,196,118,26.8,Incomplete,Accident,D,12,2,None,3,51,High,Yes,10,18,8.5,3,4,1,10,0,Anxious,3,9,89,0.51,9377,102.1,169,94.1,Reduce Intensity,Yes,1
+P0069,26,Other,172,105,26.3,Cervical,Surgery,C,53,1,None,3,52,High,Yes,52,12,23.6,0,3,2,32,86,Depressed,8,8,14,0.58,9818,32.8,176,22.7,Maintain Plan,No,5
+P0070,43,Male,195,82,29.3,Incomplete,Surgery,C,75,0,None,3,85,High,No,99,11,35.5,3,1,2,6,2,Depressed,1,5,50,1.03,4716,119.8,82,39.0,Change Therapy,Unknown,3
+P0071,70,Other,192,85,20.4,Lumbar,Surgery,D,5,2,None,1,42,Moderate,No,9,19,15.7,4,8,3,30,66,Stable,9,3,47,1.94,2966,45.9,92,60.6,Change Therapy,Unknown,7
+P0072,19,Other,196,69,18.5,Lumbar,Surgery,E,27,1,None,4,82,Moderate,Yes,84,0,8.8,2,2,1,47,70,Depressed,1,7,7,1.68,11089,92.4,80,75.5,Increase Frequency,No,4
+P0073,37,Female,194,111,23.2,Lumbar,Accident,B,12,0,Exoskeleton-Assisted Therapy,2,71,Moderate,Yes,83,16,39.7,2,1,1,45,99,Depressed,2,2,12,0.64,8324,110.8,83,90.2,Maintain Plan,Unknown,4
+P0074,45,Other,167,75,30.0,Incomplete,Surgery,A,17,2,None,4,71,Low,No,7,12,33.4,0,8,2,46,34,Anxious,8,3,47,0.79,12829,43.6,88,91.5,Maintain Plan,Yes,1
+P0075,64,Female,187,115,21.4,Thoracic,Accident,E,6,2,Exoskeleton-Assisted Therapy,4,41,None,No,35,0,49.5,2,7,0,13,14,Unknown,9,9,2,0.98,12130,110.8,148,77.7,Increase Frequency,Yes,1
+P0076,77,Male,184,89,29.4,Thoracic,Surgery,D,97,1,Occupational Therapy,3,89,Moderate,No,92,9,20.5,3,7,0,27,66,Anxious,7,4,64,1.96,4624,50.9,125,22.8,Reduce Intensity,Unknown,2
+P0077,24,Female,164,66,34.5,Complete,Degenerative Disease,A,5,0,None,1,25,None,Yes,75,14,7.8,0,4,0,52,92,Unknown,3,4,72,0.43,1465,117.6,84,2.5,Increase Frequency,Yes,2
+P0078,61,Male,174,50,19.6,Lumbar,Surgery,C,57,0,None,0,22,None,No,13,6,38.0,4,9,2,42,29,Anxious,7,3,30,0.78,14703,48.1,141,38.4,Increase Frequency,No,1
+P0079,78,Female,186,110,29.4,Thoracic,Surgery,B,28,2,Physiotherapy,1,42,None,Yes,53,17,28.5,0,6,2,15,81,Stable,6,5,25,1.49,7428,115.3,81,14.2,Increase Frequency,Unknown,8
+P0080,25,Other,177,92,25.5,Complete,Accident,C,78,2,Occupational Therapy,4,76,Low,No,84,15,14.6,0,2,0,18,74,Depressed,2,3,80,1.93,6596,25.4,122,71.0,Maintain Plan,Yes,6
+P0081,64,Other,159,91,32.8,Thoracic,Surgery,D,69,2,None,1,27,Low,No,85,13,40.2,1,1,0,16,42,Unknown,3,9,55,0.4,6657,90.9,79,66.1,Increase Frequency,No,6
+P0082,52,Male,188,74,21.0,Lumbar,Degenerative Disease,A,118,0,None,3,8,High,Yes,20,17,14.2,1,1,1,25,59,Stable,5,3,33,0.53,9611,73.2,65,4.4,Increase Frequency,No,9
+P0083,31,Male,166,88,29.8,Cervical,Accident,D,59,1,Occupational Therapy,0,19,High,Yes,49,6,16.7,0,9,2,5,39,Depressed,4,2,8,0.53,8620,67.8,24,83.7,Increase Frequency,Yes,5
+P0084,34,Male,188,84,32.2,Lumbar,Accident,A,33,1,Exoskeleton-Assisted Therapy,3,55,None,Yes,93,16,9.2,2,4,2,42,64,Depressed,2,5,61,0.14,13605,42.3,132,24.9,Change Therapy,Unknown,4
+P0085,53,Female,171,52,34.1,Incomplete,Surgery,E,62,0,None,0,82,High,No,38,17,23.0,1,5,0,48,28,Depressed,4,6,12,1.25,11564,90.6,169,43.2,Reduce Intensity,No,6
+P0086,67,Female,175,93,29.6,Thoracic,Accident,B,50,3,Physiotherapy,4,38,None,No,19,11,23.9,4,3,0,8,73,Anxious,8,1,68,1.37,2008,39.1,89,66.8,Reduce Intensity,No,8
+P0087,57,Male,193,100,26.5,Thoracic,Accident,E,112,1,None,0,50,Low,No,87,7,28.2,3,4,3,49,91,Stable,5,6,40,1.24,9904,75.3,179,42.9,Reduce Intensity,No,1
+P0088,21,Other,174,61,28.5,Incomplete,Accident,E,105,2,Physiotherapy,0,11,Low,Yes,86,1,36.9,1,8,2,16,94,Stable,5,3,76,0.24,1371,45.3,30,44.1,Reduce Intensity,No,7
+P0089,19,Female,166,68,32.8,Incomplete,Accident,D,19,3,Physiotherapy,0,78,Low,No,6,6,45.8,0,4,3,30,18,Depressed,3,4,0,0.23,13082,115.6,157,6.6,Maintain Plan,Unknown,8
+P0090,79,Female,162,93,27.7,Cervical,Accident,B,86,3,None,1,54,Moderate,Yes,8,3,11.2,2,9,1,11,2,Unknown,8,6,88,0.5,11946,22.9,117,40.1,Maintain Plan,Yes,9
+P0091,23,Female,169,108,18.5,Thoracic,Accident,A,69,1,None,1,77,None,Yes,0,17,7.4,3,9,3,22,35,Stable,6,8,46,0.65,1363,40.0,50,76.5,Increase Frequency,Yes,8
+P0092,71,Male,174,98,33.8,Thoracic,Degenerative Disease,A,66,3,Physiotherapy,4,10,Low,Yes,25,5,5.8,1,6,0,53,42,Anxious,2,9,3,1.59,12645,44.2,31,91.5,Maintain Plan,Yes,7
+P0093,59,Male,153,110,29.7,Cervical,Surgery,C,94,3,Occupational Therapy,0,25,None,No,37,8,11.5,2,2,2,53,14,Unknown,2,6,99,0.4,11800,61.4,127,41.3,Reduce Intensity,No,3
+P0094,21,Male,159,66,29.5,Complete,Degenerative Disease,A,47,1,Occupational Therapy,2,41,High,No,37,8,34.6,2,7,2,4,96,Unknown,9,7,62,0.18,3555,43.3,99,42.4,Change Therapy,Unknown,2
+P0095,71,Male,152,106,21.7,Cervical,Accident,D,39,1,None,4,26,High,Yes,60,13,37.7,2,9,3,42,40,Unknown,7,5,51,0.85,5633,69.1,86,70.3,Increase Frequency,Yes,3
+P0096,46,Male,190,104,29.2,Lumbar,Accident,E,68,3,Exoskeleton-Assisted Therapy,0,10,Low,No,43,7,40.4,0,6,3,35,89,Unknown,9,9,9,0.89,12686,107.2,71,94.3,Increase Frequency,Unknown,4
+P0097,35,Other,194,96,24.7,Thoracic,Surgery,E,33,2,Occupational Therapy,0,37,None,Yes,85,18,16.0,4,3,1,35,79,Stable,6,4,27,0.96,3182,91.2,152,26.7,Reduce Intensity,Yes,4
+P0098,43,Other,167,61,29.1,Incomplete,Degenerative Disease,E,13,0,None,1,42,Low,Yes,43,2,18.8,2,7,1,2,35,Depressed,5,6,5,1.67,13382,78.0,158,44.0,Reduce Intensity,No,6
+P0099,61,Male,196,111,19.8,Lumbar,Surgery,B,84,3,Occupational Therapy,4,18,High,No,73,17,26.7,3,5,0,23,96,Unknown,1,5,26,0.29,5778,28.9,44,79.6,Reduce Intensity,Yes,7
+P0100,51,Female,185,57,29.2,Thoracic,Degenerative Disease,A,54,3,Exoskeleton-Assisted Therapy,0,63,Low,Yes,61,4,7.8,1,1,0,54,83,Anxious,6,1,11,1.44,14305,89.4,54,61.0,Maintain Plan,No,4
+P0101,27,Male,196,70,35.0,Cervical,Accident,D,7,2,None,0,5,None,Yes,5,13,32.5,3,3,0,16,76,Anxious,6,5,61,0.74,5948,36.6,41,11.1,Increase Frequency,No,6
+P0102,79,Other,171,119,18.8,Lumbar,Surgery,B,79,3,Exoskeleton-Assisted Therapy,4,45,High,No,16,3,49.3,0,5,3,38,32,Depressed,3,5,51,0.69,1113,98.6,115,62.8,Reduce Intensity,Yes,9
+P0103,53,Other,183,74,34.6,Thoracic,Surgery,C,87,3,None,2,41,Moderate,Yes,50,6,21.2,0,7,3,25,4,Stable,3,9,47,1.87,2372,45.0,136,18.7,Change Therapy,Unknown,6
+P0104,31,Female,196,61,24.9,Complete,Accident,D,14,0,Exoskeleton-Assisted Therapy,4,64,High,Yes,37,19,38.9,3,3,2,3,77,Depressed,3,1,66,0.57,11846,61.7,39,51.0,Increase Frequency,No,3
+P0105,48,Other,157,64,32.8,Complete,Surgery,D,87,0,Occupational Therapy,4,71,Moderate,Yes,23,11,27.5,4,6,0,54,90,Unknown,3,5,45,1.32,8223,55.0,125,52.9,Increase Frequency,Unknown,1
+P0106,65,Male,189,108,31.3,Incomplete,Degenerative Disease,D,19,0,Occupational Therapy,2,58,Low,Yes,50,1,10.8,0,5,3,44,86,Stable,7,7,96,0.62,14391,105.9,23,87.6,Maintain Plan,Yes,5
+P0107,32,Female,198,75,27.6,Thoracic,Degenerative Disease,E,54,1,Exoskeleton-Assisted Therapy,4,51,Low,Yes,9,10,31.2,0,1,2,11,13,Stable,2,6,73,1.06,14371,32.7,37,46.2,Increase Frequency,No,3
+P0108,25,Male,193,75,30.6,Complete,Degenerative Disease,D,93,1,Exoskeleton-Assisted Therapy,0,46,None,Yes,71,13,18.5,3,6,0,0,67,Unknown,2,6,94,1.59,14380,76.6,70,27.9,Reduce Intensity,Unknown,8
+P0109,31,Male,168,96,32.9,Cervical,Degenerative Disease,A,20,0,Exoskeleton-Assisted Therapy,4,6,Moderate,Yes,20,15,6.5,0,8,1,20,82,Anxious,3,7,14,1.78,7689,34.2,39,23.1,Reduce Intensity,No,1
+P0110,40,Female,191,81,24.9,Thoracic,Accident,D,29,0,None,2,10,Low,No,69,19,33.6,4,1,1,18,46,Unknown,7,6,70,1.69,13943,90.5,141,87.4,Change Therapy,Yes,2
+P0111,77,Male,190,59,23.6,Cervical,Surgery,E,24,1,Occupational Therapy,3,60,Moderate,No,84,5,43.7,4,2,3,20,53,Depressed,3,5,35,1.21,13252,110.5,156,17.1,Increase Frequency,No,3
+P0112,74,Other,186,65,29.3,Cervical,Degenerative Disease,D,82,2,None,4,67,Low,Yes,56,3,20.5,4,4,2,51,3,Unknown,7,5,13,0.57,14267,63.5,99,42.6,Increase Frequency,Yes,3
+P0113,79,Male,155,66,31.7,Complete,Accident,C,63,3,Occupational Therapy,1,24,High,Yes,38,14,22.6,1,2,1,17,93,Anxious,9,9,77,1.36,12065,68.8,173,18.7,Maintain Plan,Unknown,8
+P0114,57,Female,175,72,31.0,Thoracic,Surgery,C,74,3,Physiotherapy,0,11,Low,No,87,0,45.1,4,9,2,42,82,Unknown,4,8,2,1.45,5886,112.7,121,77.3,Reduce Intensity,No,5
+P0115,38,Female,183,75,31.6,Lumbar,Surgery,E,105,0,None,0,25,None,No,32,6,41.6,4,8,2,51,94,Depressed,7,4,66,0.12,7442,72.1,44,47.4,Change Therapy,Unknown,8
+P0116,33,Female,194,56,25.4,Complete,Accident,A,57,2,Occupational Therapy,1,11,High,No,58,11,37.2,1,8,1,2,94,Depressed,9,4,85,0.93,11883,68.8,78,35.1,Reduce Intensity,Yes,6
+P0117,62,Male,155,63,31.9,Complete,Accident,A,8,1,Occupational Therapy,1,42,None,No,17,9,16.2,2,4,2,48,8,Anxious,8,5,18,1.7,9259,77.8,64,36.1,Increase Frequency,Yes,2
+P0118,35,Female,186,56,20.0,Thoracic,Degenerative Disease,B,90,0,None,4,50,High,No,55,4,46.0,0,5,1,43,52,Depressed,8,3,98,1.03,12825,88.9,60,85.2,Increase Frequency,Unknown,4
+P0119,64,Female,182,58,27.3,Thoracic,Surgery,E,62,2,None,1,36,Moderate,Yes,91,11,11.9,4,4,3,31,76,Depressed,9,8,75,0.69,744,30.7,57,55.4,Change Therapy,Unknown,9
+P0120,70,Male,171,97,18.1,Cervical,Surgery,D,29,2,Occupational Therapy,3,45,None,No,56,17,33.2,0,9,0,9,77,Unknown,5,7,53,1.76,520,102.1,136,71.8,Increase Frequency,Yes,4
+P0121,41,Other,170,108,23.5,Thoracic,Accident,E,74,2,None,2,52,Low,No,95,9,6.3,3,2,0,39,59,Stable,5,5,68,0.4,13921,63.6,38,89.7,Change Therapy,Unknown,5
+P0122,43,Male,155,88,24.2,Cervical,Surgery,B,17,1,Exoskeleton-Assisted Therapy,1,87,Moderate,No,75,5,34.0,0,8,3,14,45,Depressed,3,3,9,0.49,14417,27.2,33,90.2,Change Therapy,Yes,5
+P0123,42,Female,155,67,24.7,Complete,Degenerative Disease,E,66,1,None,1,79,Low,Yes,47,11,17.5,1,2,1,4,53,Depressed,5,5,32,1.41,9085,98.6,146,32.9,Reduce Intensity,Unknown,8
+P0124,77,Female,197,108,29.8,Incomplete,Surgery,E,6,3,None,3,12,High,Yes,41,6,25.2,0,1,1,3,73,Anxious,8,3,12,0.77,14221,57.7,168,95.2,Change Therapy,Yes,6
+P0125,77,Male,153,66,24.6,Lumbar,Accident,B,58,3,None,0,88,High,Yes,26,17,20.5,0,3,1,27,94,Anxious,5,5,98,1.45,13774,30.0,162,2.5,Increase Frequency,Yes,7
+P0126,77,Other,179,63,25.6,Complete,Accident,A,69,2,Occupational Therapy,0,53,Low,Yes,73,1,12.8,0,9,1,52,36,Unknown,4,1,50,0.4,6267,83.4,22,37.7,Maintain Plan,No,6
+P0127,62,Female,160,80,22.0,Thoracic,Degenerative Disease,D,28,2,Exoskeleton-Assisted Therapy,4,56,Low,Yes,51,9,33.0,2,3,3,51,22,Unknown,8,6,31,0.58,12506,108.0,56,89.6,Maintain Plan,Yes,5
+P0128,58,Female,179,73,24.3,Lumbar,Degenerative Disease,B,62,1,Physiotherapy,3,3,Moderate,Yes,41,14,44.7,2,9,0,50,26,Depressed,7,4,74,0.4,10747,108.8,136,27.5,Increase Frequency,Yes,5
+P0129,46,Female,180,109,21.9,Incomplete,Surgery,C,41,3,Physiotherapy,2,74,Low,No,31,11,48.2,3,7,2,52,69,Stable,6,4,23,1.91,4015,115.8,35,27.3,Maintain Plan,No,3
+P0130,32,Male,173,94,19.2,Incomplete,Surgery,A,69,2,Exoskeleton-Assisted Therapy,2,48,None,Yes,25,16,13.7,1,1,2,3,89,Stable,5,8,34,0.87,11067,106.8,161,30.3,Maintain Plan,No,7
+P0131,62,Female,158,52,28.3,Cervical,Accident,C,82,3,Exoskeleton-Assisted Therapy,3,6,None,Yes,24,3,37.3,0,5,0,14,65,Unknown,5,2,82,0.74,2410,20.2,28,61.2,Change Therapy,Unknown,5
+P0132,18,Other,152,86,29.4,Lumbar,Degenerative Disease,A,90,3,Exoskeleton-Assisted Therapy,2,10,Low,No,74,6,34.9,0,9,3,16,60,Anxious,2,4,69,0.13,8981,58.0,26,43.8,Maintain Plan,Unknown,7
+P0133,42,Female,180,92,28.5,Cervical,Degenerative Disease,D,84,2,Occupational Therapy,0,53,None,Yes,22,8,20.5,0,3,2,43,76,Depressed,4,2,39,0.39,6382,101.9,161,72.7,Maintain Plan,Yes,2
+P0134,24,Female,189,89,25.9,Complete,Degenerative Disease,D,41,1,Physiotherapy,2,86,Low,No,97,18,5.9,0,9,0,2,50,Depressed,8,1,53,0.9,11250,56.6,153,89.5,Maintain Plan,Unknown,9
+P0135,26,Other,186,104,24.5,Lumbar,Surgery,E,49,2,Exoskeleton-Assisted Therapy,2,44,Moderate,No,56,6,36.0,2,5,3,9,49,Stable,8,3,43,0.23,13699,80.2,34,67.4,Reduce Intensity,Unknown,8
+P0136,41,Female,185,88,32.7,Complete,Degenerative Disease,C,91,2,Occupational Therapy,3,22,None,Yes,51,1,47.5,3,9,2,46,18,Unknown,1,8,61,1.07,9052,80.6,91,20.4,Increase Frequency,Yes,5
+P0137,18,Male,173,64,26.8,Cervical,Accident,A,49,3,Physiotherapy,3,27,None,No,86,5,33.4,4,6,1,41,0,Stable,2,6,98,0.96,8576,56.5,123,93.3,Change Therapy,No,2
+P0138,61,Male,180,53,26.1,Lumbar,Accident,D,76,2,None,2,56,Low,No,92,17,24.6,1,9,1,55,39,Stable,5,7,67,1.56,2122,110.4,148,26.4,Maintain Plan,No,6
+P0139,25,Male,155,74,18.4,Cervical,Surgery,B,71,1,Occupational Therapy,1,25,None,No,30,5,28.6,0,7,3,22,31,Unknown,9,2,32,1.35,4814,70.3,115,15.0,Increase Frequency,Yes,8
+P0140,41,Other,151,62,23.8,Lumbar,Surgery,D,3,2,Physiotherapy,3,24,High,No,63,12,14.0,3,7,1,17,21,Anxious,7,6,76,0.95,12786,66.5,141,9.0,Maintain Plan,Yes,7
+P0141,28,Female,169,82,24.5,Cervical,Degenerative Disease,B,10,1,Occupational Therapy,4,53,Moderate,Yes,70,18,38.8,4,8,3,0,92,Depressed,5,8,55,0.53,2953,119.8,134,56.3,Reduce Intensity,Yes,8
+P0142,68,Male,177,65,24.8,Incomplete,Surgery,A,98,1,Physiotherapy,4,28,Moderate,No,32,1,38.6,3,7,0,34,65,Anxious,1,8,35,1.48,2515,69.4,167,11.4,Reduce Intensity,Yes,4
+P0143,34,Other,160,91,27.9,Cervical,Accident,D,89,3,Physiotherapy,0,82,None,Yes,84,11,11.5,2,9,0,52,39,Unknown,6,4,53,1.44,10732,37.8,99,13.9,Maintain Plan,Yes,3
+P0144,25,Female,153,115,27.1,Incomplete,Degenerative Disease,D,35,0,None,2,35,None,No,1,14,44.5,4,9,2,30,37,Unknown,8,6,18,0.39,10736,71.3,26,30.0,Maintain Plan,Yes,7
+P0145,52,Other,164,104,28.3,Cervical,Accident,A,80,0,Occupational Therapy,1,13,High,No,17,13,17.1,3,6,3,43,47,Depressed,7,5,42,1.84,3300,101.4,154,28.2,Maintain Plan,Unknown,2
+P0146,52,Male,155,91,31.0,Lumbar,Degenerative Disease,D,2,3,Exoskeleton-Assisted Therapy,0,77,High,No,46,5,49.2,2,7,2,0,54,Anxious,2,9,11,0.22,11662,97.7,69,60.4,Reduce Intensity,Unknown,5
+P0147,50,Male,198,83,31.8,Lumbar,Surgery,B,24,2,None,2,34,None,Yes,32,17,22.2,3,2,2,2,74,Depressed,5,8,10,0.2,9523,98.9,149,81.7,Reduce Intensity,Unknown,7
+P0148,76,Male,179,79,30.2,Lumbar,Degenerative Disease,D,74,3,None,3,29,None,Yes,97,4,13.0,3,9,0,2,80,Stable,4,2,69,0.46,10485,90.8,66,76.1,Increase Frequency,No,1
+P0149,22,Other,187,62,34.2,Thoracic,Degenerative Disease,C,38,1,Physiotherapy,4,16,High,Yes,83,17,20.8,4,1,2,36,54,Stable,9,7,11,1.83,12384,45.4,33,26.2,Change Therapy,Yes,4
+P0150,59,Other,151,62,18.3,Complete,Accident,E,22,0,Exoskeleton-Assisted Therapy,1,66,Low,No,34,2,24.8,2,1,1,18,50,Stable,1,7,90,1.09,10483,106.2,50,24.5,Change Therapy,Yes,2
+P0151,56,Male,164,67,21.3,Lumbar,Accident,B,26,3,Occupational Therapy,4,79,High,No,50,2,8.1,0,3,2,28,59,Anxious,6,1,40,1.6,11533,109.3,69,96.6,Reduce Intensity,Unknown,6
+P0152,75,Other,160,81,18.1,Incomplete,Degenerative Disease,C,43,2,Exoskeleton-Assisted Therapy,3,29,Low,No,17,9,31.0,1,6,3,24,7,Stable,3,1,24,0.53,14031,39.4,60,0.8,Change Therapy,No,1
+P0153,58,Male,157,88,29.0,Lumbar,Surgery,A,55,3,Exoskeleton-Assisted Therapy,2,44,Moderate,No,87,18,31.9,4,5,1,32,85,Depressed,9,4,2,1.03,13382,33.0,33,88.0,Maintain Plan,Unknown,7
+P0154,45,Male,175,95,33.3,Thoracic,Surgery,B,39,0,Exoskeleton-Assisted Therapy,3,78,Moderate,Yes,71,2,38.3,2,2,0,35,67,Anxious,5,5,2,0.78,10846,117.6,152,20.0,Increase Frequency,Yes,3
+P0155,24,Female,194,78,22.1,Incomplete,Accident,E,91,3,Exoskeleton-Assisted Therapy,3,88,High,No,29,11,6.3,3,9,3,28,74,Depressed,6,4,83,1.67,9272,106.8,24,94.7,Reduce Intensity,Yes,1
+P0156,26,Other,193,111,33.8,Thoracic,Surgery,E,29,3,Exoskeleton-Assisted Therapy,4,50,Low,Yes,43,15,29.4,2,4,1,25,71,Unknown,9,7,27,0.14,7252,109.3,176,34.2,Reduce Intensity,Unknown,8
+P0157,25,Male,154,111,19.0,Incomplete,Accident,A,111,0,Physiotherapy,1,46,High,No,52,16,7.4,1,4,3,3,8,Anxious,9,3,22,0.56,14535,108.6,24,44.0,Change Therapy,Unknown,7
+P0158,29,Male,155,106,33.9,Cervical,Surgery,A,102,1,Physiotherapy,3,52,High,Yes,9,6,36.6,1,5,1,48,89,Depressed,8,7,47,0.39,7953,74.2,132,70.7,Maintain Plan,Yes,2
+P0159,51,Other,175,65,24.0,Complete,Degenerative Disease,B,20,1,None,4,63,Low,Yes,86,12,7.5,0,8,3,13,1,Depressed,9,8,66,1.73,14843,84.6,137,58.8,Increase Frequency,Unknown,7
+P0160,50,Female,153,105,19.7,Complete,Accident,D,91,0,Physiotherapy,1,37,High,No,51,1,46.0,0,4,3,49,79,Anxious,4,6,41,0.99,3353,74.5,115,31.8,Change Therapy,Yes,3
+P0161,65,Female,168,59,26.3,Thoracic,Accident,A,41,3,None,2,63,Moderate,No,48,3,36.6,1,5,1,26,94,Unknown,6,6,87,0.87,2736,25.1,55,55.4,Reduce Intensity,Unknown,9
+P0162,72,Male,169,79,22.4,Complete,Degenerative Disease,D,54,0,None,2,86,None,Yes,10,9,27.8,4,4,0,32,69,Anxious,5,8,39,0.95,4676,94.6,98,73.1,Reduce Intensity,No,8
+P0163,40,Other,182,74,22.8,Thoracic,Accident,C,20,1,Occupational Therapy,0,88,None,No,65,6,24.9,4,6,0,21,84,Stable,5,8,5,1.95,2655,70.5,38,4.2,Change Therapy,Yes,5
+P0164,79,Female,169,54,23.2,Thoracic,Surgery,E,108,2,Exoskeleton-Assisted Therapy,4,6,High,No,57,16,10.9,3,3,3,47,89,Stable,4,7,19,1.72,10036,84.8,41,1.1,Maintain Plan,No,7
+P0165,41,Other,198,114,31.7,Thoracic,Surgery,D,19,3,Physiotherapy,1,21,Low,Yes,89,19,18.1,0,8,3,2,58,Unknown,2,6,10,1.44,6198,70.3,75,45.8,Increase Frequency,Unknown,3
+P0166,54,Other,161,98,27.2,Complete,Accident,E,84,1,Occupational Therapy,3,80,Low,Yes,35,5,44.1,3,6,0,22,18,Depressed,6,6,95,0.65,7329,69.2,36,13.2,Increase Frequency,No,1
+P0167,52,Male,196,52,23.3,Thoracic,Surgery,D,99,3,Physiotherapy,2,81,Moderate,Yes,32,18,45.7,0,5,0,20,27,Depressed,9,6,26,0.41,9037,37.2,36,66.4,Increase Frequency,Unknown,1
+P0168,61,Female,150,94,28.4,Complete,Accident,C,111,0,None,1,40,Low,Yes,46,4,5.0,1,2,2,40,71,Depressed,1,8,20,1.85,2386,47.9,165,21.4,Increase Frequency,No,2
+P0169,57,Male,175,63,30.2,Thoracic,Degenerative Disease,A,66,2,Physiotherapy,4,73,Low,No,12,9,31.7,4,7,0,22,13,Anxious,7,1,12,0.9,6971,35.9,97,43.3,Maintain Plan,No,8
+P0170,39,Female,163,79,22.6,Lumbar,Accident,C,30,0,Exoskeleton-Assisted Therapy,0,9,Moderate,Yes,39,8,37.4,4,2,3,3,23,Anxious,6,5,85,0.63,9246,39.6,75,19.8,Reduce Intensity,No,1
+P0171,44,Female,187,117,25.0,Thoracic,Degenerative Disease,A,53,2,None,2,56,High,Yes,88,12,32.8,1,1,1,20,43,Unknown,3,3,34,0.99,4270,117.3,99,54.8,Reduce Intensity,Yes,5
+P0172,52,Female,186,67,20.1,Incomplete,Surgery,A,34,3,None,1,6,None,Yes,67,18,8.7,3,7,0,36,55,Stable,1,8,46,1.84,13089,35.3,69,11.6,Increase Frequency,No,9
+P0173,18,Female,160,111,21.1,Thoracic,Degenerative Disease,E,22,3,Occupational Therapy,1,49,Moderate,No,41,5,14.8,3,5,2,42,89,Depressed,4,6,85,0.84,8891,46.9,77,2.3,Increase Frequency,Unknown,9
+P0174,52,Female,185,86,29.6,Cervical,Surgery,C,67,0,Exoskeleton-Assisted Therapy,1,51,High,Yes,18,3,16.3,2,1,2,30,94,Stable,9,2,27,1.17,3440,79.1,37,5.1,Increase Frequency,Unknown,2
+P0175,54,Other,162,74,21.1,Thoracic,Accident,D,6,2,None,4,32,Moderate,No,81,2,42.4,0,4,2,20,50,Anxious,2,7,20,1.63,3990,81.0,154,95.4,Change Therapy,Yes,7
+P0176,64,Male,192,97,26.9,Incomplete,Surgery,C,79,2,Exoskeleton-Assisted Therapy,4,0,High,Yes,93,2,25.8,3,4,1,25,31,Anxious,3,7,17,0.91,13850,35.4,95,14.2,Change Therapy,Yes,1
+P0177,31,Other,152,114,30.1,Incomplete,Accident,E,27,3,Physiotherapy,4,52,Moderate,Yes,18,3,26.9,1,7,0,40,49,Anxious,2,5,30,0.54,8399,99.4,29,70.8,Reduce Intensity,Unknown,3
+P0178,20,Female,182,102,19.8,Complete,Accident,A,10,0,Exoskeleton-Assisted Therapy,3,59,High,No,57,4,47.1,3,9,0,34,40,Stable,2,8,59,1.99,806,98.5,88,6.8,Reduce Intensity,No,6
+P0179,18,Male,155,64,27.6,Lumbar,Degenerative Disease,E,73,2,None,1,33,Moderate,Yes,22,7,33.7,4,2,0,37,65,Unknown,8,5,36,1.92,3575,43.7,104,10.8,Increase Frequency,Unknown,9
+P0180,22,Female,199,98,22.4,Thoracic,Degenerative Disease,B,97,3,Occupational Therapy,2,3,High,Yes,53,15,45.4,0,1,1,23,24,Unknown,3,1,20,1.7,2156,48.9,150,50.9,Change Therapy,Yes,2
+P0181,43,Male,159,117,34.4,Complete,Degenerative Disease,B,96,1,None,4,16,Moderate,No,79,2,25.5,2,2,1,10,60,Anxious,7,9,13,1.41,14659,113.8,102,46.5,Maintain Plan,Yes,7
+P0182,72,Other,154,61,26.2,Lumbar,Degenerative Disease,D,48,0,Exoskeleton-Assisted Therapy,4,3,None,Yes,64,11,11.7,0,7,3,40,65,Depressed,8,4,88,0.66,7744,102.6,128,95.2,Change Therapy,Unknown,4
+P0183,31,Male,172,108,31.7,Thoracic,Surgery,E,70,1,Exoskeleton-Assisted Therapy,1,42,None,Yes,11,7,46.8,4,6,2,28,41,Stable,3,2,90,1.84,7111,89.8,63,94.5,Reduce Intensity,No,2
+P0184,56,Male,159,86,27.4,Cervical,Surgery,D,105,0,None,4,89,Low,Yes,23,12,25.6,4,4,2,46,64,Anxious,2,4,59,0.62,6822,28.2,161,78.0,Change Therapy,No,3
+P0185,44,Male,193,110,18.7,Thoracic,Surgery,D,59,3,Exoskeleton-Assisted Therapy,3,3,High,Yes,33,3,13.2,4,1,0,54,35,Stable,8,9,22,1.62,3192,61.8,151,60.2,Reduce Intensity,Yes,6
+P0186,26,Male,151,92,28.8,Incomplete,Accident,B,100,2,Physiotherapy,3,0,Moderate,No,52,13,18.6,4,1,1,2,75,Stable,3,2,94,1.84,14634,75.9,37,45.5,Increase Frequency,Unknown,9
+P0187,32,Male,162,119,34.2,Incomplete,Surgery,D,59,2,None,4,70,High,Yes,7,13,7.3,1,5,1,0,8,Unknown,7,4,28,1.25,2264,38.7,112,35.6,Maintain Plan,Unknown,8
+P0188,32,Female,189,88,28.2,Cervical,Surgery,B,2,2,Occupational Therapy,1,49,None,No,17,12,26.1,2,1,0,51,35,Anxious,1,2,46,1.63,775,64.8,57,94.7,Increase Frequency,Yes,9
+P0189,43,Male,151,105,31.9,Complete,Surgery,A,29,0,None,1,72,High,Yes,56,5,43.4,4,7,0,53,91,Unknown,6,5,29,1.6,5771,80.1,167,60.3,Increase Frequency,Unknown,4
+P0190,59,Male,169,112,33.0,Lumbar,Degenerative Disease,E,68,3,Physiotherapy,1,60,Moderate,No,4,16,47.0,4,1,3,18,37,Anxious,9,3,89,0.47,7831,52.7,70,57.9,Maintain Plan,Yes,4
+P0191,77,Other,150,95,21.9,Thoracic,Surgery,D,65,1,Physiotherapy,0,34,High,Yes,25,3,47.0,3,1,2,45,32,Stable,3,2,83,1.37,12053,98.1,38,23.2,Maintain Plan,No,9
+P0192,30,Male,186,60,21.6,Incomplete,Accident,B,83,3,Physiotherapy,4,7,Moderate,No,29,7,10.6,2,2,2,48,41,Unknown,7,9,37,0.28,10093,104.0,139,4.7,Maintain Plan,No,8
+P0193,68,Other,158,111,28.4,Complete,Degenerative Disease,C,26,1,Physiotherapy,1,23,None,Yes,53,16,22.2,0,3,2,21,60,Stable,6,5,82,1.06,13425,52.4,87,94.5,Reduce Intensity,Unknown,2
+P0194,49,Female,166,74,25.0,Cervical,Accident,D,89,0,Physiotherapy,3,82,None,No,12,2,6.3,2,1,3,13,45,Anxious,8,5,26,0.41,10467,103.9,85,31.4,Increase Frequency,No,8
+P0195,56,Male,158,101,32.3,Incomplete,Surgery,A,10,0,Occupational Therapy,2,35,None,No,82,16,43.5,2,9,0,48,85,Depressed,3,1,88,0.89,12073,30.4,160,44.3,Reduce Intensity,No,1
+P0196,66,Other,160,53,33.3,Cervical,Degenerative Disease,A,53,1,Exoskeleton-Assisted Therapy,2,49,Low,Yes,28,8,21.1,2,8,0,13,88,Unknown,3,6,86,1.68,5525,103.8,177,11.5,Maintain Plan,Yes,9
+P0197,69,Other,164,108,24.0,Thoracic,Accident,C,79,1,Physiotherapy,1,42,None,No,2,1,33.4,4,5,2,43,60,Unknown,4,7,92,1.98,4550,35.3,117,83.7,Reduce Intensity,Yes,9
+P0198,78,Female,173,69,22.0,Lumbar,Surgery,B,59,1,Physiotherapy,2,26,High,Yes,89,12,37.2,4,2,2,15,17,Stable,3,1,14,0.7,8580,28.3,177,2.8,Maintain Plan,Unknown,8
+P0199,49,Male,187,112,31.3,Incomplete,Accident,D,22,3,None,2,31,Low,Yes,57,19,24.3,1,5,3,32,69,Stable,9,9,58,1.11,3960,84.2,107,83.4,Change Therapy,Yes,5
+P0200,21,Male,184,103,22.7,Incomplete,Accident,B,51,1,Occupational Therapy,0,77,None,Yes,75,1,18.8,0,6,1,12,81,Depressed,4,8,2,1.07,10572,67.2,52,14.0,Maintain Plan,Unknown,5
+P0201,47,Other,179,106,32.0,Thoracic,Accident,A,48,0,Occupational Therapy,3,17,High,Yes,1,19,48.3,3,1,1,37,79,Unknown,6,8,9,1.91,4335,110.8,124,88.7,Increase Frequency,Unknown,3
+P0202,54,Male,180,90,25.2,Complete,Surgery,B,21,0,Exoskeleton-Assisted Therapy,3,27,High,Yes,74,10,48.4,2,4,2,48,14,Anxious,8,7,78,1.01,4778,56.3,93,73.0,Increase Frequency,Yes,5
+P0203,40,Other,198,52,29.3,Lumbar,Surgery,A,22,2,Occupational Therapy,0,28,High,No,27,14,18.0,0,9,3,11,47,Anxious,8,5,79,1.43,2344,48.7,101,16.5,Increase Frequency,No,4
+P0204,56,Male,154,55,19.6,Incomplete,Accident,B,100,1,None,0,15,Moderate,Yes,81,10,26.6,0,2,2,54,71,Unknown,5,3,16,1.85,12069,70.1,38,56.6,Reduce Intensity,No,1
+P0205,62,Other,193,54,28.6,Lumbar,Degenerative Disease,C,98,3,None,2,46,Low,Yes,76,2,48.8,1,5,1,50,12,Unknown,5,9,82,0.81,571,65.6,90,31.3,Increase Frequency,No,9
+P0206,32,Male,199,54,25.7,Incomplete,Degenerative Disease,E,30,3,Exoskeleton-Assisted Therapy,4,58,High,Yes,85,2,5.2,3,1,2,37,42,Unknown,6,7,10,1.81,7886,54.4,76,17.8,Maintain Plan,No,4
+P0207,60,Female,163,103,28.0,Lumbar,Surgery,C,25,3,None,2,30,Moderate,Yes,75,11,23.6,2,4,1,38,59,Depressed,7,8,47,1.84,7362,89.4,166,85.9,Change Therapy,Unknown,3
+P0208,46,Male,160,96,20.9,Cervical,Surgery,C,109,2,Physiotherapy,0,3,None,Yes,1,4,9.5,3,4,1,32,56,Anxious,7,6,4,1.87,7840,96.0,98,40.4,Increase Frequency,No,6
+P0209,53,Male,158,98,30.5,Incomplete,Surgery,E,28,0,Physiotherapy,3,36,High,Yes,6,19,27.9,1,6,1,32,70,Anxious,4,5,68,0.61,10368,105.3,61,39.9,Reduce Intensity,Unknown,1
+P0210,30,Female,183,58,32.7,Lumbar,Surgery,E,65,3,None,2,16,Moderate,No,25,6,6.1,4,9,0,28,16,Stable,6,8,63,0.86,9987,117.3,135,17.0,Change Therapy,Yes,5
+P0211,49,Male,161,69,21.7,Complete,Surgery,D,113,0,Exoskeleton-Assisted Therapy,4,38,High,No,89,6,23.3,0,3,0,4,49,Stable,7,3,13,1.75,8135,46.7,23,38.3,Increase Frequency,Yes,7
+P0212,24,Female,184,110,19.6,Cervical,Degenerative Disease,D,45,2,Occupational Therapy,2,47,Low,Yes,87,12,14.9,2,9,2,5,31,Unknown,5,7,49,0.78,1543,91.6,23,87.2,Increase Frequency,Unknown,2
+P0213,76,Male,184,84,18.4,Cervical,Surgery,C,68,1,Exoskeleton-Assisted Therapy,1,45,Low,No,75,8,29.0,4,6,1,30,21,Stable,5,2,25,1.24,11317,59.4,24,36.3,Change Therapy,No,9
+P0214,68,Other,150,99,28.9,Complete,Accident,C,7,1,Occupational Therapy,2,89,None,Yes,15,12,49.8,1,7,0,15,54,Depressed,2,3,71,0.32,3542,87.7,60,95.2,Increase Frequency,Unknown,6
+P0215,39,Other,189,111,28.3,Lumbar,Accident,A,49,1,None,0,47,High,Yes,22,11,41.0,3,2,2,30,56,Anxious,7,2,68,0.21,1314,67.6,127,94.6,Reduce Intensity,No,2
+P0216,45,Male,171,66,27.3,Thoracic,Degenerative Disease,A,9,3,None,3,38,Moderate,Yes,39,12,43.1,0,6,2,24,12,Anxious,6,5,6,0.88,6122,119.4,106,14.5,Maintain Plan,No,8
+P0217,19,Male,178,52,21.9,Complete,Accident,D,36,1,Physiotherapy,3,3,None,Yes,59,9,33.6,2,6,2,47,46,Stable,1,7,15,1.2,10886,92.9,123,17.7,Maintain Plan,Unknown,8
+P0218,59,Male,157,81,24.6,Lumbar,Degenerative Disease,D,83,3,Occupational Therapy,0,29,High,Yes,72,0,6.9,4,2,2,45,86,Unknown,4,1,54,0.85,12192,115.2,136,86.3,Change Therapy,Unknown,1
+P0219,62,Other,160,62,28.1,Complete,Degenerative Disease,A,1,2,Exoskeleton-Assisted Therapy,1,29,None,No,31,7,14.3,4,2,2,32,61,Stable,3,9,77,1.2,7832,103.5,120,39.3,Maintain Plan,No,1
+P0220,79,Male,190,117,26.4,Complete,Accident,A,10,2,None,0,21,Moderate,No,14,15,46.6,0,2,3,12,53,Unknown,3,1,55,1.08,809,110.3,94,0.4,Increase Frequency,Unknown,1
+P0221,74,Other,186,63,34.8,Incomplete,Surgery,B,36,3,Exoskeleton-Assisted Therapy,2,74,None,No,12,12,21.5,3,1,1,51,28,Depressed,7,1,3,1.4,7161,101.4,94,27.4,Increase Frequency,No,4
+P0222,70,Female,163,60,20.3,Lumbar,Accident,B,73,0,Physiotherapy,0,65,None,No,4,2,9.7,1,5,2,9,21,Anxious,4,8,99,1.33,10753,65.9,32,59.8,Reduce Intensity,Unknown,4
+P0223,23,Other,179,105,29.8,Thoracic,Accident,A,109,1,Occupational Therapy,0,11,None,Yes,74,2,36.6,3,8,3,23,64,Depressed,8,6,47,0.91,4727,45.2,161,79.9,Maintain Plan,Yes,8
+P0224,45,Other,184,116,24.9,Incomplete,Degenerative Disease,B,46,1,Occupational Therapy,1,35,High,No,73,4,18.5,3,2,1,9,28,Anxious,9,6,16,0.91,2377,57.0,44,13.3,Change Therapy,No,1
+P0225,45,Female,170,78,25.3,Complete,Accident,E,106,1,None,2,17,Moderate,Yes,51,10,17.1,3,5,0,40,47,Depressed,3,9,35,0.37,11494,22.0,134,11.1,Increase Frequency,Yes,3
+P0226,61,Other,186,58,30.2,Complete,Degenerative Disease,D,32,3,Occupational Therapy,4,89,Low,No,76,6,49.9,0,8,2,30,4,Stable,5,4,69,1.08,2986,72.4,101,92.2,Change Therapy,Unknown,1
+P0227,61,Male,154,116,29.8,Complete,Surgery,D,32,2,None,4,52,High,No,40,9,43.6,0,5,3,12,34,Depressed,4,8,79,1.22,7386,70.5,29,75.1,Increase Frequency,Yes,9
+P0228,37,Male,168,74,34.9,Lumbar,Surgery,A,6,1,Physiotherapy,3,70,Low,No,52,9,23.4,1,2,0,2,73,Depressed,6,4,92,1.01,5335,72.5,69,59.0,Increase Frequency,Unknown,9
+P0229,47,Other,163,91,20.2,Lumbar,Surgery,C,48,2,Occupational Therapy,0,0,Low,No,49,19,49.1,3,3,3,49,82,Stable,4,2,99,0.72,12437,117.4,161,76.9,Reduce Intensity,No,7
+P0230,79,Male,175,58,19.8,Incomplete,Accident,A,38,1,None,3,57,High,Yes,14,1,34.3,0,6,1,51,70,Anxious,8,8,37,1.47,1294,111.1,34,42.9,Maintain Plan,Unknown,8
+P0231,28,Other,153,89,30.3,Thoracic,Degenerative Disease,B,17,1,Exoskeleton-Assisted Therapy,1,89,High,No,6,2,38.4,1,5,1,33,45,Anxious,3,7,61,0.24,7286,36.2,35,75.8,Reduce Intensity,Unknown,1
+P0232,75,Male,174,74,27.8,Incomplete,Surgery,C,74,3,None,4,86,Moderate,No,39,7,6.4,1,4,0,48,34,Stable,5,4,47,1.84,4514,56.9,21,37.2,Maintain Plan,No,5
+P0233,72,Male,194,54,22.7,Cervical,Degenerative Disease,B,114,0,Occupational Therapy,0,89,Moderate,Yes,27,10,10.5,3,4,3,27,44,Depressed,1,9,9,0.14,7892,62.4,177,24.4,Change Therapy,Unknown,2
+P0234,45,Other,191,60,19.4,Complete,Degenerative Disease,E,27,3,Physiotherapy,1,5,None,Yes,31,12,33.5,2,5,2,18,12,Depressed,6,9,35,1.93,13045,56.1,49,72.9,Maintain Plan,No,1
+P0235,42,Male,174,108,19.5,Complete,Surgery,B,54,1,Occupational Therapy,1,69,Low,No,98,6,45.5,3,2,2,22,9,Depressed,5,8,28,0.98,5853,99.8,101,42.0,Change Therapy,Unknown,3
+P0236,56,Other,167,87,33.2,Complete,Surgery,E,50,1,Occupational Therapy,0,43,Moderate,Yes,14,12,33.1,2,9,0,44,65,Unknown,8,1,77,0.88,3907,72.4,50,98.1,Increase Frequency,No,7
+P0237,79,Male,189,54,21.3,Incomplete,Degenerative Disease,E,35,0,None,1,71,None,Yes,99,1,11.0,1,2,0,31,69,Anxious,9,7,3,0.59,11148,77.2,96,34.9,Change Therapy,Yes,1
+P0238,50,Male,157,97,23.5,Incomplete,Surgery,B,116,2,Exoskeleton-Assisted Therapy,0,23,Moderate,Yes,84,5,10.2,0,2,0,12,71,Depressed,8,5,43,0.12,10543,105.3,167,92.2,Change Therapy,Unknown,2
+P0239,18,Female,188,67,21.9,Complete,Degenerative Disease,B,85,2,Occupational Therapy,0,85,High,No,69,8,43.0,4,9,3,32,99,Anxious,8,7,55,0.62,1474,100.6,133,93.3,Increase Frequency,Unknown,2
+P0240,74,Female,189,119,24.0,Incomplete,Degenerative Disease,E,25,1,Exoskeleton-Assisted Therapy,2,18,Moderate,Yes,64,19,11.3,1,3,2,33,24,Depressed,3,9,41,0.31,9739,33.2,54,24.2,Change Therapy,Unknown,4
+P0241,44,Other,163,86,19.2,Lumbar,Surgery,C,28,2,None,3,17,Low,No,3,1,28.4,0,7,2,32,43,Stable,4,2,99,1.35,13058,91.4,42,79.8,Change Therapy,No,3
+P0242,79,Female,181,109,26.8,Lumbar,Accident,E,111,1,Exoskeleton-Assisted Therapy,1,29,Moderate,No,10,17,6.7,1,4,2,55,59,Stable,4,4,12,0.71,13906,63.5,125,43.3,Increase Frequency,Unknown,3
+P0243,74,Other,187,97,19.1,Incomplete,Surgery,D,15,0,None,1,41,Low,No,25,15,8.6,3,6,0,4,46,Anxious,5,4,45,1.56,4737,49.5,116,91.8,Increase Frequency,No,5
+P0244,69,Female,182,77,31.6,Complete,Accident,E,4,0,Physiotherapy,2,32,High,No,60,11,35.3,2,4,2,55,39,Anxious,9,2,81,0.49,12481,25.0,134,45.0,Increase Frequency,Unknown,3
+P0245,30,Male,172,118,22.0,Incomplete,Degenerative Disease,C,93,1,Exoskeleton-Assisted Therapy,2,73,Low,Yes,36,6,36.0,1,7,1,2,6,Stable,9,3,32,1.81,13689,68.7,119,74.4,Maintain Plan,Yes,7
+P0246,58,Other,164,89,27.2,Incomplete,Degenerative Disease,D,73,0,Exoskeleton-Assisted Therapy,2,11,Moderate,No,22,6,20.4,0,1,0,6,45,Unknown,1,8,20,1.09,11713,55.5,74,46.7,Increase Frequency,Unknown,5
+P0247,20,Other,182,94,33.0,Incomplete,Accident,A,27,3,Physiotherapy,4,26,None,Yes,92,16,14.7,3,3,2,23,22,Stable,8,9,79,0.32,7748,45.2,27,22.8,Increase Frequency,Yes,4
+P0248,56,Male,174,111,29.1,Cervical,Degenerative Disease,A,26,3,Exoskeleton-Assisted Therapy,4,38,High,No,84,12,41.6,4,3,3,21,82,Depressed,1,6,78,0.86,4869,89.5,78,19.9,Change Therapy,No,3
+P0249,23,Other,166,107,27.1,Lumbar,Accident,C,19,0,Physiotherapy,4,8,Moderate,Yes,90,10,14.8,3,1,0,44,45,Unknown,2,2,56,0.49,8550,96.9,147,42.5,Reduce Intensity,Yes,4
+P0250,25,Other,182,116,23.5,Thoracic,Accident,E,92,1,Occupational Therapy,0,20,High,No,39,5,29.4,2,6,1,22,85,Stable,7,2,68,0.48,12721,44.5,51,75.5,Reduce Intensity,Unknown,2
+P0251,44,Female,196,105,23.7,Thoracic,Degenerative Disease,B,17,1,None,1,75,High,Yes,76,13,48.6,3,9,1,29,12,Unknown,8,7,69,1.06,964,24.9,112,60.5,Maintain Plan,Unknown,1
+P0252,26,Other,151,89,29.4,Cervical,Accident,C,43,0,Physiotherapy,3,28,Moderate,No,22,5,11.7,4,8,3,17,20,Unknown,1,8,66,1.38,5827,104.9,26,68.9,Maintain Plan,No,3
+P0253,79,Male,163,89,34.9,Incomplete,Surgery,D,41,2,Exoskeleton-Assisted Therapy,0,32,Moderate,No,15,5,47.3,0,7,3,31,0,Unknown,3,8,47,1.83,5915,21.0,21,28.2,Reduce Intensity,Unknown,2
+P0254,54,Female,189,82,29.3,Cervical,Surgery,D,42,3,Physiotherapy,1,61,None,Yes,93,1,13.2,1,8,0,55,18,Anxious,7,6,75,1.05,8615,113.7,104,48.1,Reduce Intensity,Unknown,1
+P0255,50,Female,189,55,27.5,Cervical,Degenerative Disease,A,50,2,Exoskeleton-Assisted Therapy,1,14,High,No,60,19,30.5,2,6,0,52,59,Stable,9,8,99,1.94,787,82.8,153,4.4,Increase Frequency,No,1
+P0256,68,Male,188,68,30.4,Complete,Degenerative Disease,D,84,1,Occupational Therapy,2,1,High,No,67,14,22.0,4,9,1,6,32,Anxious,8,1,32,1.89,3695,52.2,125,81.8,Change Therapy,No,2
+P0257,59,Male,155,89,25.9,Lumbar,Accident,C,109,1,Physiotherapy,2,51,Moderate,No,79,16,48.4,2,3,3,32,3,Anxious,8,9,35,1.74,9567,44.6,55,99.0,Increase Frequency,Yes,9
+P0258,61,Female,155,108,19.0,Thoracic,Accident,D,40,2,Occupational Therapy,0,43,Low,Yes,30,7,17.3,3,9,0,4,2,Depressed,9,1,32,1.05,2492,20.9,179,40.7,Maintain Plan,No,5
+P0259,41,Other,152,108,27.6,Incomplete,Accident,C,39,0,None,2,53,Moderate,No,52,4,23.0,2,4,1,48,90,Depressed,3,3,30,0.37,7950,43.5,64,1.1,Reduce Intensity,Unknown,9
+P0260,32,Female,156,97,34.3,Thoracic,Accident,B,113,2,Exoskeleton-Assisted Therapy,1,17,High,No,24,16,49.2,4,7,3,27,51,Unknown,8,9,20,0.51,3425,33.8,61,17.0,Maintain Plan,No,8
+P0261,76,Male,157,90,21.0,Thoracic,Surgery,A,117,2,Exoskeleton-Assisted Therapy,2,2,Moderate,Yes,43,19,29.1,1,9,1,7,98,Unknown,1,5,26,1.33,1620,81.2,72,65.3,Increase Frequency,Unknown,6
+P0262,71,Female,191,62,29.7,Lumbar,Surgery,D,23,3,Occupational Therapy,4,6,None,Yes,11,0,27.6,1,2,2,14,27,Depressed,8,9,90,0.9,5810,36.7,129,61.2,Maintain Plan,Yes,1
+P0263,49,Male,164,94,21.4,Thoracic,Degenerative Disease,C,111,3,None,2,42,Low,Yes,89,17,16.6,2,2,3,51,69,Depressed,7,9,71,0.38,946,72.9,28,78.8,Maintain Plan,No,5
+P0264,49,Female,196,102,27.1,Thoracic,Accident,E,96,2,Physiotherapy,1,81,Moderate,Yes,96,14,36.6,0,9,0,3,69,Stable,8,6,61,1.01,11524,79.0,106,25.4,Change Therapy,Unknown,1
+P0265,41,Other,178,91,19.6,Cervical,Accident,A,52,2,Physiotherapy,0,37,None,Yes,91,4,5.6,2,3,0,33,54,Unknown,1,1,95,0.13,12260,49.8,133,76.4,Maintain Plan,No,7
+P0266,58,Female,182,112,25.7,Lumbar,Degenerative Disease,B,47,1,Exoskeleton-Assisted Therapy,3,36,High,No,8,6,7.2,3,9,2,4,56,Unknown,6,7,25,1.49,7127,23.5,94,68.8,Increase Frequency,No,8
+P0267,69,Female,179,76,30.9,Complete,Accident,C,63,3,Occupational Therapy,2,57,Moderate,No,11,17,32.0,1,5,3,32,86,Depressed,7,6,65,0.24,3396,23.7,149,32.3,Change Therapy,No,8
+P0268,66,Male,188,87,23.9,Incomplete,Accident,B,97,3,Occupational Therapy,1,32,High,No,68,5,20.4,1,6,1,4,96,Stable,5,9,11,1.3,1221,22.6,30,54.5,Maintain Plan,No,7
+P0269,79,Male,176,109,29.3,Thoracic,Accident,B,110,1,Physiotherapy,3,58,None,Yes,53,4,47.9,1,2,0,37,15,Depressed,5,7,21,1.61,2663,93.9,69,14.7,Increase Frequency,Yes,2
+P0270,66,Male,185,56,31.5,Incomplete,Accident,D,69,0,None,3,10,High,No,53,18,45.6,0,8,2,33,23,Depressed,7,4,16,0.35,11274,51.8,141,45.3,Reduce Intensity,Unknown,5
+P0271,75,Female,178,54,33.8,Complete,Accident,D,43,3,None,4,67,None,Yes,27,9,37.1,0,9,2,25,68,Anxious,3,7,6,1.09,10043,99.6,162,88.1,Change Therapy,No,4
+P0272,69,Other,187,94,22.0,Incomplete,Degenerative Disease,C,48,3,Physiotherapy,3,81,None,Yes,55,14,41.8,4,2,3,0,40,Unknown,6,2,67,1.58,4480,63.2,94,42.1,Maintain Plan,Unknown,5
+P0273,29,Male,182,107,24.8,Complete,Accident,E,34,0,Physiotherapy,1,67,None,No,98,9,35.0,2,6,3,3,76,Stable,7,6,36,0.6,5002,65.3,50,84.0,Maintain Plan,Yes,9
+P0274,79,Male,186,80,20.6,Cervical,Degenerative Disease,C,40,3,Occupational Therapy,1,87,Moderate,Yes,68,15,10.7,2,6,0,38,46,Anxious,1,6,37,0.41,12076,71.3,111,59.0,Change Therapy,Unknown,4
+P0275,56,Female,176,72,34.9,Thoracic,Accident,E,75,3,None,2,21,High,Yes,97,11,39.4,3,8,2,53,75,Unknown,2,2,95,0.74,2225,91.3,175,19.2,Increase Frequency,Unknown,8
+P0276,19,Male,182,91,33.8,Complete,Surgery,B,61,0,Physiotherapy,2,65,High,No,97,17,14.5,1,5,1,25,68,Depressed,4,4,10,1.15,9385,47.4,172,58.1,Maintain Plan,Yes,8
+P0277,20,Other,153,59,27.2,Incomplete,Surgery,A,50,0,Physiotherapy,2,43,Low,Yes,76,0,19.6,0,9,2,32,30,Stable,8,8,0,1.19,3913,32.2,111,50.6,Increase Frequency,No,2
+P0278,66,Other,171,81,32.3,Thoracic,Surgery,C,67,2,Exoskeleton-Assisted Therapy,3,5,Low,Yes,57,15,41.9,3,1,1,32,91,Unknown,6,8,24,0.35,994,75.6,172,39.9,Change Therapy,Unknown,6
+P0279,54,Male,151,102,26.9,Cervical,Surgery,C,62,1,Physiotherapy,3,41,Low,No,77,5,29.1,3,9,1,7,91,Depressed,1,8,41,0.97,1447,52.7,94,12.0,Maintain Plan,Unknown,5
+P0280,66,Male,159,79,28.6,Thoracic,Degenerative Disease,E,58,1,Physiotherapy,4,24,Low,Yes,74,2,43.7,0,7,0,19,29,Anxious,5,8,51,0.61,522,64.2,111,41.7,Reduce Intensity,No,2
+P0281,73,Female,154,88,19.5,Complete,Degenerative Disease,B,33,0,None,2,56,High,Yes,41,1,14.6,2,4,2,15,17,Stable,7,1,23,1.7,1628,84.7,148,7.3,Reduce Intensity,No,4
+P0282,34,Other,159,80,30.8,Cervical,Accident,B,75,0,Occupational Therapy,0,84,None,No,37,1,32.4,1,3,1,20,43,Unknown,6,2,52,0.7,14486,69.4,61,9.9,Reduce Intensity,Unknown,7
+P0283,76,Other,182,51,20.2,Incomplete,Surgery,E,16,3,None,4,54,None,No,67,12,8.8,2,6,3,44,26,Anxious,9,4,55,1.69,1057,82.0,129,41.6,Change Therapy,Yes,1
+P0284,66,Male,187,61,32.0,Cervical,Degenerative Disease,B,82,2,Occupational Therapy,0,15,Moderate,No,52,8,33.9,3,1,1,54,98,Depressed,8,9,62,0.91,10308,74.4,37,30.5,Maintain Plan,No,9
+P0285,19,Female,162,88,31.3,Cervical,Accident,D,94,2,Exoskeleton-Assisted Therapy,3,13,None,No,32,15,39.3,1,3,3,55,25,Depressed,4,3,80,1.48,13728,94.0,96,92.6,Change Therapy,No,1
+P0286,19,Other,180,115,30.0,Lumbar,Accident,A,48,0,Physiotherapy,4,38,High,Yes,70,4,31.3,4,2,3,25,59,Unknown,5,6,7,1.07,4230,90.6,152,37.6,Maintain Plan,Yes,5
+P0287,45,Other,196,62,18.6,Cervical,Degenerative Disease,C,119,3,Exoskeleton-Assisted Therapy,4,27,High,Yes,55,6,17.0,3,9,2,22,17,Depressed,7,7,58,1.28,5841,73.4,39,75.8,Reduce Intensity,Unknown,7
+P0288,71,Female,185,95,23.2,Cervical,Surgery,A,10,3,Occupational Therapy,1,50,High,No,71,12,6.4,2,3,3,17,96,Stable,8,8,44,0.85,7498,87.9,146,53.0,Reduce Intensity,No,8
+P0289,40,Female,194,76,22.5,Thoracic,Accident,C,82,1,None,3,48,Moderate,Yes,50,19,10.4,2,2,1,30,88,Unknown,5,7,26,1.56,7682,107.4,94,70.4,Increase Frequency,Unknown,2
+P0290,54,Other,173,66,24.1,Incomplete,Surgery,D,38,1,None,3,8,Low,Yes,73,12,33.0,2,4,3,51,55,Anxious,9,3,51,0.91,7534,63.2,81,26.0,Change Therapy,Unknown,4
+P0291,49,Other,164,109,19.5,Thoracic,Surgery,B,19,3,Exoskeleton-Assisted Therapy,4,57,None,No,42,6,47.0,0,2,2,41,30,Unknown,4,6,17,0.97,2156,61.3,51,94.2,Change Therapy,Unknown,2
+P0292,50,Female,178,113,33.9,Thoracic,Surgery,E,36,1,Occupational Therapy,3,44,High,No,14,9,14.3,3,1,0,11,58,Unknown,4,5,90,1.08,4673,96.4,47,53.0,Increase Frequency,Yes,4
+P0293,18,Other,157,84,27.4,Complete,Accident,D,59,0,Exoskeleton-Assisted Therapy,4,21,High,Yes,37,14,38.1,1,6,1,0,1,Anxious,8,4,85,1.68,5941,78.3,93,83.1,Reduce Intensity,Unknown,6
+P0294,36,Male,154,119,23.2,Thoracic,Surgery,A,63,3,Exoskeleton-Assisted Therapy,1,31,Low,No,14,5,44.0,2,8,1,41,96,Depressed,1,1,15,1.35,9498,27.1,100,36.5,Reduce Intensity,Unknown,6
+P0295,79,Male,178,79,24.7,Lumbar,Accident,E,77,1,Physiotherapy,4,68,High,No,4,4,28.4,2,2,2,8,38,Anxious,8,7,65,0.76,3812,109.2,41,10.0,Change Therapy,No,2
+P0296,19,Female,196,112,25.6,Lumbar,Surgery,B,46,2,Exoskeleton-Assisted Therapy,3,86,None,No,92,1,35.1,0,9,2,2,60,Stable,5,8,4,1.37,13829,23.1,115,67.4,Maintain Plan,No,4
+P0297,70,Female,153,77,28.2,Complete,Accident,D,3,3,Physiotherapy,3,68,Moderate,Yes,82,14,41.7,1,3,2,50,62,Depressed,1,2,81,1.32,13555,94.8,141,0.8,Reduce Intensity,Yes,4
+P0298,61,Female,161,109,26.8,Incomplete,Surgery,E,74,3,Physiotherapy,4,41,High,No,53,15,16.7,3,8,2,25,95,Unknown,4,7,2,1.87,9145,95.9,142,47.5,Increase Frequency,Yes,1
+P0299,43,Male,194,86,33.6,Incomplete,Degenerative Disease,D,102,2,None,4,52,None,Yes,50,18,18.4,4,8,1,8,17,Depressed,2,6,90,1.7,11667,115.3,71,19.3,Increase Frequency,No,2
+P0300,49,Other,151,71,26.4,Thoracic,Surgery,D,65,0,Physiotherapy,4,58,High,Yes,9,8,5.0,0,3,0,41,16,Depressed,4,5,80,1.33,2824,25.4,175,62.7,Increase Frequency,No,3
+P0301,23,Male,176,117,34.9,Thoracic,Surgery,B,119,2,Physiotherapy,2,73,Low,Yes,11,18,48.3,3,3,3,50,97,Stable,8,4,79,0.75,10139,79.7,97,97.9,Change Therapy,Yes,5
+P0302,49,Other,180,69,32.5,Thoracic,Accident,C,91,3,None,3,38,High,No,3,6,46.3,4,6,3,15,38,Depressed,5,2,69,1.58,6095,62.8,89,46.4,Change Therapy,Unknown,8
+P0303,72,Male,185,117,21.5,Incomplete,Accident,E,110,0,Exoskeleton-Assisted Therapy,3,14,High,No,94,3,39.4,2,1,0,23,70,Depressed,1,6,6,1.19,13838,53.1,156,81.7,Change Therapy,Yes,6
+P0304,21,Other,185,113,33.8,Cervical,Surgery,B,8,1,Occupational Therapy,2,70,Moderate,No,17,2,8.6,2,4,0,49,53,Depressed,7,5,49,1.97,11253,29.0,40,50.8,Change Therapy,Unknown,3
+P0305,72,Male,175,66,20.0,Lumbar,Degenerative Disease,D,51,1,Occupational Therapy,4,28,Low,No,79,19,25.1,1,1,0,13,98,Unknown,1,2,13,0.57,6484,76.3,83,49.6,Increase Frequency,No,6
+P0306,28,Female,192,61,31.9,Cervical,Degenerative Disease,B,110,1,Occupational Therapy,1,2,Low,No,35,10,9.6,4,3,2,2,93,Depressed,9,7,37,0.25,3011,67.9,95,93.0,Increase Frequency,No,7
+P0307,73,Male,176,71,24.5,Cervical,Accident,C,106,3,Exoskeleton-Assisted Therapy,4,82,Moderate,Yes,24,0,5.7,2,9,1,33,75,Anxious,3,6,78,0.23,11563,30.5,80,89.0,Change Therapy,No,6
+P0308,76,Other,154,66,32.9,Incomplete,Degenerative Disease,E,81,2,Physiotherapy,4,9,High,Yes,86,5,32.7,2,5,1,32,34,Depressed,3,9,46,1.32,862,81.2,114,78.6,Change Therapy,Unknown,6
+P0309,34,Male,169,59,32.8,Cervical,Surgery,C,73,0,Occupational Therapy,2,28,None,Yes,75,10,48.2,1,5,1,49,10,Stable,6,5,32,1.88,3954,93.8,59,29.6,Increase Frequency,Yes,1
+P0310,55,Male,160,114,31.7,Complete,Accident,A,6,1,Exoskeleton-Assisted Therapy,3,78,Low,No,97,0,45.6,3,4,2,23,60,Depressed,6,9,42,0.1,3298,96.7,23,54.5,Change Therapy,Unknown,3
+P0311,41,Male,159,71,31.4,Thoracic,Surgery,E,107,0,Physiotherapy,4,34,Low,Yes,35,6,36.4,2,3,1,8,43,Depressed,6,9,90,1.48,5120,110.5,50,22.4,Change Therapy,Yes,7
+P0312,22,Female,189,99,23.2,Complete,Accident,C,89,3,None,3,5,High,Yes,66,5,9.3,0,5,2,12,67,Unknown,1,1,28,1.35,12145,60.9,174,44.4,Change Therapy,Yes,4
+P0313,69,Male,187,63,19.4,Lumbar,Accident,D,39,1,Occupational Therapy,0,11,High,No,8,13,17.3,0,4,1,1,24,Anxious,5,5,56,1.49,3755,115.3,172,48.4,Change Therapy,Yes,4
+P0314,51,Female,155,113,24.9,Thoracic,Accident,E,113,3,Physiotherapy,3,37,Low,No,60,1,19.4,3,8,0,6,47,Depressed,6,9,4,0.78,1717,106.5,88,83.2,Reduce Intensity,No,7
+P0315,23,Female,157,96,20.9,Cervical,Accident,E,60,2,Occupational Therapy,1,76,High,Yes,52,3,39.3,4,4,3,47,31,Anxious,8,7,92,1.66,1985,49.7,89,89.6,Change Therapy,Yes,9
+P0316,39,Male,172,78,29.8,Lumbar,Degenerative Disease,B,28,3,Occupational Therapy,1,18,None,Yes,17,10,41.1,1,8,3,20,83,Stable,1,6,95,0.18,10795,35.9,24,41.5,Increase Frequency,No,2
+P0317,28,Male,196,85,23.9,Thoracic,Surgery,D,97,3,Occupational Therapy,4,66,Low,No,42,14,22.3,0,6,2,18,94,Unknown,5,6,59,1.54,5849,63.5,134,1.8,Increase Frequency,Yes,9
+P0318,65,Male,175,101,34.6,Cervical,Surgery,A,54,2,Physiotherapy,3,7,None,No,34,17,23.8,0,5,1,24,3,Anxious,3,7,69,0.61,11228,60.2,110,86.2,Increase Frequency,Yes,3
+P0319,33,Other,195,56,28.9,Complete,Surgery,C,37,0,Exoskeleton-Assisted Therapy,4,7,None,No,62,0,7.0,3,4,3,46,37,Unknown,2,1,1,1.01,7695,77.6,27,17.4,Increase Frequency,No,6
+P0320,50,Male,192,78,32.0,Thoracic,Accident,B,9,2,Physiotherapy,2,83,High,No,97,2,18.0,4,4,0,21,62,Depressed,8,4,69,1.66,10547,78.3,28,62.2,Change Therapy,No,4
+P0321,26,Female,161,60,20.3,Cervical,Degenerative Disease,C,82,2,Occupational Therapy,1,46,None,Yes,77,2,25.3,4,4,0,10,46,Stable,7,1,42,0.62,8250,95.0,34,2.5,Reduce Intensity,Unknown,1
+P0322,77,Male,175,82,32.7,Complete,Surgery,A,56,3,Physiotherapy,4,3,High,Yes,3,6,10.3,3,9,0,32,0,Unknown,7,6,3,0.45,13509,71.0,124,40.0,Maintain Plan,Yes,9
+P0323,76,Other,162,55,33.7,Lumbar,Degenerative Disease,A,59,0,None,2,50,Moderate,No,92,0,25.4,0,4,2,31,2,Depressed,5,4,55,1.39,6579,30.5,26,98.6,Maintain Plan,No,6
+P0324,23,Male,189,81,26.3,Lumbar,Accident,E,85,1,Exoskeleton-Assisted Therapy,4,84,High,Yes,40,10,43.4,1,9,2,20,85,Anxious,9,1,92,1.11,9899,105.8,91,10.1,Maintain Plan,Unknown,8
+P0325,33,Other,167,100,28.3,Lumbar,Surgery,A,2,2,Physiotherapy,3,66,None,Yes,44,5,31.2,0,6,1,38,61,Stable,5,9,58,1.08,10140,51.0,134,42.4,Maintain Plan,Unknown,2
+P0326,46,Other,174,107,31.0,Lumbar,Degenerative Disease,C,61,0,None,3,44,Moderate,No,49,19,8.6,4,7,0,19,63,Stable,2,4,88,0.59,14186,117.1,34,30.7,Increase Frequency,No,7
+P0327,20,Male,182,75,21.0,Incomplete,Accident,D,58,2,Exoskeleton-Assisted Therapy,3,7,High,Yes,78,2,13.6,0,3,1,7,16,Anxious,3,6,8,0.17,8535,31.8,102,90.5,Change Therapy,Yes,6
+P0328,37,Female,196,95,26.5,Thoracic,Degenerative Disease,D,107,2,None,3,86,None,Yes,27,18,26.4,1,8,1,41,77,Anxious,4,7,2,0.88,14876,115.8,58,86.9,Change Therapy,Unknown,2
+P0329,77,Other,189,78,24.8,Thoracic,Surgery,E,60,2,Exoskeleton-Assisted Therapy,0,15,Low,Yes,41,1,21.3,2,3,0,36,61,Stable,5,8,89,0.3,2007,29.1,153,23.8,Maintain Plan,Yes,2
+P0330,76,Male,192,53,20.5,Incomplete,Surgery,C,102,2,Physiotherapy,2,76,Low,No,79,17,21.1,0,1,1,8,34,Unknown,3,9,47,1.82,1503,43.1,76,8.1,Maintain Plan,Yes,4
+P0331,53,Male,161,62,24.2,Cervical,Accident,C,40,3,None,2,66,High,No,75,11,28.8,3,5,3,24,12,Stable,7,9,42,0.18,6903,24.7,111,62.7,Reduce Intensity,Unknown,4
+P0332,36,Female,193,88,19.2,Cervical,Accident,A,36,0,Occupational Therapy,3,8,High,Yes,68,9,31.3,2,2,2,24,34,Anxious,5,8,90,0.92,1425,90.5,100,33.6,Reduce Intensity,No,3
+P0333,43,Other,185,64,18.4,Lumbar,Accident,C,114,0,None,0,59,Low,No,97,4,40.9,3,6,1,32,42,Unknown,5,3,99,0.2,13643,105.0,166,67.2,Reduce Intensity,Yes,8
+P0334,20,Other,197,78,20.3,Complete,Degenerative Disease,B,107,0,Exoskeleton-Assisted Therapy,3,77,None,No,0,8,20.3,3,9,0,1,1,Depressed,6,2,95,0.28,8775,63.4,146,3.2,Increase Frequency,No,7
+P0335,36,Male,153,78,34.4,Cervical,Degenerative Disease,A,37,2,Physiotherapy,0,76,None,No,38,1,41.2,3,1,2,18,55,Stable,7,5,0,1.35,14881,112.9,178,13.3,Change Therapy,Unknown,2
+P0336,37,Male,154,81,27.3,Complete,Degenerative Disease,B,79,3,Exoskeleton-Assisted Therapy,3,70,None,Yes,95,1,20.2,0,4,2,45,76,Anxious,8,1,56,1.33,7083,79.0,94,68.6,Increase Frequency,Yes,3
+P0337,49,Female,186,51,34.4,Thoracic,Accident,E,92,2,None,1,14,High,Yes,89,5,7.5,4,1,1,19,50,Depressed,9,3,52,0.16,12434,83.0,98,21.2,Increase Frequency,No,9
+P0338,24,Female,157,96,25.4,Complete,Surgery,D,18,2,None,1,70,Moderate,No,16,9,29.9,2,1,3,41,53,Stable,4,1,15,0.1,4427,104.5,29,85.8,Change Therapy,No,5
+P0339,69,Other,191,71,23.3,Thoracic,Surgery,E,98,0,Occupational Therapy,4,40,Moderate,Yes,90,17,31.5,1,8,1,40,15,Stable,5,3,50,0.25,10234,49.7,126,5.9,Reduce Intensity,Yes,2
+P0340,58,Other,198,76,26.6,Incomplete,Degenerative Disease,D,63,2,Physiotherapy,3,21,Moderate,Yes,87,11,47.1,4,2,3,41,17,Unknown,5,4,74,1.55,1485,55.4,106,21.5,Change Therapy,No,3
+P0341,50,Male,177,116,25.5,Incomplete,Degenerative Disease,E,22,1,Physiotherapy,2,23,Moderate,Yes,34,3,37.7,0,1,2,28,6,Anxious,8,7,89,1.21,14656,110.6,86,99.9,Maintain Plan,No,8
+P0342,57,Other,180,105,19.8,Lumbar,Surgery,C,11,2,None,4,43,Moderate,Yes,45,16,46.3,3,8,1,5,44,Depressed,9,5,54,0.17,4731,110.1,81,43.3,Reduce Intensity,Unknown,4
+P0343,56,Female,158,70,28.9,Cervical,Surgery,B,58,1,Physiotherapy,1,0,High,Yes,41,14,45.9,1,4,0,16,35,Stable,7,5,0,1.03,5802,117.6,150,70.3,Change Therapy,Unknown,2
+P0344,35,Female,178,96,21.7,Lumbar,Degenerative Disease,D,57,2,Occupational Therapy,3,9,High,No,38,5,32.2,2,3,1,24,40,Unknown,5,1,89,1.45,14520,110.2,165,18.3,Increase Frequency,No,2
+P0345,57,Male,163,108,28.5,Thoracic,Degenerative Disease,A,77,3,Exoskeleton-Assisted Therapy,4,79,Moderate,Yes,89,15,28.7,4,4,3,37,93,Depressed,3,8,27,1.75,5791,32.7,172,61.0,Change Therapy,No,6
+P0346,18,Female,189,55,29.1,Lumbar,Surgery,B,4,3,Physiotherapy,3,71,High,Yes,48,16,30.1,4,5,3,3,41,Depressed,1,4,52,1.87,1408,102.4,126,72.6,Reduce Intensity,Yes,8
+P0347,28,Female,190,68,20.6,Complete,Accident,A,86,0,None,1,55,High,Yes,61,2,49.0,1,1,1,29,6,Stable,9,5,57,0.72,11600,61.0,167,31.4,Maintain Plan,Unknown,7
+P0348,45,Female,171,106,19.0,Thoracic,Degenerative Disease,B,7,2,Exoskeleton-Assisted Therapy,4,88,Moderate,No,37,9,39.8,0,1,3,19,14,Depressed,5,2,72,0.36,13377,119.1,112,82.9,Increase Frequency,Yes,4
+P0349,74,Female,160,118,31.3,Incomplete,Surgery,B,61,1,Exoskeleton-Assisted Therapy,1,49,None,No,22,4,9.8,2,3,2,2,59,Stable,9,1,59,0.55,14739,67.2,105,60.3,Maintain Plan,No,2
+P0350,42,Male,172,52,25.8,Cervical,Surgery,E,107,1,Occupational Therapy,0,11,High,No,21,13,40.0,1,6,1,22,39,Unknown,4,9,58,1.57,5551,75.4,140,38.9,Maintain Plan,Yes,9
+P0351,67,Male,150,50,19.0,Thoracic,Surgery,D,54,2,None,1,88,None,Yes,3,12,12.7,3,1,3,50,82,Unknown,5,2,21,1.95,11429,73.0,98,55.8,Increase Frequency,No,4
+P0352,40,Other,195,107,34.9,Thoracic,Surgery,D,88,1,Physiotherapy,3,80,High,No,48,5,25.1,2,2,1,17,36,Depressed,4,6,7,0.99,3086,52.2,29,57.7,Change Therapy,Unknown,9
+P0353,48,Female,186,87,19.0,Complete,Accident,B,68,3,None,2,59,High,No,58,11,14.5,4,7,1,25,65,Stable,2,1,48,0.68,9835,27.5,168,16.6,Change Therapy,Unknown,5
+P0354,47,Other,170,64,29.8,Cervical,Surgery,C,92,1,Exoskeleton-Assisted Therapy,1,25,Moderate,No,72,7,36.0,1,1,0,55,54,Anxious,1,1,41,0.92,1831,109.6,48,40.3,Maintain Plan,No,7
+P0355,59,Male,175,83,34.7,Incomplete,Degenerative Disease,C,79,0,None,2,77,High,No,67,4,44.5,4,7,1,35,76,Unknown,8,9,26,0.68,7351,100.3,115,34.3,Change Therapy,Unknown,5
+P0356,52,Male,195,110,22.1,Thoracic,Accident,A,1,3,Physiotherapy,0,40,Low,Yes,70,14,18.1,4,4,0,7,94,Stable,4,4,38,0.59,12040,34.0,29,40.1,Reduce Intensity,No,2
+P0357,24,Male,185,84,20.4,Thoracic,Surgery,A,55,3,Physiotherapy,4,35,Low,No,86,15,8.7,4,6,3,16,79,Stable,5,9,82,1.23,10245,97.7,32,76.1,Maintain Plan,Yes,6
+P0358,77,Male,172,113,20.1,Complete,Accident,E,3,3,Occupational Therapy,4,22,Moderate,No,1,0,18.4,0,8,0,30,55,Stable,6,5,24,0.13,11034,82.6,66,48.3,Maintain Plan,No,7
+P0359,33,Male,150,74,23.2,Lumbar,Degenerative Disease,B,78,2,Physiotherapy,2,42,None,Yes,48,15,35.3,4,9,0,36,43,Depressed,8,7,37,0.59,2306,60.9,170,94.0,Maintain Plan,Yes,6
+P0360,43,Male,189,73,19.7,Incomplete,Surgery,A,38,2,Physiotherapy,4,5,None,Yes,87,4,19.8,3,6,0,44,56,Anxious,8,1,84,1.36,10792,45.4,69,29.4,Reduce Intensity,No,3
+P0361,65,Male,164,61,29.8,Cervical,Degenerative Disease,A,114,3,None,1,68,None,No,94,2,17.5,3,9,2,32,5,Depressed,7,6,23,0.16,1305,106.0,151,41.6,Maintain Plan,Unknown,8
+P0362,74,Female,170,67,19.1,Thoracic,Surgery,B,1,2,None,2,42,Low,Yes,30,19,13.3,2,4,0,26,91,Unknown,4,8,23,0.26,14243,90.0,135,78.7,Change Therapy,No,3
+P0363,69,Other,196,64,26.7,Thoracic,Surgery,E,102,1,Exoskeleton-Assisted Therapy,3,24,None,No,39,14,27.4,4,6,1,44,31,Depressed,6,1,59,0.66,4647,74.8,132,54.6,Change Therapy,No,5
+P0364,77,Male,158,76,34.9,Incomplete,Surgery,A,38,2,Occupational Therapy,1,17,None,Yes,47,12,17.4,4,8,0,3,73,Stable,4,9,82,1.77,11467,81.0,104,54.7,Change Therapy,No,9
+P0365,66,Female,158,109,31.8,Lumbar,Surgery,E,85,2,None,1,61,Moderate,Yes,50,15,37.9,1,9,1,21,17,Depressed,7,3,49,1.55,571,29.1,72,5.3,Change Therapy,Unknown,5
+P0366,19,Female,159,95,28.5,Thoracic,Surgery,D,112,3,Physiotherapy,1,12,None,No,42,10,8.4,0,3,0,25,67,Stable,1,1,65,0.14,527,67.4,149,39.9,Maintain Plan,No,7
+P0367,18,Other,175,66,23.2,Incomplete,Accident,E,29,0,Exoskeleton-Assisted Therapy,3,42,Low,Yes,97,1,34.9,2,2,2,31,72,Anxious,5,1,13,1.05,9160,39.4,87,27.1,Reduce Intensity,Unknown,7
+P0368,65,Male,190,102,28.6,Complete,Surgery,C,5,0,None,0,77,Low,No,54,5,15.7,4,6,3,23,6,Depressed,4,6,52,0.62,4483,40.8,98,99.9,Increase Frequency,No,5
+P0369,79,Other,184,57,27.0,Lumbar,Surgery,C,113,0,Occupational Therapy,4,27,Low,Yes,87,5,27.0,1,4,0,45,7,Depressed,7,6,31,1.33,9455,86.1,76,30.8,Change Therapy,Yes,2
+P0370,29,Male,174,76,25.2,Cervical,Accident,E,74,1,Occupational Therapy,2,17,Moderate,No,48,13,17.9,0,1,0,34,63,Depressed,9,1,95,1.47,7555,111.1,116,88.4,Increase Frequency,No,5
+P0371,22,Female,175,95,20.2,Thoracic,Accident,C,92,2,Exoskeleton-Assisted Therapy,0,58,Moderate,Yes,89,10,37.5,2,8,2,36,6,Stable,5,3,91,1.74,7190,60.4,154,67.6,Increase Frequency,Yes,7
+P0372,54,Female,160,99,33.1,Incomplete,Accident,D,21,0,Exoskeleton-Assisted Therapy,2,59,High,Yes,79,7,47.5,2,9,0,31,40,Stable,4,7,47,1.0,10116,40.8,166,34.1,Maintain Plan,Unknown,7
+P0373,49,Female,187,52,25.6,Complete,Accident,B,114,3,Exoskeleton-Assisted Therapy,4,62,None,Yes,56,7,46.3,4,9,1,6,39,Depressed,9,3,38,1.99,10940,84.9,82,54.4,Change Therapy,Unknown,4
+P0374,76,Female,151,113,21.3,Cervical,Accident,C,71,0,Exoskeleton-Assisted Therapy,3,56,Moderate,Yes,76,0,31.3,2,2,0,32,2,Depressed,5,3,39,1.96,4332,107.1,84,84.1,Change Therapy,No,1
+P0375,72,Other,156,93,24.3,Incomplete,Accident,C,67,0,Exoskeleton-Assisted Therapy,1,50,Low,Yes,14,6,25.8,1,9,0,30,16,Anxious,9,3,41,1.78,13607,94.8,58,88.3,Change Therapy,Unknown,6
+P0376,26,Male,167,102,25.0,Incomplete,Surgery,E,109,2,Physiotherapy,1,55,Low,No,26,5,41.8,2,7,3,54,65,Anxious,8,7,76,1.19,12752,106.9,128,16.0,Increase Frequency,No,3
+P0377,58,Male,176,73,32.1,Cervical,Surgery,D,47,2,Physiotherapy,3,26,Moderate,Yes,67,7,35.7,3,5,3,11,78,Unknown,4,4,75,0.86,12762,73.7,45,34.0,Change Therapy,Unknown,5
+P0378,52,Other,183,109,30.5,Complete,Degenerative Disease,B,84,2,None,0,31,Moderate,No,79,18,13.3,1,7,0,10,92,Anxious,7,4,7,0.79,14277,95.2,31,33.5,Change Therapy,Yes,4
+P0379,36,Male,176,52,31.1,Complete,Surgery,E,83,1,Occupational Therapy,0,8,Moderate,No,63,19,41.9,0,9,2,23,51,Anxious,5,3,78,0.12,10367,34.0,169,4.2,Reduce Intensity,Unknown,2
+P0380,65,Female,166,69,18.2,Lumbar,Surgery,E,35,1,Physiotherapy,2,83,High,No,93,7,24.3,0,8,3,7,21,Anxious,4,9,25,0.57,1059,54.8,96,59.8,Maintain Plan,Yes,7
+P0381,33,Male,192,95,25.1,Thoracic,Accident,D,68,0,Physiotherapy,3,67,Low,Yes,29,13,13.5,4,6,0,31,3,Stable,5,2,11,1.47,8457,59.0,161,85.5,Change Therapy,No,5
+P0382,20,Female,193,64,26.2,Cervical,Accident,B,69,2,Physiotherapy,0,45,High,No,35,17,17.7,4,4,3,37,5,Anxious,5,4,42,1.25,13166,71.1,105,38.2,Change Therapy,No,7
+P0383,37,Other,173,74,18.3,Cervical,Surgery,D,1,0,None,3,66,High,Yes,66,15,17.0,3,1,0,21,37,Anxious,9,8,50,1.84,4331,112.9,49,74.0,Maintain Plan,No,9
+P0384,41,Male,174,66,22.4,Cervical,Degenerative Disease,B,68,3,Exoskeleton-Assisted Therapy,4,25,None,No,85,8,28.4,0,6,3,33,25,Depressed,9,6,90,0.2,10610,107.4,71,62.8,Maintain Plan,Yes,4
+P0385,71,Other,156,58,30.9,Complete,Accident,D,12,3,None,1,7,Low,No,85,14,15.5,0,3,3,18,10,Stable,6,7,81,0.4,7844,33.5,82,37.6,Increase Frequency,No,5
+P0386,73,Male,155,87,20.3,Thoracic,Surgery,E,60,2,Occupational Therapy,1,5,Low,No,48,9,10.6,0,6,1,51,89,Unknown,4,7,99,1.6,5671,37.3,139,14.1,Increase Frequency,No,9
+P0387,50,Female,173,97,27.1,Lumbar,Surgery,E,27,2,Occupational Therapy,1,79,Moderate,No,75,15,10.6,0,6,0,19,16,Unknown,2,2,62,0.78,578,55.8,124,70.9,Increase Frequency,Yes,4
+P0388,41,Other,182,109,21.7,Incomplete,Degenerative Disease,A,56,3,Occupational Therapy,3,23,Moderate,No,54,3,31.2,2,4,0,55,87,Anxious,3,4,48,0.32,14196,49.1,58,85.5,Maintain Plan,Unknown,5
+P0389,69,Male,198,112,18.2,Incomplete,Degenerative Disease,C,106,2,Occupational Therapy,3,47,None,Yes,84,19,38.1,1,2,0,13,91,Unknown,2,6,26,1.99,5429,81.5,60,68.6,Reduce Intensity,No,5
+P0390,28,Female,178,51,22.1,Cervical,Accident,D,23,1,Physiotherapy,2,44,High,No,55,12,19.5,1,9,0,32,98,Unknown,5,3,8,1.6,4147,110.3,140,1.8,Change Therapy,Unknown,8
+P0391,66,Other,192,60,34.6,Thoracic,Degenerative Disease,A,25,1,Physiotherapy,1,12,Moderate,No,67,4,6.6,3,2,3,9,30,Unknown,6,9,38,0.88,1531,116.2,127,21.6,Maintain Plan,Unknown,4
+P0392,25,Other,171,113,31.6,Complete,Surgery,C,21,2,None,2,68,Moderate,Yes,94,6,10.7,2,3,1,15,76,Anxious,5,4,64,1.66,7881,85.4,84,6.9,Reduce Intensity,No,4
+P0393,53,Male,175,70,34.3,Thoracic,Surgery,D,61,3,Exoskeleton-Assisted Therapy,1,24,Low,Yes,43,8,46.2,0,1,1,3,34,Unknown,2,2,70,1.39,2572,103.8,137,57.0,Maintain Plan,No,7
+P0394,55,Male,177,67,26.3,Thoracic,Degenerative Disease,B,63,0,Occupational Therapy,2,19,Low,Yes,30,7,27.2,0,7,2,26,15,Anxious,5,6,89,1.6,13237,72.5,98,75.6,Reduce Intensity,Yes,5
+P0395,57,Male,199,113,19.9,Complete,Degenerative Disease,C,52,2,None,2,81,Moderate,No,57,15,25.4,4,1,0,27,78,Depressed,9,1,70,1.65,7411,40.8,179,11.1,Maintain Plan,Yes,6
+P0396,37,Female,170,87,27.3,Cervical,Degenerative Disease,E,88,2,Physiotherapy,4,81,Low,No,86,5,6.7,4,9,2,42,17,Depressed,4,6,6,0.26,6588,72.5,27,83.8,Maintain Plan,No,6
+P0397,79,Male,198,81,25.7,Thoracic,Degenerative Disease,A,25,0,Physiotherapy,2,65,None,No,52,15,37.8,3,1,3,15,61,Unknown,2,1,71,1.28,1984,75.5,116,55.6,Reduce Intensity,Unknown,6
+P0398,52,Other,156,60,32.4,Incomplete,Accident,C,109,2,Exoskeleton-Assisted Therapy,3,73,Moderate,No,83,5,28.8,0,5,2,51,26,Depressed,3,8,79,0.11,10937,94.2,37,69.0,Reduce Intensity,Yes,5
+P0399,65,Other,166,94,19.7,Complete,Degenerative Disease,C,55,0,Exoskeleton-Assisted Therapy,2,44,Low,No,78,13,14.1,3,7,0,32,34,Anxious,3,5,66,0.18,6338,42.0,115,97.1,Reduce Intensity,Yes,5
+P0400,79,Male,169,82,26.3,Lumbar,Accident,E,46,3,Exoskeleton-Assisted Therapy,1,46,None,No,22,0,10.0,2,3,1,47,44,Depressed,9,6,9,1.82,14758,56.8,52,8.4,Reduce Intensity,No,9
+P0401,42,Male,190,90,20.6,Cervical,Surgery,D,32,1,None,2,62,Low,Yes,27,8,22.3,1,9,1,18,34,Unknown,4,2,70,1.1,2050,56.4,24,90.1,Reduce Intensity,No,8
+P0402,52,Other,198,57,23.5,Complete,Degenerative Disease,B,55,3,Physiotherapy,0,75,Low,Yes,15,12,42.7,0,8,0,20,27,Anxious,1,2,84,1.5,13477,115.9,146,12.6,Reduce Intensity,No,4
+P0403,42,Female,169,60,30.5,Lumbar,Accident,E,96,1,Physiotherapy,1,76,Low,No,36,18,43.9,2,3,3,21,8,Stable,1,9,52,1.69,14778,64.4,93,39.3,Reduce Intensity,No,7
+P0404,46,Male,171,100,26.1,Lumbar,Degenerative Disease,B,5,0,Exoskeleton-Assisted Therapy,0,54,Moderate,No,20,16,32.1,0,5,0,8,75,Anxious,7,3,94,1.9,5997,95.5,145,85.1,Reduce Intensity,Yes,8
+P0405,35,Male,177,90,24.4,Thoracic,Surgery,D,36,1,Occupational Therapy,1,74,High,No,78,10,37.7,4,7,3,8,14,Depressed,7,6,86,1.75,5182,95.1,170,90.6,Maintain Plan,Yes,9
+P0406,63,Other,189,66,24.7,Thoracic,Surgery,C,110,3,Exoskeleton-Assisted Therapy,3,18,Low,No,16,7,10.2,3,4,1,8,20,Stable,2,5,56,1.02,14939,46.6,24,50.6,Reduce Intensity,Yes,5
+P0407,35,Male,198,95,25.8,Thoracic,Surgery,B,106,1,None,3,34,None,No,36,4,31.5,4,5,3,26,51,Anxious,9,4,90,0.74,2329,77.2,53,59.4,Reduce Intensity,Unknown,3
+P0408,19,Female,156,81,31.3,Complete,Degenerative Disease,A,49,0,Exoskeleton-Assisted Therapy,3,52,Moderate,Yes,76,9,35.0,1,3,0,16,34,Stable,9,2,85,0.39,4251,109.4,43,70.8,Maintain Plan,Yes,4
+P0409,71,Other,150,103,33.2,Complete,Degenerative Disease,A,106,1,Exoskeleton-Assisted Therapy,0,25,Moderate,Yes,18,6,14.0,4,9,0,43,96,Stable,5,8,26,0.86,6581,67.5,164,83.3,Maintain Plan,Yes,6
+P0410,52,Male,181,69,34.2,Cervical,Accident,E,58,2,None,4,13,None,No,29,9,44.6,0,9,0,44,50,Stable,3,7,53,0.8,13414,114.5,114,12.2,Increase Frequency,No,5
+P0411,33,Other,162,82,31.4,Thoracic,Surgery,D,39,3,Exoskeleton-Assisted Therapy,1,44,Low,Yes,44,3,13.8,4,7,3,7,82,Anxious,3,2,3,1.16,10723,41.4,90,81.0,Increase Frequency,Yes,9
+P0412,78,Male,179,89,23.4,Lumbar,Degenerative Disease,E,80,2,Physiotherapy,3,43,High,No,17,8,19.1,0,2,3,15,54,Depressed,3,6,87,1.36,7101,27.4,111,48.1,Reduce Intensity,Yes,3
+P0413,58,Male,172,81,29.7,Incomplete,Surgery,E,97,0,Occupational Therapy,1,87,Low,No,77,13,32.9,1,7,3,17,86,Anxious,6,8,22,1.96,4959,109.1,144,45.1,Reduce Intensity,Yes,2
+P0414,53,Male,168,51,25.4,Cervical,Surgery,E,113,1,Exoskeleton-Assisted Therapy,0,64,None,No,61,1,33.7,4,7,1,32,76,Depressed,4,7,47,1.48,4356,104.8,41,42.4,Increase Frequency,No,6
+P0415,50,Female,181,82,22.3,Complete,Accident,A,85,2,None,4,50,Moderate,Yes,35,8,36.5,3,5,2,0,43,Anxious,8,1,82,1.32,10874,119.3,34,50.9,Increase Frequency,Yes,7
+P0416,21,Female,179,79,32.3,Cervical,Accident,A,61,2,Occupational Therapy,0,42,High,Yes,99,0,10.0,3,9,2,11,64,Anxious,5,5,41,0.74,13161,87.9,120,94.5,Change Therapy,Yes,5
+P0417,50,Other,178,82,18.7,Cervical,Accident,E,9,1,None,1,85,Moderate,No,83,9,43.2,3,3,0,5,92,Anxious,1,2,2,0.17,6682,113.7,34,54.8,Change Therapy,Unknown,1
+P0418,31,Male,198,75,33.3,Cervical,Accident,A,6,1,Occupational Therapy,4,22,None,Yes,51,9,29.0,4,4,1,40,87,Depressed,9,6,90,0.65,6583,102.7,172,95.3,Reduce Intensity,Unknown,3
+P0419,38,Male,194,71,25.8,Cervical,Surgery,D,115,3,Occupational Therapy,4,55,Low,Yes,18,19,26.2,4,1,3,54,79,Anxious,1,7,2,1.56,8470,104.4,72,18.0,Change Therapy,Unknown,3
+P0420,65,Female,178,115,28.8,Incomplete,Accident,E,109,2,Exoskeleton-Assisted Therapy,0,18,High,No,43,2,49.1,4,6,0,4,24,Stable,6,7,27,0.49,2594,76.9,168,72.4,Increase Frequency,Unknown,4
+P0421,37,Male,179,87,29.2,Thoracic,Accident,A,35,2,Physiotherapy,3,81,Moderate,Yes,6,5,38.3,0,4,1,15,86,Anxious,1,3,62,1.45,14871,58.2,121,81.2,Reduce Intensity,No,6
+P0422,73,Female,165,95,33.2,Lumbar,Accident,B,39,0,Exoskeleton-Assisted Therapy,1,75,Moderate,Yes,43,5,10.3,1,1,0,17,91,Stable,3,7,80,1.2,12595,113.5,132,67.9,Maintain Plan,Unknown,5
+P0423,25,Male,189,64,28.8,Cervical,Accident,E,22,3,None,2,54,Moderate,No,67,1,39.0,3,2,1,48,46,Unknown,5,5,30,0.43,6738,63.2,51,60.7,Maintain Plan,Yes,1
+P0424,24,Other,168,93,28.4,Cervical,Surgery,E,41,0,None,2,59,Low,No,33,17,9.3,0,3,1,17,79,Unknown,7,8,9,0.6,3532,73.9,40,56.5,Increase Frequency,Unknown,6
+P0425,20,Male,167,98,19.1,Cervical,Accident,D,118,2,Occupational Therapy,0,58,High,Yes,65,1,6.2,3,9,2,0,55,Depressed,8,8,48,1.04,14172,64.6,102,86.1,Change Therapy,No,9
+P0426,34,Male,150,110,26.8,Thoracic,Surgery,C,5,0,Occupational Therapy,1,32,Low,No,68,11,23.2,0,8,0,18,37,Depressed,9,7,85,0.89,2048,76.5,33,82.2,Maintain Plan,Unknown,1
+P0427,50,Female,163,116,20.6,Complete,Degenerative Disease,C,42,2,Physiotherapy,1,18,Low,Yes,54,4,49.7,4,7,3,53,10,Unknown,6,6,93,1.58,13957,67.1,34,12.2,Change Therapy,Unknown,8
+P0428,65,Male,196,55,30.5,Complete,Surgery,D,87,2,Exoskeleton-Assisted Therapy,0,27,Low,No,9,19,12.9,3,4,2,7,66,Anxious,9,2,20,1.5,14728,24.8,167,84.9,Maintain Plan,No,8
+P0429,29,Male,199,58,26.7,Incomplete,Surgery,D,81,0,None,1,51,None,No,95,6,35.3,4,1,2,2,14,Anxious,8,6,99,1.19,9059,108.2,53,41.4,Change Therapy,No,3
+P0430,76,Female,151,55,29.6,Complete,Accident,D,76,0,Occupational Therapy,3,48,None,No,41,15,12.8,3,8,3,24,0,Anxious,9,9,52,1.66,564,64.4,102,25.4,Maintain Plan,No,9
+P0431,68,Other,177,81,18.7,Cervical,Degenerative Disease,C,87,1,Physiotherapy,0,36,None,No,40,19,37.6,2,4,1,4,6,Unknown,4,2,86,1.17,3799,78.9,28,87.0,Maintain Plan,No,8
+P0432,39,Other,198,90,19.4,Cervical,Degenerative Disease,D,80,1,None,3,25,High,Yes,76,0,27.7,0,3,3,54,0,Stable,9,1,75,1.93,5349,33.9,177,43.2,Reduce Intensity,No,3
+P0433,72,Female,199,57,30.2,Cervical,Degenerative Disease,A,67,1,Occupational Therapy,1,39,Low,No,68,0,35.6,2,9,0,39,48,Depressed,7,5,88,0.51,6139,20.3,96,80.8,Reduce Intensity,No,5
+P0434,39,Female,179,99,19.2,Incomplete,Degenerative Disease,E,30,2,None,0,79,Low,No,9,16,14.1,0,4,3,18,95,Stable,5,6,53,1.46,2535,44.5,160,26.3,Increase Frequency,Yes,3
+P0435,63,Female,187,111,19.2,Cervical,Surgery,E,57,0,Physiotherapy,1,37,None,No,9,0,38.6,1,4,1,17,72,Unknown,5,3,56,0.8,11555,90.5,28,0.4,Maintain Plan,Unknown,5
+P0436,47,Female,153,111,18.2,Complete,Degenerative Disease,B,86,3,Physiotherapy,0,76,Low,Yes,90,19,49.8,3,9,3,49,28,Stable,1,8,19,0.63,10568,29.9,55,49.5,Change Therapy,Unknown,9
+P0437,55,Female,150,56,34.3,Thoracic,Surgery,B,73,2,None,1,86,Low,Yes,59,12,35.0,1,2,1,52,25,Anxious,2,7,48,0.44,6174,110.9,136,10.0,Maintain Plan,No,4
+P0438,55,Other,157,53,30.5,Thoracic,Surgery,E,29,3,Exoskeleton-Assisted Therapy,3,53,Moderate,No,50,8,27.2,1,5,1,30,86,Anxious,3,2,6,1.15,13543,41.5,22,75.4,Change Therapy,No,6
+P0439,62,Other,178,55,24.0,Lumbar,Surgery,A,111,0,None,3,21,Low,No,20,14,46.5,0,4,0,32,44,Stable,8,7,28,0.51,2728,40.5,38,27.6,Change Therapy,Yes,3
+P0440,68,Female,188,107,23.0,Complete,Degenerative Disease,C,37,2,Occupational Therapy,1,15,Moderate,No,7,2,5.7,2,9,3,46,92,Unknown,6,1,47,0.48,6120,38.2,175,44.4,Maintain Plan,Yes,3
+P0441,71,Male,152,71,23.9,Cervical,Accident,C,87,3,Exoskeleton-Assisted Therapy,0,27,Low,No,64,13,37.8,4,5,3,17,96,Stable,5,9,92,1.98,1096,21.4,42,8.7,Change Therapy,No,5
+P0442,25,Female,181,75,31.2,Thoracic,Accident,A,13,3,Occupational Therapy,2,34,High,No,91,10,45.0,0,9,0,38,70,Anxious,1,7,12,1.62,4106,97.2,123,28.7,Increase Frequency,Yes,8
+P0443,44,Male,159,52,29.2,Complete,Degenerative Disease,C,32,1,None,3,59,None,No,77,11,7.8,4,9,1,15,11,Anxious,9,6,2,1.52,11366,107.5,154,78.1,Reduce Intensity,Yes,8
+P0444,44,Female,159,90,21.1,Thoracic,Accident,D,46,1,Exoskeleton-Assisted Therapy,3,44,Moderate,Yes,84,12,25.3,1,2,3,15,94,Unknown,3,2,1,1.61,4389,81.4,124,15.2,Change Therapy,No,3
+P0445,51,Female,168,109,21.0,Cervical,Accident,E,116,1,Occupational Therapy,2,45,None,No,29,12,14.2,4,9,0,46,31,Stable,3,3,15,1.94,4006,38.8,161,64.7,Maintain Plan,No,8
+P0446,38,Other,195,63,19.7,Thoracic,Surgery,E,111,2,None,1,71,Moderate,No,84,0,30.5,2,3,1,37,19,Anxious,2,1,93,1.19,10526,48.5,65,91.7,Reduce Intensity,No,8
+P0447,47,Male,183,61,29.2,Lumbar,Surgery,A,112,0,None,0,54,Moderate,No,48,9,34.2,0,4,0,40,50,Anxious,4,5,5,0.52,1895,67.6,162,68.0,Increase Frequency,No,3
+P0448,50,Male,182,61,31.0,Lumbar,Degenerative Disease,C,23,0,Exoskeleton-Assisted Therapy,1,85,Moderate,No,8,2,18.6,2,1,3,6,80,Stable,2,9,44,1.74,10278,115.4,34,81.1,Change Therapy,Unknown,2
+P0449,45,Other,172,62,22.5,Thoracic,Degenerative Disease,B,45,1,None,4,84,High,No,16,3,25.7,2,1,0,13,35,Stable,9,6,70,1.51,8029,44.7,70,10.9,Change Therapy,Unknown,2
+P0450,64,Other,177,74,18.4,Complete,Accident,B,17,1,Physiotherapy,3,25,Low,No,68,15,17.6,0,1,2,42,66,Depressed,7,5,4,0.89,8803,93.2,129,25.1,Reduce Intensity,No,9
+P0451,50,Other,181,94,19.4,Complete,Surgery,C,119,1,Occupational Therapy,4,84,Moderate,Yes,57,7,21.6,2,9,1,52,0,Unknown,8,3,55,1.0,952,63.9,27,89.5,Change Therapy,Yes,7
+P0452,22,Other,199,68,34.5,Complete,Degenerative Disease,B,104,3,Occupational Therapy,3,24,High,Yes,56,15,12.2,3,8,2,47,26,Unknown,3,5,70,0.88,11495,49.8,88,71.5,Maintain Plan,No,6
+P0453,77,Male,156,104,23.0,Thoracic,Degenerative Disease,A,85,1,None,3,64,Moderate,Yes,61,16,44.9,3,5,2,24,39,Stable,6,8,97,1.87,7836,65.6,82,64.0,Reduce Intensity,Unknown,7
+P0454,78,Male,178,94,31.1,Complete,Degenerative Disease,A,66,3,None,4,5,Low,Yes,94,18,5.5,3,5,1,31,96,Unknown,6,2,31,0.75,3131,27.1,87,66.4,Reduce Intensity,Yes,8
+P0455,65,Female,157,57,28.6,Cervical,Degenerative Disease,C,101,0,Physiotherapy,4,22,Moderate,Yes,51,14,44.7,4,9,1,37,83,Anxious,1,5,48,1.93,2686,99.9,163,41.4,Change Therapy,Unknown,1
+P0456,36,Female,150,102,24.5,Lumbar,Degenerative Disease,B,6,2,Exoskeleton-Assisted Therapy,1,63,High,Yes,60,15,30.7,2,3,0,21,13,Stable,6,6,12,1.83,6467,44.3,171,4.5,Increase Frequency,No,8
+P0457,21,Other,152,104,21.5,Cervical,Degenerative Disease,A,108,2,None,4,86,Low,No,39,14,19.9,0,3,1,15,99,Stable,3,8,29,1.3,6874,92.5,25,78.4,Increase Frequency,Unknown,3
+P0458,52,Other,173,81,20.1,Complete,Accident,A,18,2,None,1,42,High,No,37,1,37.5,0,7,2,51,68,Stable,3,8,24,1.2,5858,26.8,138,67.9,Increase Frequency,Unknown,3
+P0459,66,Other,172,100,28.5,Cervical,Surgery,D,94,2,None,1,22,Low,No,42,10,27.8,4,9,2,28,86,Depressed,3,5,84,0.8,4848,115.5,76,47.3,Increase Frequency,Unknown,6
+P0460,34,Female,157,93,31.2,Complete,Surgery,D,22,3,None,1,29,Low,No,62,0,27.5,0,6,3,15,78,Unknown,8,9,59,0.13,10696,39.3,50,90.0,Reduce Intensity,Yes,4
+P0461,61,Female,196,119,28.9,Thoracic,Degenerative Disease,A,118,3,Occupational Therapy,3,76,None,No,18,14,10.0,3,2,1,11,5,Depressed,5,4,58,0.34,1959,108.3,25,33.6,Reduce Intensity,Unknown,4
+P0462,45,Female,186,67,27.0,Cervical,Surgery,C,33,1,None,3,17,None,No,99,18,22.5,2,1,2,16,32,Anxious,4,9,84,1.53,2442,100.9,176,29.4,Change Therapy,Yes,4
+P0463,47,Female,152,71,18.7,Thoracic,Surgery,E,30,3,Occupational Therapy,4,86,None,Yes,49,3,15.8,0,2,3,36,54,Unknown,9,7,27,1.0,12185,116.8,86,87.3,Increase Frequency,No,9
+P0464,46,Female,182,86,34.5,Thoracic,Surgery,E,81,1,None,3,78,Low,No,32,10,5.7,0,1,3,26,18,Depressed,9,6,57,0.38,5922,67.8,150,79.7,Increase Frequency,No,8
+P0465,63,Female,177,105,31.6,Incomplete,Degenerative Disease,A,107,1,Exoskeleton-Assisted Therapy,4,20,Moderate,Yes,12,4,21.2,1,9,0,24,76,Stable,1,4,19,0.6,14907,92.7,175,51.5,Change Therapy,Unknown,3
+P0466,70,Female,196,108,23.0,Complete,Degenerative Disease,A,32,2,Physiotherapy,3,56,High,Yes,77,2,9.0,1,8,2,12,28,Depressed,2,2,33,1.9,10549,57.1,93,13.1,Change Therapy,Yes,1
+P0467,23,Other,157,52,34.7,Lumbar,Surgery,A,42,3,Exoskeleton-Assisted Therapy,0,22,High,No,96,12,16.6,1,7,0,7,60,Stable,8,8,4,0.8,5696,38.4,133,21.5,Change Therapy,No,1
+P0468,52,Other,183,77,28.2,Complete,Surgery,C,115,3,None,0,44,High,No,61,9,9.2,2,3,2,55,69,Depressed,5,6,81,1.82,561,64.3,116,65.6,Maintain Plan,Yes,1
+P0469,77,Other,184,84,27.9,Lumbar,Degenerative Disease,D,78,1,None,4,43,None,No,92,10,9.5,3,8,0,4,78,Depressed,7,3,59,0.68,1994,36.6,99,38.5,Change Therapy,Yes,4
+P0470,58,Other,181,110,30.7,Complete,Accident,A,10,1,None,3,81,Low,No,42,17,14.0,3,2,0,11,79,Depressed,1,7,42,1.13,1680,118.2,142,83.6,Change Therapy,Unknown,6
+P0471,54,Female,173,103,31.8,Thoracic,Surgery,A,111,0,Exoskeleton-Assisted Therapy,3,87,None,No,48,1,50.0,3,2,1,40,23,Stable,5,7,56,0.14,13593,29.6,157,95.0,Maintain Plan,Unknown,4
+P0472,41,Male,163,112,29.2,Cervical,Accident,B,115,0,None,1,46,Moderate,No,35,6,5.1,2,3,0,2,22,Depressed,3,6,56,1.09,6768,78.9,52,80.6,Increase Frequency,Yes,3
+P0473,46,Female,181,56,20.2,Cervical,Surgery,C,36,1,Exoskeleton-Assisted Therapy,2,39,Low,No,9,8,33.7,2,7,1,34,9,Unknown,2,2,74,1.31,3288,82.6,159,37.8,Reduce Intensity,Yes,8
+P0474,66,Male,195,98,23.8,Incomplete,Accident,A,34,0,Occupational Therapy,4,50,High,Yes,94,9,11.4,1,1,3,32,53,Unknown,2,8,53,0.55,10567,73.8,63,78.9,Increase Frequency,Unknown,8
+P0475,63,Other,192,80,33.8,Lumbar,Accident,B,73,0,Physiotherapy,2,41,None,No,5,17,46.4,0,8,2,21,40,Unknown,9,1,80,1.2,10900,86.2,32,35.1,Reduce Intensity,Yes,6
+P0476,70,Female,165,107,21.8,Lumbar,Accident,E,106,1,Physiotherapy,2,6,None,No,56,6,9.2,4,7,3,49,48,Stable,4,1,44,1.33,5136,31.6,171,16.7,Reduce Intensity,Unknown,9
+P0477,48,Other,153,110,24.3,Lumbar,Degenerative Disease,A,28,1,Exoskeleton-Assisted Therapy,4,49,Moderate,Yes,0,6,48.0,4,4,2,55,16,Stable,4,6,85,1.41,5221,75.5,76,3.3,Change Therapy,Yes,1
+P0478,52,Female,186,73,25.3,Thoracic,Accident,A,11,3,Occupational Therapy,3,47,Moderate,No,70,2,32.5,0,5,3,43,55,Unknown,7,5,36,1.58,6210,48.7,115,38.6,Change Therapy,Unknown,8
+P0479,77,Other,170,69,25.5,Lumbar,Accident,B,78,1,Exoskeleton-Assisted Therapy,4,83,None,No,57,11,5.1,1,1,2,8,44,Unknown,2,9,83,0.69,8202,114.0,163,90.4,Maintain Plan,Yes,6
+P0480,50,Male,163,86,28.4,Cervical,Accident,C,39,1,Occupational Therapy,2,5,Moderate,Yes,90,6,45.2,0,4,0,40,29,Unknown,3,7,47,1.18,605,96.2,128,23.9,Increase Frequency,Unknown,1
+P0481,69,Male,180,53,34.0,Thoracic,Surgery,A,119,2,None,3,8,High,No,20,16,28.5,0,1,2,17,43,Anxious,3,2,53,1.97,9846,117.3,139,20.7,Increase Frequency,Yes,4
+P0482,78,Male,197,69,22.1,Complete,Accident,E,47,3,Occupational Therapy,0,56,Moderate,No,91,0,16.8,4,1,2,49,73,Unknown,6,7,47,1.81,12120,23.8,119,97.0,Reduce Intensity,No,5
+P0483,38,Female,167,109,20.1,Lumbar,Surgery,A,118,3,Occupational Therapy,4,30,Moderate,No,79,4,39.5,1,1,3,28,54,Depressed,3,3,5,1.91,4587,48.5,168,2.5,Change Therapy,No,7
+P0484,49,Male,156,73,21.4,Lumbar,Accident,E,19,3,Occupational Therapy,4,20,None,No,55,15,46.7,2,7,3,38,18,Anxious,5,1,33,0.83,10400,39.5,130,78.6,Change Therapy,Yes,8
+P0485,40,Female,159,99,33.1,Complete,Accident,D,118,2,Physiotherapy,3,89,None,No,86,14,26.8,4,7,3,26,28,Anxious,4,8,62,1.6,11515,21.1,70,32.1,Increase Frequency,No,9
+P0486,50,Male,156,98,29.0,Lumbar,Degenerative Disease,D,15,1,Occupational Therapy,0,39,Low,No,19,1,19.2,2,4,1,35,1,Stable,3,3,77,1.28,4425,44.2,40,3.7,Maintain Plan,Yes,6
+P0487,20,Male,182,100,22.9,Complete,Surgery,E,28,3,None,0,44,Low,Yes,53,8,40.5,1,2,1,44,35,Depressed,8,8,47,0.26,2408,87.9,79,91.8,Change Therapy,Yes,9
+P0488,35,Female,172,85,31.9,Thoracic,Accident,C,24,3,None,3,76,None,No,24,6,35.7,0,3,2,16,18,Stable,3,7,22,1.67,2549,43.1,40,14.0,Maintain Plan,No,4
+P0489,42,Female,170,115,32.6,Cervical,Surgery,A,72,0,None,1,48,Moderate,No,27,3,45.0,3,8,2,55,6,Stable,6,2,83,1.39,13156,70.9,126,55.2,Increase Frequency,Yes,8
+P0490,59,Male,168,83,32.4,Complete,Surgery,A,107,3,Occupational Therapy,4,86,Moderate,Yes,4,19,36.2,3,8,0,33,25,Depressed,7,1,12,0.48,9966,108.8,145,27.4,Increase Frequency,Unknown,3
+P0491,48,Female,197,85,33.6,Incomplete,Degenerative Disease,D,9,1,Exoskeleton-Assisted Therapy,4,19,Low,Yes,20,17,16.0,1,6,0,45,78,Stable,7,7,46,0.25,9637,89.4,153,6.5,Maintain Plan,Yes,4
+P0492,71,Male,168,55,22.3,Complete,Degenerative Disease,E,47,1,Exoskeleton-Assisted Therapy,2,16,Low,No,17,3,46.9,3,9,2,2,37,Depressed,2,1,43,1.69,8672,59.5,92,5.0,Change Therapy,Yes,4
+P0493,75,Female,185,88,30.8,Lumbar,Degenerative Disease,A,33,0,None,3,27,Low,Yes,46,12,9.7,2,9,1,4,2,Depressed,3,6,31,0.25,4404,57.2,95,11.6,Increase Frequency,No,6
+P0494,20,Other,178,91,25.8,Thoracic,Degenerative Disease,A,62,3,Physiotherapy,2,40,High,No,69,0,17.1,3,4,2,13,79,Stable,4,8,25,0.27,10919,65.6,97,7.1,Reduce Intensity,Unknown,9
+P0495,57,Other,167,107,32.3,Thoracic,Degenerative Disease,C,97,3,Exoskeleton-Assisted Therapy,2,65,High,No,56,2,28.4,1,1,0,2,65,Unknown,7,7,52,0.91,4296,37.7,153,76.1,Increase Frequency,Yes,6
+P0496,63,Other,151,61,30.4,Complete,Degenerative Disease,B,19,3,Occupational Therapy,0,24,Low,Yes,92,15,30.5,1,1,1,22,94,Stable,2,4,13,0.36,792,83.4,84,48.6,Change Therapy,Yes,1
+P0497,41,Other,150,52,31.2,Cervical,Degenerative Disease,D,67,2,Exoskeleton-Assisted Therapy,4,57,Moderate,No,18,3,5.7,2,5,1,38,91,Anxious,3,1,51,1.84,13371,56.4,105,34.3,Reduce Intensity,Yes,5
+P0498,67,Other,196,67,29.2,Incomplete,Degenerative Disease,D,74,3,None,2,40,Low,No,96,15,40.1,3,2,0,29,70,Stable,7,1,35,0.99,10914,105.2,53,41.8,Increase Frequency,Yes,9
+P0499,49,Male,154,89,21.0,Thoracic,Accident,B,40,1,Physiotherapy,0,5,High,Yes,64,18,21.3,3,6,2,49,93,Depressed,7,4,7,1.18,6766,95.7,75,92.9,Change Therapy,Yes,5
+P0500,64,Other,169,70,27.3,Lumbar,Surgery,A,47,1,Exoskeleton-Assisted Therapy,3,74,Moderate,Yes,2,0,23.3,0,7,3,44,42,Anxious,3,5,39,1.86,6870,81.1,94,91.1,Change Therapy,Yes,6

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function Footer() {
     return (
-        <footer className="w-full bg-gradient-to-r from-indigo-700 to-blue-600 text-white py-4 px-8 fixed bottom-0 z-50">
+        <footer className="w-full bg-gradient-to-r from-indigo-700 to-blue-600 text-white py-4 px-8  bottom-0 z-50">
             <div className="flex justify-between items-center">
                 <p className="text-sm">
                     © {new Date().getFullYear()} Smart Rehab. All rights reserved.
