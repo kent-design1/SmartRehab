@@ -20,9 +20,13 @@ df = pd.read_csv("synthetic_rehab_dataset.csv")
 # Convert weekly scores from string to list (if stored as a string)
 df["Weekly SCIM Scores"] = df["Weekly SCIM Scores"].apply(ast.literal_eval)
 
-# Fill missing values in 'Therapy Adjustment' and 'Adjustment Week'
+# For columns that are arrays, convert them to a string so that one-hot encoding can handle them.
+for col in ["Therapy Adjustment", "Adjustment Week"]:
+    df[col] = df[col].apply(lambda x: ",".join(map(str, x)) if isinstance(x, list) else str(x))
+
+# (Optional) Fill missing values if needed.
 df['Therapy Adjustment'] = df['Therapy Adjustment'].fillna('None')
-df['Adjustment Week'] = df['Adjustment Week'].fillna(0)
+df['Adjustment Week'] = df['Adjustment Week'].fillna('0')
 
 print("Missing values in key columns:")
 print(df[['Therapy Adjustment', 'Adjustment Week']].isna().sum())
@@ -43,10 +47,8 @@ def compute_weekly_trends(scim_list):
     slope = (scim_list[8] - scim_list[0]) / 8
     return avg_improvement, slope
 
-# Apply to each row and store results in new columns.
 df[['Avg_Improvement', 'Slope']] = df.apply(lambda row: pd.Series(compute_weekly_trends(row["Weekly SCIM Scores"])), axis=1)
 
-# Optionally, compute variance of weekly improvements as another feature.
 def compute_improvement_variance(scim_list):
     if len(scim_list) < 9:
         return np.nan
@@ -78,20 +80,20 @@ X_train_static, X_test_static, y_train_static, y_test_static = train_test_split(
 # Hyperparameter Tuning with GridSearchCV
 # --------------------------
 
-# 1. Random Forest Regressor
-rf = RandomForestRegressor(random_state=42)
-rf_param_grid = {
-    'n_estimators': [100, 300, 500],
-    'max_depth': [None, 10, 15, 20],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4]
-}
-rf_grid = GridSearchCV(rf, rf_param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
-rf_grid.fit(X_train_static, y_train_static)
-best_rf = rf_grid.best_estimator_
-print("Best Random Forest Parameters:")
-print(rf_grid.best_params_)
-print("Random Forest CV RMSE: {:.2f}".format(np.sqrt(-rf_grid.best_score_)))
+# # 1. Random Forest Regressor
+# rf = RandomForestRegressor(random_state=42)
+# rf_param_grid = {
+#     'n_estimators': [100, 300, 500],
+#     'max_depth': [None, 10, 15, 20],
+#     'min_samples_split': [2, 5, 10],
+#     'min_samples_leaf': [1, 2, 4]
+# }
+# rf_grid = GridSearchCV(rf, rf_param_grid, cv=5, scoring='neg_mean_squared_error', n_jobs=-1)
+# rf_grid.fit(X_train_static, y_train_static)
+# best_rf = rf_grid.best_estimator_
+# print("Best Random Forest Parameters:")
+# print(rf_grid.best_params_)
+# print("Random Forest CV RMSE: {:.2f}".format(np.sqrt(-rf_grid.best_score_)))
 
 # 2. Extra Trees Regressor
 et = ExtraTreesRegressor(random_state=42)
@@ -127,7 +129,7 @@ print("Gradient Boosting CV RMSE: {:.2f}".format(np.sqrt(-gb_grid.best_score_)))
 # Create a Voting Regressor Ensemble
 # --------------------------
 voting_reg = VotingRegressor(estimators=[
-    ('rf', best_rf),
+    # ('rf', best_rf),
     ('et', best_et),
     ('gb', best_gb)
 ])
@@ -154,17 +156,16 @@ plt.ylabel("Predicted SCIM Final")
 plt.title("Voting Ensemble: Actual vs Predicted Final SCIM Scores")
 plt.show()
 
-# --------------------------
-# Feature Importance Visualization (using Random Forest as an example)
-# --------------------------
-importances = best_rf.feature_importances_
-feat_imp_df = pd.DataFrame({"Feature": X_train_static.columns, "Importance": importances})
-feat_imp_df = feat_imp_df.sort_values(by="Importance", ascending=False)
-plt.figure(figsize=(10, 6))
-sns.barplot(x="Importance", y="Feature", data=feat_imp_df.head(10))
-plt.title("Top 10 Feature Importances (Random Forest)")
-plt.show()
-
+# # --------------------------
+# # Feature Importance Visualization (using Random Forest as an example)
+# # --------------------------
+# importances = best_rf.feature_importances_
+# feat_imp_df = pd.DataFrame({"Feature": X_train_static.columns, "Importance": importances})
+# feat_imp_df = feat_imp_df.sort_values(by="Importance", ascending=False)
+# plt.figure(figsize=(10, 6))
+# sns.barplot(x="Importance", y="Feature", data=feat_imp_df.head(10))
+# plt.title("Top 10 Feature Importances (Random Forest)")
+# plt.show()
 
 
 
@@ -232,48 +233,56 @@ print(f"RMSE: {rmse_ts:.3f}")
 print(f"R^2: {r2_ts:.3f}")
 
 
+import numpy as np
 
+# --- Define your therapy cost dictionary (should be already defined in your script) ---
+therapy_costs = {
+    "Physiotherapy": 100,
+    "Occupational Therapy": 120,
+    "Medication": 80,
+    "Lifestyle Changes": 50,
+    "Respiratory Management": 150,
+    "Spasticity Management": 130,
+    "Mobility & Upper Limb Training": 110,
+    "Strength & FES Training": 140,
+    "Comprehensive SCI Rehab": 200
+}
 
-
-# --------------------------
-# Hybrid Prediction Function for 4-Week Forecast and Therapy Recommendation
-# --------------------------
+# --- Hybrid Prediction Function for 4-Week Forecast and Therapy Recommendation ---
 def predict_week8_and_recommend(new_patient_baseline, new_patient_weekly_4w=None, alpha=0.5):
     """
     Predict the SCIM score at week 8, recommend therapy adjustments, and estimate cost efficiency.
 
     Parameters:
         new_patient_baseline (array-like): Preprocessed baseline features (matching X_train_static).
+                                          (Assumes the first element is Baseline SCIM and the second is Total Therapy Cost)
         new_patient_weekly_4w (list, optional): List of weekly SCIM scores for weeks 0-4.
-        alpha (float): Blending weight (0: only static model; 1: only LSTM model).
+        alpha (float): Blending weight (0 means only static model; 1 means only LSTM model).
 
     Returns:
-        dict: Contains predicted week8 SCIM score, recommended therapy plan, predicted cost, and cost efficiency.
+        dict: Contains predicted Week8 SCIM score, recommended therapy plan, predicted total cost, and cost efficiency.
     """
-    # Predict SCIM at week 8 using the static model
+    # Use best_et as the static model (make sure best_et is defined from your previous training)
     static_model = best_et
     pred_static = static_model.predict(new_patient_baseline.reshape(1, -1))[0]
 
-    # Use LSTM if weekly data for weeks 0-4 is provided
+    # Use LSTM model if weekly data for weeks 0-4 is provided (make sure lstm_model is defined)
     if new_patient_weekly_4w is not None and len(new_patient_weekly_4w) >= 5:
-        new_patient_weekly_4w = np.array(new_patient_weekly_4w[:5]) / 100.0  # normalize
+        new_patient_weekly_4w = np.array(new_patient_weekly_4w[:5]) / 100.0  # normalize assuming scores are 0-100
         new_patient_weekly_4w = new_patient_weekly_4w.reshape(1, 5, 1)
-        pred_lstm = lstm_model.predict(new_patient_weekly_4w)[0][0] * 100  # rescale
+        pred_lstm = lstm_model.predict(new_patient_weekly_4w)[0][0] * 100  # rescale to 0-100
     else:
-        pred_lstm = pred_static  # fallback
+        pred_lstm = pred_static  # fallback if no weekly data
 
-    # Blend predictions
+    # Blend the predictions using weight alpha
     week8_scim = alpha * pred_lstm + (1 - alpha) * pred_static
 
-    # Assume the baseline includes a "Baseline SCIM" and "Total Therapy Cost" column
-    # Here, we extract them from new_patient_baseline using the appropriate column indices.
-    # (Adjust these indices as needed; here we assume "Baseline SCIM" is the first column and "Total Therapy Cost" is the second.)
+    # Extract baseline SCIM and Total Therapy Cost from the baseline features.
     baseline_scim = new_patient_baseline[0]
     total_cost = new_patient_baseline[1]
 
-    # Determine improvement
+    # Calculate improvement and determine therapy recommendation.
     improvement = week8_scim - baseline_scim
-    # Recommend therapy adjustment based on improvement thresholds
     if improvement < 5:
         therapy_rec = "Change Therapy"
     elif improvement < 10:
@@ -281,7 +290,7 @@ def predict_week8_and_recommend(new_patient_baseline, new_patient_weekly_4w=None
     else:
         therapy_rec = "Maintain Plan"
 
-    # Predict cost efficiency: defined as week8_scim / (Total Therapy Cost + 1)
+    # Compute cost efficiency: (Week8 SCIM) divided by (Total Therapy Cost + 1)
     cost_efficiency = week8_scim / (total_cost + 1)
 
     return {
@@ -292,20 +301,122 @@ def predict_week8_and_recommend(new_patient_baseline, new_patient_weekly_4w=None
     }
 
 # --------------------------
-# Example Usage:
+# Accepting User Inputs
 # --------------------------
-# Assume new_patient_baseline is provided as an array with at least two features:
-# [Baseline SCIM, Total Therapy Cost, ...other baseline features...]
-# For demonstration, we take the first row from the static test set and assume that it includes these two columns at positions 0 and 1.
-example_baseline = X_test_static.iloc[0].values
-# And assume we have 4 weeks of SCIM scores for this patient (from the dataset)
-example_weekly_4w = df.iloc[0]["Weekly SCIM Scores"][:5]
+# Prompt the user for baseline data.
+print("Please enter the following baseline data:")
+baseline_scim = float(input("Baseline SCIM score (0-100): "))
+therapy_plan = input("Therapy Plan (choose from: Physiotherapy, Occupational Therapy, Medication, Lifestyle Changes, Respiratory Management, Spasticity Management, Mobility & Upper Limb Training, Strength & FES Training, Comprehensive SCI Rehab): ")
+sessions_per_week = int(input("Number of sessions per week: "))
+duration_weeks = int(input("Treatment duration in weeks: "))
 
-predictions = predict_week8_and_recommend(example_baseline, new_patient_weekly_4w=example_weekly_4w, alpha=0.5)
+# Calculate total therapy cost based on the selected therapy plan.
+if therapy_plan in therapy_costs:
+    per_session_cost = therapy_costs[therapy_plan]
+else:
+    per_session_cost = 100  # Default cost
+total_cost = per_session_cost * sessions_per_week * duration_weeks
+
+# Create baseline feature array.
+# IMPORTANT: new_patient_baseline should have the same number of features as used in your static model.
+# Here, we assume the first two features are Baseline SCIM and Total Therapy Cost.
+# If your model expects more features, you may need to prompt for them or pad with default values.
+num_features_required = X_train_static.shape[1]
+user_baseline = [baseline_scim, total_cost]
+while len(user_baseline) < num_features_required:
+    user_baseline.append(0.0)  # Pad with zeros if necessary
+user_baseline = np.array(user_baseline)
+
+# Prompt the user for weekly SCIM scores for weeks 0-4.
+weekly_input = input("Enter weekly SCIM scores for weeks 0-4 separated by commas (or leave blank if not available): ")
+if weekly_input.strip():
+    new_patient_weekly_4w = [float(x.strip()) for x in weekly_input.split(",")]
+else:
+    new_patient_weekly_4w = None
+
+# --------------------------
+# Perform Prediction
+# --------------------------
+predictions = predict_week8_and_recommend(user_baseline, new_patient_weekly_4w=new_patient_weekly_4w, alpha=0.5)
 print("\nPredictions for New Patient:")
 for key, value in predictions.items():
-    print(f"{key}: {value:.2f}" if isinstance(value, float) else f"{key}: {value}")
+    if isinstance(value, float):
+        print(f"{key}: {value:.2f}")
+    else:
+        print(f"{key}: {value}")
 
+#
+# # --------------------------
+# # Hybrid Prediction Function for 4-Week Forecast and Therapy Recommendation
+# # --------------------------
+# def predict_week8_and_recommend(new_patient_baseline, new_patient_weekly_4w=None, alpha=0.5):
+#     """
+#     Predict the SCIM score at week 8, recommend therapy adjustments, and estimate cost efficiency.
+#
+#     Parameters:
+#         new_patient_baseline (array-like): Preprocessed baseline features (matching X_train_static).
+#         new_patient_weekly_4w (list, optional): List of weekly SCIM scores for weeks 0-4.
+#         alpha (float): Blending weight (0: only static model; 1: only LSTM model).
+#
+#     Returns:
+#         dict: Contains predicted week8 SCIM score, recommended therapy plan, predicted cost, and cost efficiency.
+#     """
+#     # Predict SCIM at week 8 using the static model
+#     static_model = best_et
+#     pred_static = static_model.predict(new_patient_baseline.reshape(1, -1))[0]
+#
+#     # Use LSTM if weekly data for weeks 0-4 is provided
+#     if new_patient_weekly_4w is not None and len(new_patient_weekly_4w) >= 5:
+#         new_patient_weekly_4w = np.array(new_patient_weekly_4w[:5]) / 100.0  # normalize
+#         new_patient_weekly_4w = new_patient_weekly_4w.reshape(1, 5, 1)
+#         pred_lstm = lstm_model.predict(new_patient_weekly_4w)[0][0] * 100  # rescale
+#     else:
+#         pred_lstm = pred_static  # fallback
+#
+#     # Blend predictions
+#     week8_scim = alpha * pred_lstm + (1 - alpha) * pred_static
+#
+#     # Assume the baseline includes a "Baseline SCIM" and "Total Therapy Cost" column
+#     # Here, we extract them from new_patient_baseline using the appropriate column indices.
+#     # (Adjust these indices as needed; here we assume "Baseline SCIM" is the first column and "Total Therapy Cost" is the second.)
+#     baseline_scim = new_patient_baseline[0]
+#     total_cost = new_patient_baseline[1]
+#
+#     # Determine improvement
+#     improvement = week8_scim - baseline_scim
+#     # Recommend therapy adjustment based on improvement thresholds
+#     if improvement < 5:
+#         therapy_rec = "Change Therapy"
+#     elif improvement < 10:
+#         therapy_rec = "Increase Frequency"
+#     else:
+#         therapy_rec = "Maintain Plan"
+#
+#     # Predict cost efficiency: defined as week8_scim / (Total Therapy Cost + 1)
+#     cost_efficiency = week8_scim / (total_cost + 1)
+#
+#     return {
+#         "Predicted Week8 SCIM": week8_scim,
+#         "Therapy Recommendation": therapy_rec,
+#         "Predicted Total Cost": total_cost,
+#         "Cost Efficiency": cost_efficiency
+#     }
+#
+# # --------------------------
+# # Example Usage:
+# # --------------------------
+# # Assume new_patient_baseline is provided as an array with at least two features:
+# # [Baseline SCIM, Total Therapy Cost, ...other baseline features...]
+# # For demonstration, we take the first row from the static test set and assume that it includes these two columns at positions 0 and 1.
+# example_baseline = X_test_static.iloc[0].values
+# # And assume we have 4 weeks of SCIM scores for this patient (from the dataset)
+# example_weekly_4w = df.iloc[0]["Weekly SCIM Scores"][:5]
+#
+# predictions = predict_week8_and_recommend(example_baseline, new_patient_weekly_4w=example_weekly_4w, alpha=0.5)
+# print("\nPredictions for New Patient:")
+# for key, value in predictions.items():
+#     print(f"{key}: {value:.2f}" if isinstance(value, float) else f"{key}: {value}")
+#
 
 # # --------------------------
 # # Hybrid Prediction Functionl
