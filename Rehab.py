@@ -21,16 +21,19 @@ df = pd.read_csv("synthetic_rehab_dataset.csv")
 df["Weekly SCIM Scores"] = df["Weekly SCIM Scores"].apply(ast.literal_eval)
 
 # For columns that are arrays, convert them to a string so that one-hot encoding can handle them.
-for col in ["Therapy Adjustment", "Adjustment Week"]:
-    df[col] = df[col].apply(lambda x: ",".join(map(str, x)) if isinstance(x, list) else str(x))
+for col in ["Therapy Adjustments", "Adjustment Weeks"]:
+    if col in df.columns:
+        df[col] = df[col].apply(lambda x: ",".join(map(str, x)) if isinstance(x, list) else str(x))
 
 # (Optional) Fill missing values if needed.
-df['Therapy Adjustment'] = df['Therapy Adjustment'].fillna('None')
-df['Adjustment Week'] = df['Adjustment Week'].fillna('0')
+if "Therapy Adjustments" in df.columns:
+    df["Therapy Adjustments"] = df["Therapy Adjustments"].fillna('None')
+if "Adjustment Weeks" in df.columns:
+    df["Adjustment Weeks"] = df["Adjustment Weeks"].fillna('0')
 
+# Now, print missing values in key columns using the correct names.
 print("Missing values in key columns:")
-print(df[['Therapy Adjustment', 'Adjustment Week']].isna().sum())
-print(df.isna().sum())
+print(df[['Therapy Adjustments', 'Adjustment Weeks']].isna().sum())
 
 # --------------------------
 # Feature Engineering: Weekly Progress Trends
