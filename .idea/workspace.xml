@@ -5,12 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rehab.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rehab.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graphs.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Smart2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Smart2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/processed_rehab_data.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SyntheticData.py" beforeDir="false" afterPath="$PROJECT_DIR$/SyntheticData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/Dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Dashboard/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/synthetic_rehab_dataset.csv" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +101,7 @@
       <workItem from="1742074079113" duration="5133000" />
       <workItem from="1742222863165" duration="903000" />
       <workItem from="1742223782387" duration="37196000" />
-      <workItem from="1743242724932" duration="28133000" />
+      <workItem from="1743242724932" duration="46480000" />
     </task>
     <servers />
   </component>
