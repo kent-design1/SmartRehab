@@ -11,7 +11,7 @@ export default function PredictPage() {
     const [prediction, setPrediction] = useState<number | null>(null);
 
     return (
-        <section className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 flex items-start justify-center py-16">
+        <section className="min-h-screen  flex items-start justify-center py-16">
             <div className="w-full max-w-3xl bg-white bg-opacity-80 backdrop-blur-sm rounded-3xl shadow-2xl p-10 space-y-10">
 
                 {/* Tabs */}

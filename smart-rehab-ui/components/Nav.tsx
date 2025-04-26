@@ -46,7 +46,7 @@ export default function Navbar() {
                 <Link href="/contact" className="text-gray-800 hover:text-blue-200 transition font-medium">
                     Contact
                 </Link>
-                <Link href="/docs" className="text-gray-800 hover:text-blue-200 transition text-sm font-medium">
+                <Link href="/apidocs" className="text-gray-800 hover:text-blue-200 transition text-sm font-medium">
                     API Docs
                 </Link>
             </div>
