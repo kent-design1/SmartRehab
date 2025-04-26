@@ -1,111 +1,178 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split, RandomizedSearchCV
-from sklearn.ensemble import ExtraTreesRegressor, GradientBoostingRegressor, VotingRegressor
-from sklearn.metrics import mean_squared_error, r2_score
 import ast
+import pickle
+
+from sklearn.model_selection import RandomizedSearchCV, cross_val_score, KFold
+from sklearn.ensemble import ExtraTreesRegressor, GradientBoostingRegressor, VotingRegressor
+from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
 # --------------------------
-# Load Swiss Synthetic Dataset
+# 1) Load & Parse Dataset
 # --------------------------
-df = pd.read_csv("synthetic_rehab_600_swiss.csv")
-
-# Parse Therapy Plan History from string to list
+df = pd.read_csv("synthetic_rehab_600_swiss_realistic.csv")
 df["Therapy Plan History"] = df["Therapy Plan History"].apply(ast.literal_eval)
 
 # --------------------------
-# Feature Engineering
+# 2) Define Feature Sets
 # --------------------------
-# Trend slope from admission to discharge
-df["Trend_Slope"] = (df["Total_SCIM_24"] - df["Total_SCIM_0"]) / 24.0
-
-# Improvements over first and second half
-df["Imp_0_12"] = (df["Total_SCIM_12"] - df["Total_SCIM_0"]) / 12.0
-df["Imp_12_24"] = (df["Total_SCIM_24"] - df["Total_SCIM_12"]) / 12.0
-
-# Count therapy plan changes
-df["Num_Therapy_Changes"] = df["Therapy Plan History"].apply(lambda lst: max(len(lst) - 1, 0))
-
-# --------------------------
-# Prepare Data for Static Model
-# --------------------------
-# Target: discharge SCIM
-y = df["Total_SCIM_24"]
-
-# Features: drop identifiers, list‑columns, instruments, and target
 drop_cols = [
-    "Patient ID",
-    "Therapy Plan History",
+    "Patient ID", "Therapy Plan History",
     "Instrument_Self-Care", "Instrument_Respiration",
-    "Instrument_Mobility", "Instrument_Total_SCIM",
-    "Total_SCIM_24"
+    "Instrument_Mobility", "Instrument_Total_SCIM"
 ]
-X = df.drop(columns=drop_cols)
+all_features = [c for c in df.columns if c not in drop_cols]
 
-# One‑hot encode categorical variables
-X = pd.get_dummies(X, drop_first=True)
+def is_scim_column(col):
+    prefixes = ["Total_SCIM_", "Self-Care_", "Respiration_", "Mobility_"]
+    return any(col.startswith(p) for p in prefixes)
 
-# Split to train/test
-X_train, X_test, y_train, y_test = train_test_split(
-    X, y, test_size=0.2, random_state=42
-)
+base_feats = [c for c in all_features if not is_scim_column(c)]
 
-# --------------------------
-# Static Model Tuning & Training
-# --------------------------
-# 1) Extra Trees Regressor
-et = ExtraTreesRegressor(random_state=42)
-et_params = {
-    "n_estimators": [100, 300],
-    "max_depth": [None, 10, 20],
-    "min_samples_split": [2, 5],
-    "min_samples_leaf": [1, 2]
+previous_scim = {
+    6:  [0],
+    12: [0, 6],
+    18: [0, 6, 12],
+    24: [0, 6, 12, 18]
 }
-et_search = RandomizedSearchCV(
-    et, et_params, n_iter=10, cv=3,
-    scoring="neg_mean_squared_error", random_state=42, n_jobs=-1
-)
-et_search.fit(X_train, y_train)
-best_et = et_search.best_estimator_
 
-# 2) Gradient Boosting Regressor
-gb = GradientBoostingRegressor(random_state=42)
-gb_params = {
-    "n_estimators": [100, 200],
-    "max_depth": [3, 5],
-    "learning_rate": [0.05, 0.1]
-}
-gb_search = RandomizedSearchCV(
-    gb, gb_params, n_iter=10, cv=3,
-    scoring="neg_mean_squared_error", random_state=42, n_jobs=-1
-)
-gb_search.fit(X_train, y_train)
-best_gb = gb_search.best_estimator_
-
-# 3) Voting Ensemble
-voting = VotingRegressor([("et", best_et), ("gb", best_gb)])
-voting.fit(X_train, y_train)
+target_weeks = [6, 12, 18, 24]
+results = {}
 
 # --------------------------
-# Evaluation on Test Set
+# 3) Per-Week Modeling
 # --------------------------
-y_pred = voting.predict(X_test)
-rmse = np.sqrt(mean_squared_error(y_test, y_pred))
-r2 = r2_score(y_test, y_pred)
-print(f"Test RMSE: {rmse:.2f}")
-print(f"Test R²:   {r2:.2f}")
+for wk in target_weeks:
+    target_col = f"Total_SCIM_{wk}"
+    data = df.dropna(subset=[target_col]).copy()
 
-# Plot Actual vs Predicted
-plt.figure(figsize=(6,6))
-plt.scatter(y_test, y_pred, alpha=0.5)
-plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], "r--", linewidth=2)
-plt.xlabel("Actual SCIM_24")
-plt.ylabel("Predicted SCIM_24")
-plt.title("Static Model: Actual vs Predicted")
-plt.tight_layout()
-plt.savefig("static_model_actual_vs_pred_swiss.png")
+    scim_feats = [f"Total_SCIM_{i}" for i in previous_scim[wk]]
+    feat_list = base_feats + scim_feats
+
+    X = data[feat_list]
+    y = data[target_col]
+
+    num_cols = X.select_dtypes(include=[np.number]).columns.tolist()
+    cat_cols = X.select_dtypes(include=["object"]).columns.tolist()
+
+    preprocessor = ColumnTransformer([
+        ("num", SimpleImputer(strategy="median"), num_cols),
+        ("cat", OneHotEncoder(handle_unknown='ignore'), cat_cols)
+    ])
+
+    models = {
+        'ExtraTrees': (
+            ExtraTreesRegressor(random_state=42),
+            {
+                'model__n_estimators': [100, 300, 500],
+                'model__max_depth': [None, 10, 20],
+                'model__min_samples_split': [2, 5],
+                'model__min_samples_leaf': [1, 2]
+            }
+        ),
+        'GradientBoosting': (
+            GradientBoostingRegressor(random_state=42),
+            {
+                'model__n_estimators': [100, 200, 300],
+                'model__learning_rate': [0.05, 0.1, 0.2],
+                'model__max_depth': [3, 5, 7]
+            }
+        )
+    }
+
+    best_models = {}
+    for name, (estimator, params) in models.items():
+        pipe = Pipeline([
+            ('preproc', preprocessor),
+            ('model', estimator)
+        ])
+        search = RandomizedSearchCV(
+            pipe, params,
+            n_iter=10,
+            cv=KFold(n_splits=5, shuffle=True, random_state=42),
+            scoring='neg_mean_squared_error',
+            random_state=42,
+            n_jobs=-1
+        )
+        search.fit(X, y)
+        best = search.best_estimator_
+
+        rmse_cv = np.sqrt(-cross_val_score(best, X, y, cv=5, scoring='neg_mean_squared_error').mean())
+        mae_cv = -cross_val_score(best, X, y, cv=5, scoring='neg_mean_absolute_error').mean()
+
+        best_models[name] = {
+            'estimator': best,
+            'RMSE_CV': rmse_cv,
+            'MAE_CV': mae_cv
+        }
+
+    voting = Pipeline([
+        ('preproc', preprocessor),
+        ('model', VotingRegressor([
+            ('et', best_models['ExtraTrees']['estimator'].named_steps['model']),
+            ('gb', best_models['GradientBoosting']['estimator'].named_steps['model'])
+        ]))
+    ])
+    voting.fit(X, y)
+
+    # Compute RMSE as sqrt of MSE
+    rmse_v = np.sqrt(mean_squared_error(y, voting.predict(X)))
+    mae_v = mean_absolute_error(y, voting.predict(X))
+
+    with open(f"model_week{wk}.pkl", "wb") as f:
+        pickle.dump({
+            'et': best_models['ExtraTrees']['estimator'],
+            'gb': best_models['GradientBoosting']['estimator'],
+            'voting': voting
+        }, f)
+
+    results[wk] = {
+        'ExtraTrees': (best_models['ExtraTrees']['RMSE_CV'], best_models['ExtraTrees']['MAE_CV']),
+        'GradientBoosting': (best_models['GradientBoosting']['RMSE_CV'], best_models['GradientBoosting']['MAE_CV']),
+        'Voting': (rmse_v, mae_v)
+    }
+
+# --------------------------
+# 4) Summary of Results
+# --------------------------
+for wk, res in results.items():
+    print(f"Week {wk} prediction performance:")
+    for model_name, (rmse, mae) in res.items():
+        print(f"  {model_name:15} RMSE={rmse:.2f}, MAE={mae:.2f}")
+    print()
 
 
-importances = pd.Series(best_et.feature_importances_, index=X_train.columns)
-print(importances.sort_values(ascending=False).head(15))
+# --------------------------
+# 5) Visualization: Voting Ensemble vs Actual
+# --------------------------
+import matplotlib.pyplot as plt
+
+for wk in target_weeks:
+    # Load the voting ensemble for this week
+    with open(f"model_week{wk}.pkl", "rb") as f:
+        models = pickle.load(f)
+    voting = models['voting']
+
+    # Prepare data
+    data_wk = df.dropna(subset=[f"Total_SCIM_{wk}"])
+    feat_list = base_feats + [f"Total_SCIM_{i}" for i in previous_scim[wk]]
+    X_wk = data_wk[feat_list]
+    y_wk = data_wk[f"Total_SCIM_{wk}"]
+
+    # Predict and plot
+    y_pred_wk = voting.predict(X_wk)
+    plt.figure(figsize=(6,4))
+    plt.scatter(y_wk, y_pred_wk, alpha=0.5)
+    lims = [min(y_wk.min(), y_pred_wk.min()), max(y_wk.max(), y_pred_wk.max())]
+    plt.plot(lims, lims, ls='--')
+    plt.xlabel(f"Actual SCIM Week {wk}")
+    plt.ylabel(f"Predicted SCIM Week {wk}")
+    plt.title(f"Week {wk}: Actual vs Predicted (Voting Ensemble)")
+    plt.tight_layout()
+    plt.savefig(f"scatter_week{wk}.png")
+    print(f"Saved scatter_week{wk}.png")
+

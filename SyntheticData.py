@@ -7,6 +7,9 @@ import numpy as np
 # ==========================
 NUM_PATIENTS = 600
 MEAS_WEEKS = [0, 6, 12, 18, 24]
+DROPOUT_PROB = 0.1            # 10% drop out after week 12
+MISSING_PROB = 0.05           # 5% chance a particular measurement is missing
+OUTLIER_PROB = 0.02           # 2% of patients are outliers
 
 # Domain maxima for SCIM
 MAX_SELF = 40
@@ -50,14 +53,12 @@ therapy_costs = {
 }
 
 # SCIM instruments
-instr_self = "SCIM III Self‑Care Domain"
+instr_self = "SCIM III Self-Care Domain"
 instr_resp = "SCIM III Respiration & Sphincter Domain"
 instr_mob = "SCIM III Mobility Domain"
 instr_total = "Spinal Cord Independence Measure Version III"
 
-# ==========================
 # Swiss‐specific demographics
-# ==========================
 ethnicities = ["Swiss", "German", "French", "Italian", "Other"]
 education_levels = [
     "Compulsory School",
@@ -69,7 +70,7 @@ education_levels = [
 insurance_types = [
     "Basic Mandatory",
     "Supplementary Private",
-    "Employer‑Sponsored",
+    "Employer-Sponsored",
     "Uninsured"
 ]
 regions = ["Zurich", "Bern", "Geneva", "Vaud", "Other"]
@@ -86,13 +87,25 @@ def pick_alt_plan(curr, cond):
 
 def initial_scores():
     return (
-        random.randint(0, int(0.4 * MAX_SELF)),
-        random.randint(0, int(0.4 * MAX_RESP)),
-        random.randint(0, int(0.4 * MAX_MOB))
+        random.randint(int(0.1 * MAX_SELF), int(0.3 * MAX_SELF)),
+        random.randint(int(0.1 * MAX_RESP), int(0.3 * MAX_RESP)),
+        random.randint(int(0.1 * MAX_MOB), int(0.3 * MAX_MOB))
     )
 
-def simulate_score(base, rate, wk, sigma):
-    return base + rate * wk + np.random.normal(0, sigma)
+def simulate_score(base, rate, wk, plateau=False):
+    effective_rate = rate * (0.3 if plateau else 1.0)
+    noise_sd = 0.5 + 0.05 * wk
+    return base + effective_rate * wk + np.random.normal(0, noise_sd)
+
+# ==========================
+# Pre-generate Lab & Psychosocial Values
+# ==========================
+np.random.seed(42)
+crp_vals        = np.clip(np.random.normal(5, 3, NUM_PATIENTS), 0.1, 50)
+hb_vals         = np.clip(np.random.normal(13.5, 1.0, NUM_PATIENTS), 8, 18)
+glucose_vals    = np.clip(np.random.normal(100, 20, NUM_PATIENTS), 50, 300)
+phq9_vals       = np.random.randint(0, 28, NUM_PATIENTS)
+gad7_vals       = np.random.randint(0, 22, NUM_PATIENTS)
 
 # ==========================
 # Build Dataset
@@ -100,35 +113,40 @@ def simulate_score(base, rate, wk, sigma):
 records = []
 
 for pid in range(1, NUM_PATIENTS + 1):
-    # Demographics & Anthropometrics
-    age = random.randint(18, 90)
+    outlier_factor = 1.0
+    if random.random() < OUTLIER_PROB:
+        outlier_factor = random.choice([0.5, 1.5])
+
+    age = int(np.clip(random.gauss(60, 15), 18, 90))
     gender = random.choice(["Male", "Female"])
     ethnicity = random.choice(ethnicities)
     education = random.choice(education_levels)
     insurance = random.choice(insurance_types)
     region = random.choice(regions)
-
     height_cm = random.randint(150, 200)
     weight_kg = round(random.uniform(50, 120), 1)
     bmi = round(weight_kg / ((height_cm / 100) ** 2), 1)
 
-    # Condition & Therapy
+    crp_val  = crp_vals[pid-1]
+    hb_val   = hb_vals[pid-1]
+    gluc_val = glucose_vals[pid-1]
+    phq9     = phq9_vals[pid-1]
+    gad7     = gad7_vals[pid-1]
+
     cond = random.choices(health_conditions, weights=condition_probs, k=1)[0]
     sessions_per_week = random.choice([2, 3, 4, 5])
     current_plan = classify_initial_plan(cond)
     plan_history = []
 
-    # Baseline SCIM scores and rates
     b_s, b_r, b_m = initial_scores()
-    rate_s = random.uniform(0.5, 1.0)
-    rate_r = random.uniform(0.2, 0.6)
-    rate_m = random.uniform(0.5, 1.0)
+    rate_s = outlier_factor * random.uniform(0.8, 1.2)
+    rate_r = outlier_factor * random.uniform(0.3, 0.7)
+    rate_m = outlier_factor * random.uniform(0.8, 1.2)
 
-    # Additional clinical measures
     engage = random.randint(1, 100)
     mental = random.randint(1, 6)
-    pain = random.randint(1, 11)
-    fatigue = random.randint(1, 11)
+    pain = np.clip(int(random.gauss(5, 2)), 1, 10)
+    fatigue = np.clip(int(random.gauss(5, 2)), 1, 10)
     musc_up = random.randint(1, 10)
     musc_lo = random.randint(1, 10)
     balance = random.randint(1, 101)
@@ -145,6 +163,11 @@ for pid in range(1, NUM_PATIENTS + 1):
         "Height_cm": height_cm,
         "Weight_kg": weight_kg,
         "BMI": bmi,
+        "CRP_mg_L": crp_val,
+        "Hemoglobin_g_dL": hb_val,
+        "Glucose_mg_dL": gluc_val,
+        "PHQ9": phq9,
+        "GAD7": gad7,
         "Health Condition": cond,
         "Sessions per Week": sessions_per_week,
         "Engagement Score": engage,
@@ -157,45 +180,48 @@ for pid in range(1, NUM_PATIENTS + 1):
         "Mobility Test Score": mobility_test
     }
 
-    # Timepoint SCIM and plan history
+    dropout = (random.random() < DROPOUT_PROB)
+
     for wk in MEAS_WEEKS:
+        if dropout and wk > 12:
+            rec[f"Self-Care_{wk}"]   = np.nan
+            rec[f"Respiration_{wk}"] = np.nan
+            rec[f"Mobility_{wk}"]    = np.nan
+            rec[f"Total_SCIM_{wk}"]  = np.nan
+            plan_history.append(None)
+            continue
+
         if wk == 12 and random.random() < 0.2:
             current_plan = pick_alt_plan(current_plan, cond)
         plan_history.append(current_plan)
 
-        s = min(MAX_SELF, simulate_score(b_s, rate_s, wk, sigma=1))
-        r = min(MAX_RESP, simulate_score(b_r, rate_r, wk, sigma=0.5))
-        m = min(MAX_MOB, simulate_score(b_m, rate_m, wk, sigma=1))
-        total = round(s + r + m, 1)
+        plateau = (wk > 18 and outlier_factor < 1.0)
+        s = simulate_score(b_s, rate_s, wk, plateau)
+        r = simulate_score(b_r, rate_r, wk, plateau)
+        m = simulate_score(b_m, rate_m, wk, plateau)
+        total = s + r + m
 
-        rec[f"Self-Care_{wk}"]   = round(s, 1)
-        rec[f"Respiration_{wk}"] = round(r, 1)
-        rec[f"Mobility_{wk}"]    = round(m, 1)
-        rec[f"Total_SCIM_{wk}"]  = total
+        if random.random() < MISSING_PROB:
+            s = r = m = total = np.nan
 
-    # Cost, instruments, history
-    rec["Therapy Plan History"]   = plan_history
-    rec["Total Estimated Cost"]   = sessions_per_week * MEAS_WEEKS[-1] * therapy_costs[current_plan]
-    rec["Instrument_Self-Care"]   = instr_self
-    rec["Instrument_Respiration"] = instr_resp
-    rec["Instrument_Mobility"]    = instr_mob
-    rec["Instrument_Total_SCIM"]  = instr_total
+        rec[f"Self-Care_{wk}"]   = round(min(MAX_SELF, s), 1)     if not np.isnan(s)     else np.nan
+        rec[f"Respiration_{wk}"] = round(min(MAX_RESP, r), 1)     if not np.isnan(r)     else np.nan
+        rec[f"Mobility_{wk}"]    = round(min(MAX_MOB, m), 1)     if not np.isnan(m)     else np.nan
+        rec[f"Total_SCIM_{wk}"]  = round(min(MAX_SELF+MAX_RESP+MAX_MOB, total), 1) if not np.isnan(total) else np.nan
+
+    rec["Therapy Plan History"]    = plan_history
+    rec["Total Estimated Cost"]    = sessions_per_week * MEAS_WEEKS[-1] * therapy_costs[current_plan]
+    rec["Instrument_Self-Care"]    = instr_self
+    rec["Instrument_Respiration"]  = instr_resp
+    rec["Instrument_Mobility"]     = instr_mob
+    rec["Instrument_Total_SCIM"]   = instr_total
 
     records.append(rec)
 
-# Create DataFrame and save
 df = pd.DataFrame(records)
-df.to_csv("synthetic_rehab_600_swiss.csv", index=False)
+df.to_csv("synthetic_rehab_600_swiss_realistic.csv", index=False)
 
-# Preview
 print(df.head(5))
-
-
-
-
-
-
-
 
 
 

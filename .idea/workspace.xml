@@ -5,16 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ml_api/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ml_api/app.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn/route.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignOut/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/layout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/PredictionResult.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Tabs.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/lib/api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/middleware.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graphs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Smart2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Smart2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/SyntheticData.py" beforeDir="false" afterPath="$PROJECT_DIR$/SyntheticData.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(root)/Dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignUp/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/BundleModel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/synthetic_rehab_dataset.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static_model_actual_vs_pred_swiss.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +34,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Dockerfile" />
       </list>
     </option>
   </component>
@@ -42,23 +52,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.SmartRehab.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/kent/Desktop/projects/SmartRehab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/kent/Desktop/projects/SmartRehab/smart-rehab-ui/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.SmartRehab.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "/Users/kent/Desktop/projects/SmartRehab/smart-rehab-ui/app/predict",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "ts.external.directory.path": "/Users/kent/Desktop/projects/SmartRehab/smart-rehab-ui/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="ReactDesignerToolWindowState">
     <option name="myId2Visible">
       <map>
@@ -70,10 +80,12 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/predict" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ml_api" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Data" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn" />
@@ -101,7 +113,7 @@
       <workItem from="1742074079113" duration="5133000" />
       <workItem from="1742222863165" duration="903000" />
       <workItem from="1742223782387" duration="37196000" />
-      <workItem from="1743242724932" duration="46480000" />
+      <workItem from="1743242724932" duration="69136000" />
     </task>
     <servers />
   </component>

@@ -1,31 +1,48 @@
+// components/Navbar.tsx
 import Link from "next/link";
 
 export default function Navbar() {
     return (
-        <nav className="w-full bg-gradient-to-r from-blue-600 to-indigo-700 shadow-xl py-4 px-8 flex justify-between items-center fixed top-0 z-50">
-            <h1 className="text-3xl font-extrabold text-white drop-shadow-lg">
-                Smart Rehab
-            </h1>
-            <div className="space-x-8">
-                <Link href="/" legacyBehavior>
-                    <a className="text-lg font-medium text-white hover:text-yellow-300 transition-all duration-300 ease-in-out">
-                        Home
-                    </a>
+        <nav className="fixed top-0 left-0 w-full bg-white/30 backdrop-blur-md shadow-lg py-4 px-6 flex items-center z-50">
+            {/* Logo */}
+            <div className="flex-shrink-0">
+                <Link href="/" className="text-2xl font-extrabold text-white drop-shadow-lg">
+                    SmartRehab
                 </Link>
-                <Link href="/predict" legacyBehavior>
-                    <a className="text-lg font-medium text-white hover:text-yellow-300 transition-all duration-300 ease-in-out">
-                        Prediction
-                    </a>
+            </div>
+
+            {/* Main nav links */}
+            <div className="flex-grow ml-10 space-x-8">
+                <Link href="/predict" className="text-white hover:text-blue-200 transition font-medium">
+                    Predict
                 </Link>
-                <Link href="/about" legacyBehavior>
-                    <a className="text-lg font-medium text-white hover:text-yellow-300 transition-all duration-300 ease-in-out">
-                        About
-                    </a>
+                <Link href="/dashboard" className="text-white hover:text-blue-200 transition font-medium">
+                    Dashboard
                 </Link>
-                <Link href="/contact" legacyBehavior>
-                    <a className="text-lg font-medium text-white hover:text-yellow-300 transition-all duration-300 ease-in-out">
-                        Contact
-                    </a>
+                <Link href="/about" className="text-white hover:text-blue-200 transition font-medium">
+                    About
+                </Link>
+                <Link href="/contact" className="text-white hover:text-blue-200 transition font-medium">
+                    Contact
+                </Link>
+                <Link href="/docs" className="text-white hover:text-blue-200 transition text-sm font-medium">
+                    API Docs
+                </Link>
+            </div>
+
+            {/* Auth buttons */}
+            <div className="flex-shrink-0 space-x-4">
+                <Link
+                    href="/auth/login"
+                    className="text-white hover:text-blue-200 transition font-medium"
+                >
+                    Login
+                </Link>
+                <Link
+                    href="/auth/signup"
+                    className="bg-blue-500 hover:bg-blue-600 text-white py-1.5 px-4 rounded-full shadow transition"
+                >
+                    Sign Up
                 </Link>
             </div>
         </nav>
