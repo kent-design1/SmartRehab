@@ -5,25 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ml_api/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ml_api/app.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn/route.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignOut/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/layout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/PredictionResult.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Tabs.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/lib/api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/login/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SyntheticData.py" beforeDir="false" afterPath="$PROJECT_DIR$/SyntheticData.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Test.py" beforeDir="false" afterPath="$PROJECT_DIR$/Test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignUp/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/BundleModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/Dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/login/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignOut/page.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignOut/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/logout/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static_model_actual_vs_pred_swiss.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,11 +79,11 @@
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/logout" />
+      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/login" />
       <recent name="$PROJECT_DIR$/ml_api" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/Data" />
-      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/SignIn" />
-      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)/Welcome" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -113,7 +107,7 @@
       <workItem from="1742074079113" duration="5133000" />
       <workItem from="1742222863165" duration="903000" />
       <workItem from="1742223782387" duration="37196000" />
-      <workItem from="1743242724932" duration="69136000" />
+      <workItem from="1743242724932" duration="72229000" />
     </task>
     <servers />
   </component>
