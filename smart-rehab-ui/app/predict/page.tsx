@@ -1,4 +1,4 @@
-// app/predict/page.tsx
+// app/predict/route.ts
 'use client';
 import { useState } from 'react';
 import Tabs from '@/components/Tabs';

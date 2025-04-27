@@ -1,4 +1,4 @@
-// app/about/page.tsx
+// app/about/route.ts
 import Image from 'next/image';
 import { HeroBg } from '@/assets';
 

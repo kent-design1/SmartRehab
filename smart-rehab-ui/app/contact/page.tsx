@@ -1,4 +1,4 @@
-// app/contact/page.tsx
+// app/contact/route.ts
 'use client';
 import { useState } from 'react';
 import { Mail, Phone, MapPin, User } from 'lucide-react';

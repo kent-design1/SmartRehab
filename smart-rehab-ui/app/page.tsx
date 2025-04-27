@@ -1,4 +1,4 @@
-// app/page.tsx
+// app/route.ts
 import Link from "next/link";
 import { HeroBg } from "@/assets";
 

@@ -1,4 +1,4 @@
-// app/docs/page.tsx
+// app/docs/route.ts
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 

@@ -1,4 +1,4 @@
-// app/predict/[week]/route.ts
+// app/predict/[week]/route.ts.tsx
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';

@@ -1,4 +1,4 @@
-// app/dashboard/page.tsx
+// app/dashboard/route.ts
 'use client';
 import { ChartPie, TrendingUp, BarChart } from 'lucide-react';
 

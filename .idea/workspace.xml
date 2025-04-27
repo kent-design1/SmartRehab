@@ -5,9 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/results/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/predict/[week]/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/apidocs/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/apidocs/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/auth/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/SignIn/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/predict/results/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/results/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/About.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/About.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/lib/api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/lib/api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +51,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/Users/kent/Desktop/projects/SmartRehab/smart-rehab-ui/app/predict",
+    "last_opened_file_path": "/Users/kent/Desktop/projects/SmartRehab/smart-rehab-ui/app/api",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -64,16 +73,17 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/predict" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/components" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/logout" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/login" />
       <recent name="$PROJECT_DIR$/ml_api" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -97,7 +107,7 @@
       <workItem from="1742074079113" duration="5133000" />
       <workItem from="1742222863165" duration="903000" />
       <workItem from="1742223782387" duration="37196000" />
-      <workItem from="1743242724932" duration="77981000" />
+      <workItem from="1743242724932" duration="81972000" />
     </task>
     <servers />
   </component>
