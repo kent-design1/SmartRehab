@@ -1,81 +1,143 @@
-// components/Navbar.tsx
+// components/Nav.tsx
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { User } from 'lucide-react';
+import { useEffect, useState, useRef } from 'react';
+import { Menu, X, User } from 'lucide-react';
+import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'motion/react';
+import { cn } from '@/lib/utils';
 
-export default function Navbar() {
-    const [authenticated, setAuthenticated] = useState(false);
+const LINKS = [
+    { name: 'Predict', href: '/predict' },
+    { name: 'Dashboard', href: '/dashboard' },
+    { name: 'About', href: '/about' },
+    { name: 'Contact', href: '/contact' },
+    { name: 'API Docs', href: '/apidocs' },
+];
+
+export default function Nav() {
     const router = useRouter();
+    const [auth, setAuth] = useState(false);
+    const [menuOpen, setMenuOpen] = useState(false);
+    const ref = useRef<HTMLDivElement>(null);
+    const { scrollY } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+    const [scrolled, setScrolled] = useState(false);
 
-    // Check session on mount
     useEffect(() => {
         fetch('/api/auth/session')
-            .then(res => res.json())
-            .then(data => setAuthenticated(!!data.authenticated))
-            .catch(() => setAuthenticated(false));
+            .then(r => r.json())
+            .then(d => setAuth(!!d.authenticated))
+            .catch(() => setAuth(false));
     }, []);
 
-    const handleLogout = async () => {
+    useMotionValueEvent(scrollY, 'change', y => setScrolled(y > 50));
+
+    const logout = async () => {
         await fetch('/api/logout', { method: 'POST' });
         router.push('/auth/login');
     };
 
     return (
-        <nav className="fixed top-0 left-0 w-full bg-white/30 backdrop-blur-md shadow-lg py-4 px-6 flex items-center z-50">
-            {/* Logo */}
-            <div className="flex-shrink-0">
-                <Link href="/" className="text-2xl font-extrabold text-gray-800 drop-shadow-lg">
+        <motion.nav
+            ref={ref}
+            className={cn(
+                'fixed inset-x-0 top-0 z-50 transition-all',
+                scrolled ? 'backdrop-blur-md bg-white/60 shadow-md' : 'bg-transparent'
+            )}
+        >
+            <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4 lg:px-8">
+                {/* Logo */}
+                <Link href="/" className="text-2xl font-extrabold text-gray-800">
                     SmartRehab
                 </Link>
-            </div>
 
-            {/* Main nav links */}
-            <div className="flex-grow ml-10 space-x-8">
-                <Link href="/predict" className="text-gray-800 hover:text-blue-200 transition font-medium">
-                    Predict
-                </Link>
-                <Link href="/dashboard" className="text-gray-800 hover:text-blue-200 transition font-medium">
-                    Dashboard
-                </Link>
-                <Link href="/about" className="text-gray-800 hover:text-blue-200 transition font-medium">
-                    About
-                </Link>
-                <Link href="/contact" className="text-gray-800 hover:text-blue-200 transition font-medium">
-                    Contact
-                </Link>
-                <Link href="/apidocs" className="text-gray-800 hover:text-blue-200 transition text-sm font-medium">
-                    API Docs
-                </Link>
-            </div>
-
-            {/* Auth area */}
-            <div className="flex-shrink-0 flex items-center space-x-4">
-                {!authenticated ? (
-                    <Link
-                        href="/auth/login"
-                        className="bg-blue-500 hover:bg-blue-600 text-white py-1.5 px-4 rounded-full shadow transition"
-                    >
-                        Sign In
-                    </Link>
-                ) : (
-                    <>
-                        {/* Profile Icon */}
-                        <div className="p-1 bg-white/20 backdrop-blur rounded-full">
-                            <User className="w-6 h-6 text-white" />
-                        </div>
-                        {/* Sign Out */}
-                        <button
-                            onClick={handleLogout}
-                            className="bg-red-500 hover:bg-red-600 text-white py-1.5 px-4 rounded-full shadow transition"
+                {/* Desktop Links */}
+                <div className="hidden lg:flex space-x-8">
+                    {LINKS.map(l => (
+                        <Link
+                            key={l.href}
+                            href={l.href}
+                            className="text-gray-800 hover:text-blue-500 font-medium transition"
                         >
-                            Sign Out
-                        </button>
-                    </>
-                )}
+                            {l.name}
+                        </Link>
+                    ))}
+                </div>
+
+                {/* Auth + Mobile Toggle */}
+                <div className="flex items-center space-x-4 lg:space-x-6">
+                    {!auth ? (
+                        <Link
+                            href="/auth/login"
+                            className="hidden lg:inline-block bg-blue-500 hover:bg-blue-600 text-white  py-1.5 px-4 rounded-full shadow transition"
+                        >
+                            Sign In
+                        </Link>
+                    ) : (
+                        <>
+                            <div className="hidden lg:flex items-center justify-center w-8 h-8 bg-white/20 rounded-full">
+                                <User className="w-5 h-5 text-gray-800" />
+                            </div>
+                            <button
+                                onClick={logout}
+                                className="hidden lg:inline-block bg-red-500 hover:bg-red-600 text-white py-1.5 px-4 rounded-full shadow transition"
+                            >
+                                Sign Out
+                            </button>
+                        </>
+                    )}
+
+                    {/* Mobile Menu Button */}
+                    <button
+                        onClick={() => setMenuOpen(o => !o)}
+                        className="lg:hidden p-2 text-gray-800"
+                    >
+                        {menuOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
             </div>
-        </nav>
+
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {menuOpen && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        className="overflow-hidden bg-white shadow-md lg:hidden"
+                    >
+                        <div className="flex flex-col px-6 py-4 space-y-4">
+                            {LINKS.map(l => (
+                                <Link
+                                    key={l.href}
+                                    href={l.href}
+                                    onClick={() => setMenuOpen(false)}
+                                    className="text-gray-800 hover:text-blue-500 font-medium"
+                                >
+                                    {l.name}
+                                </Link>
+                            ))}
+                            {!auth ? (
+                                <Link
+                                    href="/auth/login"
+                                    onClick={() => setMenuOpen(false)}
+                                    className="mt-2 bg-blue-500 text-white py-2 rounded-full text-center"
+                                >
+                                    Sign In
+                                </Link>
+                            ) : (
+                                <button
+                                    onClick={() => { logout(); setMenuOpen(false); }}
+                                    className="mt-2 bg-red-500 text-white py-2 rounded-full"
+                                >
+                                    Sign Out
+                                </button>
+                            )}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </motion.nav>
     );
 }

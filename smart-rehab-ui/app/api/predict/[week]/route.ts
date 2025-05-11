@@ -1,66 +1,61 @@
-// app/predict/[week]/route.ts.tsx
-'use client';
+// app/api/predict/[week]/route.ts
+import { NextRequest, NextResponse } from 'next/server';
 
-import { useSearchParams, useRouter } from 'next/navigation';
-import Link from 'next/link';
-import PredictionResult from '@/components/PredictionResult';
-import { ArrowLeft } from 'lucide-react';
-
-export default function ResultsPage() {
-    const params = useSearchParams();
-    const router = useRouter();
-
-    // Retrieve query params
-    const weekParam = params.get('week');
-    const predParam = params.get('prediction');
-
-    // Validate
-    if (!weekParam || !predParam) {
-        return (
-            <main className="min-h-screen bg-gray-100 flex items-center justify-center">
-                <div className="text-center space-y-4">
-                    <p className="text-lg text-gray-700">No prediction data found.</p>
-                    <Link
-                        href="/predict"
-                        className="inline-flex items-center text-blue-600 hover:underline"
-                    >
-                        <ArrowLeft className="w-5 h-5 mr-2" /> Back to Predictor
-                    </Link>
-                </div>
-            </main>
+export async function POST(
+    req: NextRequest,
+    { params }: { params: { week: string } }
+) {
+    // 1) parse & validate the week
+    const wk = Number(params.week);
+    if (![6, 12, 18, 24].includes(wk)) {
+        return NextResponse.json(
+            { message: `Invalid week: ${params.week}` },
+            { status: 400 }
         );
     }
 
-    const week = parseInt(weekParam, 10);
-    const prediction = parseFloat(predParam);
+    // 2) parse the incoming body and pull out .features
+    let body: any;
+    try {
+        body = await req.json();
+    } catch {
+        return NextResponse.json(
+            { message: "Invalid JSON payload" },
+            { status: 400 }
+        );
+    }
+    if (typeof body.features !== "object" || body.features === null) {
+        return NextResponse.json(
+            { message: "Request must have a top-level `features` object" },
+            { status: 400 }
+        );
+    }
 
-    return (
-        <main className="min-h-screen bg-gradient-to-br from-indigo-50 to-blue-100 py-16 px-6 lg:px-24">
-            <div className="max-w-lg mx-auto bg-white rounded-3xl shadow-2xl p-10 space-y-8">
-                <button
-                    onClick={() => router.back()}
-                    className="flex items-center text-gray-600 hover:text-gray-800 transition"
-                >
-                    <ArrowLeft className="w-5 h-5 mr-2" /> Back
-                </button>
-
-                <h1 className="text-3xl font-extrabold text-gray-900 text-center">
-                    Week {week} Prediction
-                </h1>
-
-                <div className="flex justify-center">
-                    <PredictionResult week={week} value={prediction} />
-                </div>
-
-                <div className="text-center">
-                    <Link
-                        href="/predict"
-                        className="text-blue-600 hover:underline"
-                    >
-                        Make another prediction →
-                    </Link>
-                </div>
-            </div>
-        </main>
+    // 3) proxy to your FastAPI server
+    const upstream = await fetch(
+        `http://localhost:8000/predict/${wk}`,   // <-- raw number in URL
+        {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ features: body.features }),
+        }
     );
+
+    // 4) handle upstream errors
+    if (!upstream.ok) {
+        let text: string;
+        try {
+            text = await upstream.text();
+        } catch {
+            text = upstream.statusText;
+        }
+        return NextResponse.json(
+            { message: `Upstream error: ${text}` },
+            { status: 502 }
+        );
+    }
+
+    // 5) return whatever FastAPI gave us (prediction + explanations)
+    const payload = await upstream.json();
+    return NextResponse.json(payload);
 }
