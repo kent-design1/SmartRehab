@@ -1,178 +1,183 @@
+
 import pandas as pd
 import numpy as np
-import ast
 import pickle
+import shap
+import matplotlib.pyplot as plt
 
-from sklearn.model_selection import RandomizedSearchCV, cross_val_score, KFold
+from sklearn.model_selection import train_test_split, RandomizedSearchCV, KFold
 from sklearn.ensemble import ExtraTreesRegressor, GradientBoostingRegressor, VotingRegressor
 from sklearn.metrics import mean_squared_error, mean_absolute_error
 from sklearn.impute import SimpleImputer
-from sklearn.preprocessing import OneHotEncoder
+from sklearn.preprocessing import OneHotEncoder, StandardScaler, MultiLabelBinarizer
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 
 # --------------------------
-# 1) Load & Parse Dataset
+# 1) Load dataset
 # --------------------------
-df = pd.read_csv("synthetic_rehab_600_swiss_realistic.csv")
-df["Therapy Plan History"] = df["Therapy Plan History"].apply(ast.literal_eval)
+df = pd.read_csv("synthetic_rehab_refined.csv")
+
+# therapy plan list columns:
+plan_cols = [f"TherapyPlans_{wk}" for wk in [0, 6, 12, 18, 24]]
+# parse the Python-repr lists back to real lists
+for col in plan_cols:
+    df[col] = df[col].apply(lambda x: eval(x) if isinstance(x, str) else [])
+
+# multi-label binarizer over all plans
+mlb = MultiLabelBinarizer()
+all_plans = sorted({p for col in plan_cols for p in df[col].explode().dropna()})
+mlb.fit([all_plans])
+
+# create one-hot for each week×plan
+for col in plan_cols:
+    bin_df = pd.DataFrame(
+        mlb.transform(df[col]),
+        columns=[f"{col}_{p}" for p in mlb.classes_],
+        index=df.index
+    )
+    df = pd.concat([df, bin_df], axis=1)
+
+# drop the original list columns
+df.drop(columns=plan_cols, inplace=True)
 
 # --------------------------
-# 2) Define Feature Sets
+# 1b) Cost-efficiency features
 # --------------------------
-drop_cols = [
-    "Patient ID", "Therapy Plan History",
-    "Instrument_Self-Care", "Instrument_Respiration",
-    "Instrument_Mobility", "Instrument_Total_SCIM"
-]
-all_features = [c for c in df.columns if c not in drop_cols]
+# assumes 'BaselineCost','OveruseCost','TotalCost' are present
+df['SCIM_Gain_24']    = df['TotalSCIM_24'] - df['TotalSCIM_0']
+df['CostPerPoint']    = df['TotalCost'] / df['SCIM_Gain_24'].replace(0, np.nan)
 
-def is_scim_column(col):
-    prefixes = ["Total_SCIM_", "Self-Care_", "Respiration_", "Mobility_"]
-    return any(col.startswith(p) for p in prefixes)
+# --------------------------
+# 2) Settings
+# --------------------------
+MEAS_WEEKS     = [6, 12, 18, 24]
+PREV_WEEKS     = {6:[0],12:[0,6],18:[0,6,12],24:[0,6,12,18]}
+SCIM_COLS      = [f"TotalSCIM_{wk}" for wk in [0,6,12,18,24]]
+COST_FEATS     = ['BaselineCost','OveruseCost','TotalCost','CostPerPoint']
+PATIENT_ID     = 'PatientID'
 
-base_feats = [c for c in all_features if not is_scim_column(c)]
+# build predictor list (everything except SCIM & PatientID, then append cost feats)
+all_feats = [c for c in df.columns if c not in SCIM_COLS + [PATIENT_ID]]
+predictors = [c for c in all_feats if c not in COST_FEATS] + COST_FEATS
 
-previous_scim = {
-    6:  [0],
-    12: [0, 6],
-    18: [0, 6, 12],
-    24: [0, 6, 12, 18]
-}
-
-target_weeks = [6, 12, 18, 24]
 results = {}
 
-# --------------------------
-# 3) Per-Week Modeling
-# --------------------------
-for wk in target_weeks:
-    target_col = f"Total_SCIM_{wk}"
-    data = df.dropna(subset=[target_col]).copy()
+for week in MEAS_WEEKS:
+    print(f"\n=== Week {week} ===")
+    target = f"TotalSCIM_{week}"
+    sub = df.dropna(subset=[target]).copy()
 
-    scim_feats = [f"Total_SCIM_{i}" for i in previous_scim[wk]]
-    feat_list = base_feats + scim_feats
+    # feature matrix
+    prior = [f"TotalSCIM_{w}" for w in PREV_WEEKS[week]]
+    feat_cols = predictors + prior
+    X = sub[feat_cols]
+    y = sub[target]
 
-    X = data[feat_list]
-    y = data[target_col]
+    # train/test split
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
 
-    num_cols = X.select_dtypes(include=[np.number]).columns.tolist()
-    cat_cols = X.select_dtypes(include=["object"]).columns.tolist()
+    # numeric vs categorical
+    num_feats = X_train.select_dtypes(include=[np.number]).columns.tolist()
+    cat_feats = X_train.select_dtypes(include=['object']).columns.tolist()
+
+    # preprocessing pipelines
+    num_pipe = Pipeline([
+        ('impute', SimpleImputer(strategy='median')),
+        ('scale', StandardScaler())
+    ])
+    cat_pipe = OneHotEncoder(handle_unknown='ignore', sparse_output=False)
 
     preprocessor = ColumnTransformer([
-        ("num", SimpleImputer(strategy="median"), num_cols),
-        ("cat", OneHotEncoder(handle_unknown='ignore'), cat_cols)
-    ])
+        ('num', num_pipe, num_feats),
+        ('cat', cat_pipe, cat_feats)
+    ], remainder='drop')
 
-    models = {
-        'ExtraTrees': (
-            ExtraTreesRegressor(random_state=42),
-            {
-                'model__n_estimators': [100, 300, 500],
-                'model__max_depth': [None, 10, 20],
-                'model__min_samples_split': [2, 5],
-                'model__min_samples_leaf': [1, 2]
-            }
-        ),
-        'GradientBoosting': (
-            GradientBoostingRegressor(random_state=42),
-            {
-                'model__n_estimators': [100, 200, 300],
-                'model__learning_rate': [0.05, 0.1, 0.2],
-                'model__max_depth': [3, 5, 7]
-            }
-        )
+    # models + hyperparam spaces
+    configs = {
+        'et': (ExtraTreesRegressor(random_state=42), {
+            'model__n_estimators': [100, 300],
+            'model__max_depth':    [None, 10]
+        }),
+        'gb': (GradientBoostingRegressor(random_state=42), {
+            'model__n_estimators':  [100, 200],
+            'model__learning_rate': [0.05, 0.1]
+        })
     }
 
-    best_models = {}
-    for name, (estimator, params) in models.items():
-        pipe = Pipeline([
-            ('preproc', preprocessor),
-            ('model', estimator)
-        ])
+    best = {}
+    for name, (estimator, params) in configs.items():
+        pipe = Pipeline([('pre', preprocessor), ('model', estimator)])
         search = RandomizedSearchCV(
-            pipe, params,
-            n_iter=10,
-            cv=KFold(n_splits=5, shuffle=True, random_state=42),
+            pipe, params, n_iter=5,
+            cv=KFold(5, shuffle=True, random_state=42),
             scoring='neg_mean_squared_error',
-            random_state=42,
-            n_jobs=-1
+            random_state=42, n_jobs=-1
         )
-        search.fit(X, y)
-        best = search.best_estimator_
+        print(f"Tuning {name}...")
+        search.fit(X_train, y_train)
+        best[name] = search.best_estimator_
+        print(f" Best {name}: {search.best_params_}")
 
-        rmse_cv = np.sqrt(-cross_val_score(best, X, y, cv=5, scoring='neg_mean_squared_error').mean())
-        mae_cv = -cross_val_score(best, X, y, cv=5, scoring='neg_mean_absolute_error').mean()
-
-        best_models[name] = {
-            'estimator': best,
-            'RMSE_CV': rmse_cv,
-            'MAE_CV': mae_cv
-        }
-
-    voting = Pipeline([
-        ('preproc', preprocessor),
+    # ensemble
+    ensemble = Pipeline([
+        ('pre', preprocessor),
         ('model', VotingRegressor([
-            ('et', best_models['ExtraTrees']['estimator'].named_steps['model']),
-            ('gb', best_models['GradientBoosting']['estimator'].named_steps['model'])
+            ('et', best['et'].named_steps['model']),
+            ('gb', best['gb'].named_steps['model'])
         ]))
     ])
-    voting.fit(X, y)
+    ensemble.fit(X_train, y_train)
 
-    # Compute RMSE as sqrt of MSE
-    rmse_v = np.sqrt(mean_squared_error(y, voting.predict(X)))
-    mae_v = mean_absolute_error(y, voting.predict(X))
+    # save model
+    with open(f"model_week{week}.pkl", 'wb') as f:
+        pickle.dump(ensemble, f)
 
-    with open(f"model_week{wk}.pkl", "wb") as f:
-        pickle.dump({
-            'et': best_models['ExtraTrees']['estimator'],
-            'gb': best_models['GradientBoosting']['estimator'],
-            'voting': voting
-        }, f)
+    # evaluate
+    y_pred = ensemble.predict(X_test)
+    rmse   = np.sqrt(mean_squared_error(y_test, y_pred))
+    mae    = mean_absolute_error(y_test, y_pred)
+    results[week] = {'RMSE': rmse, 'MAE': mae}
+    print(f"RMSE={rmse:.2f}, MAE={mae:.2f}")
 
-    results[wk] = {
-        'ExtraTrees': (best_models['ExtraTrees']['RMSE_CV'], best_models['ExtraTrees']['MAE_CV']),
-        'GradientBoosting': (best_models['GradientBoosting']['RMSE_CV'], best_models['GradientBoosting']['MAE_CV']),
-        'Voting': (rmse_v, mae_v)
-    }
-
-# --------------------------
-# 4) Summary of Results
-# --------------------------
-for wk, res in results.items():
-    print(f"Week {wk} prediction performance:")
-    for model_name, (rmse, mae) in res.items():
-        print(f"  {model_name:15} RMSE={rmse:.2f}, MAE={mae:.2f}")
-    print()
-
-
-# --------------------------
-# 5) Visualization: Voting Ensemble vs Actual
-# --------------------------
-import matplotlib.pyplot as plt
-
-for wk in target_weeks:
-    # Load the voting ensemble for this week
-    with open(f"model_week{wk}.pkl", "rb") as f:
-        models = pickle.load(f)
-    voting = models['voting']
-
-    # Prepare data
-    data_wk = df.dropna(subset=[f"Total_SCIM_{wk}"])
-    feat_list = base_feats + [f"Total_SCIM_{i}" for i in previous_scim[wk]]
-    X_wk = data_wk[feat_list]
-    y_wk = data_wk[f"Total_SCIM_{wk}"]
-
-    # Predict and plot
-    y_pred_wk = voting.predict(X_wk)
+    # scatter plot
     plt.figure(figsize=(6,4))
-    plt.scatter(y_wk, y_pred_wk, alpha=0.5)
-    lims = [min(y_wk.min(), y_pred_wk.min()), max(y_wk.max(), y_pred_wk.max())]
-    plt.plot(lims, lims, ls='--')
-    plt.xlabel(f"Actual SCIM Week {wk}")
-    plt.ylabel(f"Predicted SCIM Week {wk}")
-    plt.title(f"Week {wk}: Actual vs Predicted (Voting Ensemble)")
+    plt.scatter(y_test, y_pred, alpha=0.5)
+    mn, mx = min(y_test.min(), y_pred.min()), max(y_test.max(), y_pred.max())
+    plt.plot([mn, mx], [mn, mx], ls='--', color='gray')
+    plt.xlabel('Actual'); plt.ylabel('Predicted')
+    plt.title(f'Week {week} Actual vs Predicted')
     plt.tight_layout()
-    plt.savefig(f"scatter_week{wk}.png")
-    print(f"Saved scatter_week{wk}.png")
+    plt.savefig(f"scatter_week{week}.png")
+    plt.close()
 
+    # SHAP explanations
+    Xtr_p = preprocessor.transform(X_train)
+    Xte_p = preprocessor.transform(X_test)
+    masker = shap.maskers.Independent(Xtr_p, max_samples=100)
+    expl   = shap.Explainer(
+        ensemble.named_steps['model'].predict,
+        masker,
+        feature_names=preprocessor.get_feature_names_out()
+    )
+    sv = expl(Xte_p)
+
+    # save SHAP objects
+    with open(f"shap_explainer_week{week}.pkl", 'wb') as f:
+        pickle.dump(expl, f)
+    np.save(f"shap_values_week{week}.npy", sv.values)
+
+    # SHAP summary plot
+    plt.figure(figsize=(8,6))
+    shap.summary_plot(sv, Xte_p, feature_names=preprocessor.get_feature_names_out(), show=False)
+    plt.title(f'Week {week} SHAP Summary')
+    plt.tight_layout()
+    plt.savefig(f"shap_summary_week{week}.png")
+    plt.close()
+
+# final summary
+print("\n=== Summary Metrics ===")
+for wk, m in results.items():
+    print(f"Week {wk}: RMSE={m['RMSE']:.2f}, MAE={m['MAE']:.2f}")

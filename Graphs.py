@@ -15,6 +15,6 @@ plt.title("Distribution of Baseline SCIM Scores")
 plt.grid(True, linestyle="--", alpha=0.6)
 plt.tight_layout()
 
-# Save the histogram as an image
+# Save the histogram
 plt.savefig("baseline_scim_distribution.png")
 plt.show()

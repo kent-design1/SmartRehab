@@ -1,3 +1,8 @@
+#!/usr/bin/env python3
+# synthetic_rehab_refined_generator.py
+# Generates a refined synthetic rehab dataset with realistic total rehab costs
+# and breakdown of raw costs vs. insured vs. patient payments.
+
 import random
 import pandas as pd
 import numpy as np
@@ -6,516 +11,219 @@ import numpy as np
 # Configuration
 # ==========================
 NUM_PATIENTS = 600
-MEAS_WEEKS = [0, 6, 12, 18, 24]
-DROPOUT_PROB = 0.1            # 10% drop out after week 12
-MISSING_PROB = 0.05           # 5% chance a particular measurement is missing
-OUTLIER_PROB = 0.02           # 2% of patients are outliers
+MEAS_WEEKS    = [0, 6, 12, 18, 24]
+MISSING_PROB  = 0.05  # Missing SCIM measurement probability
+MAX_SELF, MAX_RESP, MAX_MOB = 40, 20, 40
 
-# Domain maxima for SCIM
-MAX_SELF = 40
-MAX_RESP = 20
-MAX_MOB = 40
-
-# Health conditions and therapy options
+# Health conditions & therapy options
 health_conditions = [
-    "Stroke Recovery",
-    "Orthopedic Injury",
-    "Chronic Pain",
-    "Diabetes",
-    "Hypertension"
+    "Stroke Recovery", "Orthopedic Injury", "Chronic Pain", "Diabetes", "Hypertension"
 ]
 condition_probs = [0.2] * len(health_conditions)
 
 therapy_plan_options = {
     "Stroke Recovery": [
-        "Respiratory Management",
-        "Spasticity Management",
-        "Mobility & Upper Limb Training",
-        "Strength & FES Training",
-        "Comprehensive SCI Rehab"
+        "Respiratory Management", "Spasticity Management",
+        "Mobility & Upper Limb Training", "Strength & FES Training",
+        "Comprehensive SCI Rehab", "Robotic Gait Training",
+        "Virtual Reality Therapy", "Aquatic Therapy",
+        "Constraint-Induced Movement Therapy", "Mirror Therapy"
     ],
-    "Orthopedic Injury": ["Physiotherapy", "Occupational Therapy"],
-    "Chronic Pain": ["Physiotherapy", "Medication", "Lifestyle Changes"],
-    "Diabetes": ["Medication", "Lifestyle Changes"],
-    "Hypertension": ["Medication", "Lifestyle Changes"]
+    "Orthopedic Injury": [
+        "Physiotherapy", "Occupational Therapy", "Manual Therapy",
+        "Hydrotherapy", "Proprioceptive Neuromuscular Facilitation",
+        "Functional Strength Training", "Balance & Proprioception Drills"
+    ],
+    "Chronic Pain": [
+        "Physiotherapy", "Medication", "Lifestyle Changes",
+        "Cognitive Behavioral Therapy", "Mindfulness-Based Stress Reduction",
+        "Pain Neuroscience Education", "Yoga/Tai-Chi", "Graded Activity/Exposure"
+    ],
+    "Diabetes": [
+        "Medication", "Lifestyle Changes", "Nutritional Counseling",
+        "Aerobic Exercise Program", "Resistance Training",
+        "Foot Care Education", "Glucose-Guided Activity"
+    ],
+    "Hypertension": [
+        "Medication", "Lifestyle Changes", "Structured Aerobic Training",
+        "Resistance Exercise", "Stress Management",
+        "Dietary Sodium Reduction", "Tele-rehab Monitoring"
+    ]
 }
 
+# Per-session base costs (CHF)
 therapy_costs = {
-    "Physiotherapy": 100,
-    "Occupational Therapy": 120,
-    "Medication": 80,
-    "Lifestyle Changes": 50,
-    "Respiratory Management": 150,
-    "Spasticity Management": 130,
-    "Mobility & Upper Limb Training": 110,
-    "Strength & FES Training": 140,
-    "Comprehensive SCI Rehab": 200
+    "Respiratory Management": 500, "Spasticity Management": 450,
+    "Mobility & Upper Limb Training": 400, "Strength & FES Training": 480,
+    "Comprehensive SCI Rehab": 650, "Robotic Gait Training": 900,
+    "Virtual Reality Therapy": 800, "Aquatic Therapy": 550,
+    "Constraint-Induced Movement Therapy": 700, "Mirror Therapy": 350,
+    "Physiotherapy": 380, "Occupational Therapy": 420, "Manual Therapy": 460,
+    "Hydrotherapy": 500, "Proprioceptive Neuromuscular Facilitation": 550,
+    "Functional Strength Training": 400, "Balance & Proprioception Drills": 320,
+    "Medication": 200, "Lifestyle Changes": 150, "Cognitive Behavioral Therapy": 600,
+    "Mindfulness-Based Stress Reduction": 520, "Pain Neuroscience Education": 480,
+    "Yoga/Tai-Chi": 350, "Graded Activity/Exposure": 450,
+    "Nutritional Counseling": 480, "Aerobic Exercise Program": 360,
+    "Resistance Training": 400, "Foot Care Education": 300,
+    "Glucose-Guided Activity": 330, "Structured Aerobic Training": 380,
+    "Resistance Exercise": 420, "Stress Management": 460,
+    "Dietary Sodium Reduction": 280, "Tele-rehab Monitoring": 600
 }
 
-# SCIM instruments
-instr_self = "SCIM III Self-Care Domain"
-instr_resp = "SCIM III Respiration & Sphincter Domain"
-instr_mob = "SCIM III Mobility Domain"
-instr_total = "Spinal Cord Independence Measure Version III"
+# Insurance factors (to apply to raw costs) and coverage percentages
+insurance_factors = {
+    "Basic Mandatory": 0.9,
+    "Supplementary Private": 1.1,
+    "Employer-Sponsored": 1.0,
+    "Uninsured": 1.2
+}
+coverage_pct = {
+    "Basic Mandatory":    0.90,
+    "Supplementary Private": 1.00,
+    "Employer-Sponsored": 0.95,
+    "Uninsured":          0.00
+}
 
-# Swiss‐specific demographics
-ethnicities = ["Swiss", "German", "French", "Italian", "Other"]
-education_levels = [
-    "Compulsory School",
-    "Apprenticeship",
-    "Vocational School",
-    "University Bachelor",
-    "University Master/Doctorate"
-]
-insurance_types = [
-    "Basic Mandatory",
-    "Supplementary Private",
-    "Employer-Sponsored",
-    "Uninsured"
-]
-regions = ["Zurich", "Bern", "Geneva", "Vaud", "Other"]
+# Demographics & labs
+ethnicities      = ["Swiss","German","French","Italian","Other"]
+education_levels = ["Compulsory","Apprenticeship","Vocational","Bachelor","Master/Doctorate"]
+insurance_types  = list(insurance_factors.keys())
+regions          = ["Zurich","Bern","Geneva","Vaud","Other"]
 
-# ==========================
-# Helper Functions
-# ==========================
-def classify_initial_plan(cond):
-    return random.choice(therapy_plan_options[cond])
-
-def pick_alt_plan(curr, cond):
-    opts = therapy_plan_options[cond]
-    return random.choice([o for o in opts if o != curr] or [curr])
-
-def initial_scores():
-    return (
-        random.randint(int(0.1 * MAX_SELF), int(0.3 * MAX_SELF)),
-        random.randint(int(0.1 * MAX_RESP), int(0.3 * MAX_RESP)),
-        random.randint(int(0.1 * MAX_MOB), int(0.3 * MAX_MOB))
-    )
-
-def simulate_score(base, rate, wk, plateau=False):
-    effective_rate = rate * (0.3 if plateau else 1.0)
-    noise_sd = 0.5 + 0.05 * wk
-    return base + effective_rate * wk + np.random.normal(0, noise_sd)
-
-# ==========================
-# Pre-generate Lab & Psychosocial Values
-# ==========================
+# Pre-generate lab values
 np.random.seed(42)
-crp_vals        = np.clip(np.random.normal(5, 3, NUM_PATIENTS), 0.1, 50)
-hb_vals         = np.clip(np.random.normal(13.5, 1.0, NUM_PATIENTS), 8, 18)
-glucose_vals    = np.clip(np.random.normal(100, 20, NUM_PATIENTS), 50, 300)
-phq9_vals       = np.random.randint(0, 28, NUM_PATIENTS)
-gad7_vals       = np.random.randint(0, 22, NUM_PATIENTS)
+crp_vals   = np.clip(np.random.normal(5,3,NUM_PATIENTS),0.1,50)
+hb_vals    = np.clip(np.random.normal(13.5,1,NUM_PATIENTS),8,18)
+gluc_vals  = np.clip(np.random.normal(100,20,NUM_PATIENTS),50,300)
+phq9_vals  = np.random.randint(0,28,NUM_PATIENTS)
+gad7_vals  = np.random.randint(0,22,NUM_PATIENTS)
 
-# ==========================
-# Build Dataset
-# ==========================
+def simulate_scim_path(base, rates, weeks):
+    """
+    Logistic‐style growth that asymptotically approaches max subscale values.
+    base: [self, resp, mob] initial scores at week 0
+    rates: growth rate parameters per subscale
+    weeks: list of measurement weeks
+    """
+    max_vals = [MAX_SELF, MAX_RESP, MAX_MOB]
+    self_c, resp_c, mob_c, total_sc = [], [], [], []
+
+    for idx, wk in enumerate(weeks):
+        if idx == 0:
+            vals = base
+        else:
+            vals = []
+            frac = wk / weeks[-1]  # normalize time 0→1
+            for i, init in enumerate(base):
+                mv   = max_vals[i]
+                k    = rates[i]  # larger → faster approach
+                # logistic‐style approach via exponential decay
+                val = mv - (mv - init) * np.exp(-k * frac)
+                # add small noise
+                noise = np.random.normal(0, 0.5 + 0.02 * wk)
+                val  = np.clip(val + noise, 0, mv)
+                vals.append(round(val,1))
+        self_c.append(vals[0])
+        resp_c.append(vals[1])
+        mob_c.append(vals[2])
+        total_sc.append(round(vals[0] + vals[1] + vals[2],1))
+
+    return self_c, resp_c, mob_c, total_sc
+
 records = []
-
-for pid in range(1, NUM_PATIENTS + 1):
-    outlier_factor = 1.0
-    if random.random() < OUTLIER_PROB:
-        outlier_factor = random.choice([0.5, 1.5])
-
-    age = int(np.clip(random.gauss(60, 15), 18, 90))
-    gender = random.choice(["Male", "Female"])
+for pid in range(1, NUM_PATIENTS+1):
+    # Demographics & labs
+    age       = int(np.clip(np.random.normal(60,15),18,90))
+    gender    = random.choice(["Male","Female","Other"])
     ethnicity = random.choice(ethnicities)
     education = random.choice(education_levels)
     insurance = random.choice(insurance_types)
-    region = random.choice(regions)
-    height_cm = random.randint(150, 200)
-    weight_kg = round(random.uniform(50, 120), 1)
-    bmi = round(weight_kg / ((height_cm / 100) ** 2), 1)
+    region    = random.choice(regions)
 
-    crp_val  = crp_vals[pid-1]
-    hb_val   = hb_vals[pid-1]
-    gluc_val = glucose_vals[pid-1]
-    phq9     = phq9_vals[pid-1]
-    gad7     = gad7_vals[pid-1]
-
-    cond = random.choices(health_conditions, weights=condition_probs, k=1)[0]
-    sessions_per_week = random.choice([2, 3, 4, 5])
-    current_plan = classify_initial_plan(cond)
-    plan_history = []
-
-    b_s, b_r, b_m = initial_scores()
-    rate_s = outlier_factor * random.uniform(0.8, 1.2)
-    rate_r = outlier_factor * random.uniform(0.3, 0.7)
-    rate_m = outlier_factor * random.uniform(0.8, 1.2)
-
-    engage = random.randint(1, 100)
-    mental = random.randint(1, 6)
-    pain = np.clip(int(random.gauss(5, 2)), 1, 10)
-    fatigue = np.clip(int(random.gauss(5, 2)), 1, 10)
-    musc_up = random.randint(1, 10)
-    musc_lo = random.randint(1, 10)
-    balance = random.randint(1, 101)
-    mobility_test = random.randint(1, 101)
-
-    rec = {
-        "Patient ID": pid,
-        "Age": age,
-        "Gender": gender,
-        "Ethnicity": ethnicity,
-        "Education": education,
-        "Insurance": insurance,
-        "Region": region,
-        "Height_cm": height_cm,
-        "Weight_kg": weight_kg,
-        "BMI": bmi,
-        "CRP_mg_L": crp_val,
-        "Hemoglobin_g_dL": hb_val,
-        "Glucose_mg_dL": gluc_val,
-        "PHQ9": phq9,
-        "GAD7": gad7,
-        "Health Condition": cond,
-        "Sessions per Week": sessions_per_week,
-        "Engagement Score": engage,
-        "Mental Health Scale": mental,
-        "Pain Level": pain,
-        "Fatigue Level": fatigue,
-        "Muscle Strength Upper": musc_up,
-        "Muscle Strength Lower": musc_lo,
-        "Balance Test Score": balance,
-        "Mobility Test Score": mobility_test
+    labs = {
+        'CRP_mg_L': round(crp_vals[pid-1],1),
+        'Hemoglobin_g_dL': round(hb_vals[pid-1],1),
+        'Glucose_mg_dL': round(gluc_vals[pid-1],1),
+        'PHQ9': int(phq9_vals[pid-1]),
+        'GAD7': int(gad7_vals[pid-1])
     }
 
-    dropout = (random.random() < DROPOUT_PROB)
+    # Condition & SCIM
+    cond        = random.choices(health_conditions, weights=condition_probs)[0]
+    sessions_pw = random.choice([2,3,4,5])
+    base_scores = [
+        random.randint(int(0.2*MAX_SELF), int(0.4*MAX_SELF)),
+        random.randint(int(0.2*MAX_RESP), int(0.4*MAX_RESP)),
+        random.randint(int(0.2*MAX_MOB),  int(0.4*MAX_MOB))
+    ]
+    # tie growth rates to therapy intensity
+    rates = [sessions_pw * random.uniform(0.1,0.6) for _ in base_scores]
+    sc_self, sc_resp, sc_mob, sc_total = simulate_scim_path(base_scores, rates, MEAS_WEEKS)
 
-    for wk in MEAS_WEEKS:
-        if dropout and wk > 12:
-            rec[f"Self-Care_{wk}"]   = np.nan
-            rec[f"Respiration_{wk}"] = np.nan
-            rec[f"Mobility_{wk}"]    = np.nan
-            rec[f"Total_SCIM_{wk}"]  = np.nan
-            plan_history.append(None)
-            continue
+    rec = {
+        'PatientID': pid, 'Age': age, 'Gender': gender,
+        'Ethnicity': ethnicity, 'Education': education,
+        'Insurance': insurance, 'Region': region,
+        'HealthCondition': cond,
+        **labs,
+        'SessionsPerWeek': sessions_pw
+    }
 
-        if wk == 12 and random.random() < 0.2:
-            current_plan = pick_alt_plan(current_plan, cond)
-        plan_history.append(current_plan)
+    # ——— Raw cost calculation (before insurance) —————————————————
+    duration = MEAS_WEEKS[-1]
+    total_sessions = sessions_pw * duration
+    plans0 = random.sample(therapy_plan_options[cond], k=random.randint(1,3))
+    per_plan = total_sessions / len(plans0)
+    raw_base_cost = sum(therapy_costs[p] * per_plan for p in plans0)
+    raw_overuse_sessions = np.random.poisson(0.1 * sessions_pw)
+    raw_overuse_cost = sum(
+        therapy_costs[random.choice(plans0)] for _ in range(raw_overuse_sessions)
+    )
+    raw_total_cost = raw_base_cost + raw_overuse_cost
 
-        plateau = (wk > 18 and outlier_factor < 1.0)
-        s = simulate_score(b_s, rate_s, wk, plateau)
-        r = simulate_score(b_r, rate_r, wk, plateau)
-        m = simulate_score(b_m, rate_m, wk, plateau)
-        total = s + r + m
+    # ——— Apply insurance factor to get billed amounts —————————————
+    factor = insurance_factors[insurance]
+    billed_base    = raw_base_cost * factor
+    billed_overuse = raw_overuse_cost * factor
+    billed_total   = raw_total_cost * factor
 
-        if random.random() < MISSING_PROB:
-            s = r = m = total = np.nan
+    # ——— Split raw_total between insurer & patient ——————————————
+    cov = coverage_pct[insurance]
+    insurance_pays = raw_total_cost * cov
+    patient_pays   = raw_total_cost - insurance_pays
 
-        rec[f"Self-Care_{wk}"]   = round(min(MAX_SELF, s), 1)     if not np.isnan(s)     else np.nan
-        rec[f"Respiration_{wk}"] = round(min(MAX_RESP, r), 1)     if not np.isnan(r)     else np.nan
-        rec[f"Mobility_{wk}"]    = round(min(MAX_MOB, m), 1)     if not np.isnan(m)     else np.nan
-        rec[f"Total_SCIM_{wk}"]  = round(min(MAX_SELF+MAX_RESP+MAX_MOB, total), 1) if not np.isnan(total) else np.nan
+    rec.update({
+        'RawBaselineCost': round(raw_base_cost,2),
+        'RawOveruseCost':  round(raw_overuse_cost,2),
+        'RawTotalCost':    round(raw_total_cost,2),
+        'BaselineCost':    round(billed_base,2),
+        'OveruseCost':     round(billed_overuse,2),
+        'TotalCost':       round(billed_total,2),
+        'InsurancePays':   round(insurance_pays,2),
+        'PatientPays':     round(patient_pays,2),
+    })
 
-    rec["Therapy Plan History"]    = plan_history
-    rec["Total Estimated Cost"]    = sessions_per_week * MEAS_WEEKS[-1] * therapy_costs[current_plan]
-    rec["Instrument_Self-Care"]    = instr_self
-    rec["Instrument_Respiration"]  = instr_resp
-    rec["Instrument_Mobility"]     = instr_mob
-    rec["Instrument_Total_SCIM"]   = instr_total
+    # ——— Therapy plans & SCIM per week ———————————————————————————
+    for idx, wk in enumerate(MEAS_WEEKS):
+        opts   = therapy_plan_options[cond]
+        chosen = random.sample(opts, k=random.randint(1,3))
+        rec[f'TherapyPlans_{wk}']  = chosen
+        rec[f'NumPlans_{wk}']      = len(chosen)
+        rec[f'SelfCare_{wk}']      = sc_self[idx]
+        rec[f'Respiration_{wk}']   = sc_resp[idx]
+        rec[f'Mobility_{wk}']       = sc_mob[idx]
+        rec[f'TotalSCIM_{wk}']      = sc_total[idx]
 
     records.append(rec)
 
-df = pd.DataFrame(records)
-df.to_csv("synthetic_rehab_600_swiss_realistic.csv", index=False)
+# ——— Save to CSV ————————————————————————————————————————————————
+df_out = pd.DataFrame(records)
+df_out.to_csv('synthetic_rehab_refined.csv', index=False)
 
-print(df.head(5))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-# import pandas as pd
-# import numpy as np
-# import random
-#
-# # ==========================
-# # Configuration Parameters
-# # ==========================
-# NUM_PATIENTS = 5000         # Number of patient records to generate
-# NUM_WEEKS = 24              # Number of weeks for rehabilitation
-#
-# # Domain maximum scores for SCIM calculation
-# MAX_SELF_CARE = 40          # Maximum score for Self-Care
-# MAX_RESPIRATION = 20        # Maximum score for Respiration & Sphincter Management
-# MAX_MOBILITY = 40           # Maximum score for Mobility
-#
-# # Health conditions and their probabilities
-# health_conditions = ["Stroke Recovery", "Orthopedic Injury", "Chronic Pain", "Diabetes", "Hypertension"]
-# condition_probs = [0.2, 0.2, 0.2, 0.2, 0.2]  # Equal distribution
-#
-# # Therapy plan options for non-stroke conditions (for Stroke Recovery, we use a custom classifier)
-# therapy_plan_options = {
-#     "Orthopedic Injury": (["Physiotherapy", "Occupational Therapy"], [0.8, 0.2]),
-#     "Chronic Pain": (["Physiotherapy", "Medication", "Lifestyle Changes"], [0.5, 0.4, 0.1]),
-#     "Diabetes": (["Medication", "Lifestyle Changes"], [0.8, 0.2]),
-#     "Hypertension": (["Medication", "Lifestyle Changes"], [0.7, 0.3])
-# }
-#
-# # Define per-session costs for each therapy plan
-# therapy_costs = {
-#     "Physiotherapy": 100,
-#     "Occupational Therapy": 120,
-#     "Medication": 80,
-#     "Lifestyle Changes": 50,
-#     "Respiratory Management": 150,
-#     "Spasticity Management": 130,
-#     "Mobility & Upper Limb Training": 110,
-#     "Strength & FES Training": 140,
-#     "Comprehensive SCI Rehab": 200
-# }
-#
-# # Patient progress probabilities
-# progress_probs = {"Improving": 0.45, "Stable": 0.40, "Deteriorating": 0.15}
-#
-# # Therapy adjustment probabilities (used when a plateau is detected)
-# adjustment_probs_given_progress = {
-#     "Improving": {"Maintain Plan": 0.6, "Reduce Intensity": 0.4},
-#     "Stable": {"Maintain Plan": 0.5, "Increase Frequency": 0.3, "Change Therapy": 0.2},
-#     "Deteriorating": {"Change Therapy": 0.7, "Increase Frequency": 0.3}
-# }
-#
-# # Follow-up status probabilities (not used in weekly simulation)
-# followup_probs_given_progress = {
-#     "Improving": {"Scheduled": 0.40, "Completed": 0.55, "Missed": 0.05},
-#     "Stable": {"Scheduled": 0.50, "Completed": 0.40, "Missed": 0.10},
-#     "Deteriorating": {"Scheduled": 0.50, "Completed": 0.20, "Missed": 0.30}
-# }
-#
-# # Gender distribution
-# genders = ["Male", "Female"]
-# gender_probs = [0.7, 0.3]
-#
-# # Age distribution by condition (mean and std)
-# age_distribution_by_condition = {
-#     "Stroke Recovery": {"mean": 65, "std": 12},
-#     "Orthopedic Injury": {"mean": 45, "std": 15},
-#     "Chronic Pain": {"mean": 50, "std": 12},
-#     "Diabetes": {"mean": 55, "std": 10},
-#     "Hypertension": {"mean": 60, "std": 10}
-# }
-#
-# # ==========================
-# # Custom Therapy Plan Classifier Functions
-# # ==========================
-# def classify_therapy_plan(condition):
-#     """
-#     For patients with Stroke Recovery, assign a tailored therapy plan.
-#     """
-#     if condition == "Stroke Recovery":
-#         therapy_options = [
-#             "Respiratory Management",
-#             "Spasticity Management",
-#             "Mobility & Upper Limb Training",
-#             "Strength & FES Training",
-#             "Comprehensive SCI Rehab"
-#         ]
-#         return random.choice(therapy_options)
-#     else:
-#         plans, _ = therapy_plan_options[condition]
-#         return random.choice(plans)
-#
-# def pick_alternate_therapy(current_therapy, condition):
-#     """
-#     Choose an alternative therapy plan from the available options (excluding the current one).
-#     """
-#     if condition == "Stroke Recovery":
-#         therapy_options = [
-#             "Respiratory Management",
-#             "Spasticity Management",
-#             "Mobility & Upper Limb Training",
-#             "Strength & FES Training",
-#             "Comprehensive SCI Rehab"
-#         ]
-#     else:
-#         therapy_options, _ = therapy_plan_options[condition]
-#     alternatives = [plan for plan in therapy_options if plan != current_therapy]
-#     return random.choice(alternatives) if alternatives else current_therapy
-#
-# # ==========================
-# # Helper Functions for Weekly SCIM Simulation
-# # ==========================
-# def initial_domain_scores():
-#     """Generate baseline domain scores for SCIM (assume 20-40% of maximum)."""
-#     self_care = random.randint(0, int(0.4 * MAX_SELF_CARE))
-#     respiration = random.randint(0, int(0.4 * MAX_RESPIRATION))
-#     mobility = random.randint(0, int(0.4 * MAX_MOBILITY))
-#     return self_care, respiration, mobility
-#
-# def update_weekly_score(current_score, improvement_factor):
-#     """Update a domain score for one week by adding improvement plus noise."""
-#     noise = np.random.normal(0, 0.3)
-#     return max(0, current_score + improvement_factor + noise)
-#
-# def calculate_total_scim(self_care, respiration, mobility):
-#     """Calculate total SCIM from the three domains."""
-#     return self_care + respiration + mobility
-#
-# # ==========================
-# # Generate Patient Record with Weekly SCIM Scores and Therapy Adjustments
-# # ==========================
-# def generate_patient_record(patient_id):
-#     """Generate a synthetic record for one patient over 24 weeks with realistic SCIM scores, cost, and therapy transitions."""
-#     # Choose health condition and initial therapy plan
-#     condition = random.choices(health_conditions, weights=condition_probs, k=1)[0]
-#     current_therapy = classify_therapy_plan(condition)
-#
-#     # Record therapy stages and weeks (T1, T2, ...)
-#     therapy_stages = [current_therapy]
-#     therapy_stage_weeks = [0]  # Starting at week 0
-#
-#     # Baseline demographics
-#     age = int(random.gauss(age_distribution_by_condition.get(condition, {"mean":50, "std":15})["mean"],
-#                            age_distribution_by_condition.get(condition, {"mean":50, "std":15})["std"]))
-#     age = max(18, min(age, 90))
-#     gender = random.choices(genders, weights=gender_probs, k=1)[0]
-#
-#     # Physical measurements
-#     height_cm = random.randint(150, 200)
-#     height_m = height_cm / 100.0
-#     bmi_target = random.uniform(18, 35)
-#     weight_kg = round(bmi_target * (height_m ** 2), 1)
-#     bmi = round(weight_kg / (height_m ** 2), 1)
-#
-#     # Therapy session info
-#     sessions_per_week = random.choices([2, 3, 4, 5], weights=[0.1, 0.3, 0.4, 0.2], k=1)[0]
-#     duration_weeks = random.randint(12, 52)
-#
-#     # Calculate therapy cost based on current therapy plan
-#     per_session_cost = therapy_costs.get(current_therapy, 100)
-#     total_therapy_cost = per_session_cost * sessions_per_week * duration_weeks
-#
-#     # Generate baseline SCIM scores (week 0)
-#     base_self, base_resp, base_mob = initial_domain_scores()
-#     base_scim = calculate_total_scim(base_self, base_resp, base_mob)
-#
-#     # Set improvement factors for each domain
-#     factor_self = sessions_per_week * random.uniform(0.2, 0.8)
-#     factor_resp = sessions_per_week * random.uniform(0.1, 0.5)
-#     factor_mob  = sessions_per_week * random.uniform(0.2, 0.8)
-#
-#     # Initialize weekly score lists
-#     weekly_self = [base_self]
-#     weekly_resp = [base_resp]
-#     weekly_mob  = [base_mob]
-#     weekly_scim = [base_scim]
-#
-#     # Initialize variables for adjustments
-#     adjustment_types = []      # This will record suggestions like "Increase Frequency", "Reduce Frequency", or the new therapy plan.
-#     adjustment_weeks = []      # Weeks when adjustments occur.
-#     plateau_counter = 0
-#     improvement_threshold = 0.5  # Minimal improvement threshold per week
-#
-#     for week in range(1, NUM_WEEKS + 1):
-#         new_self = min(MAX_SELF_CARE, update_weekly_score(weekly_self[-1], factor_self))
-#         new_resp = min(MAX_RESPIRATION, update_weekly_score(weekly_resp[-1], factor_resp))
-#         new_mob  = min(MAX_MOBILITY, update_weekly_score(weekly_mob[-1], factor_mob))
-#         new_scim = calculate_total_scim(new_self, new_resp, new_mob)
-#
-#         weekly_self.append(new_self)
-#         weekly_resp.append(new_resp)
-#         weekly_mob.append(new_mob)
-#         weekly_scim.append(new_scim)
-#
-#         # Check weekly improvement
-#         if new_scim - weekly_scim[-2] < improvement_threshold:
-#             plateau_counter += 1
-#         else:
-#             plateau_counter = 0
-#
-#         # If plateau persists for 4 consecutive weeks, perform an adjustment
-#         if plateau_counter >= 4:
-#             r = random.random()
-#             # If sessions per week are low, suggest increasing frequency
-#             if r < 0.33:
-#                 if sessions_per_week < 6:
-#                     new_adjustment = "Increase Frequency"
-#                     sessions_per_week = min(sessions_per_week + random.choice([1, 2]), 6)
-#                 else:
-#                     new_adjustment = "Maintain Frequency"
-#             # If sessions per week are high, suggest reducing frequency
-#             elif r < 0.66:
-#                 if sessions_per_week > 2:
-#                     new_adjustment = "Reduce Frequency"
-#                     sessions_per_week = max(sessions_per_week - random.choice([1, 2]), 2)
-#                 else:
-#                     new_adjustment = "Maintain Frequency"
-#             else:
-#                 # Change Therapy: pick an alternate therapy plan
-#                 new_adjustment = pick_alternate_therapy(current_therapy, condition)
-#                 if new_adjustment != current_therapy:
-#                     current_therapy = new_adjustment
-#                     therapy_stages.append(current_therapy)
-#                     therapy_stage_weeks.append(week)
-#                     per_session_cost = therapy_costs.get(current_therapy, 100)
-#             # Recalculate total therapy cost with updated sessions and/or therapy
-#             total_therapy_cost = per_session_cost * sessions_per_week * duration_weeks
-#             adjustment_types.append(new_adjustment)
-#             adjustment_weeks.append(week)
-#             plateau_counter = 0  # Reset counter after adjustment
-#
-#         # Optional: Taper improvement factors as scores approach maximum
-#         if new_scim > 90:
-#             factor_self *= 0.95
-#             factor_resp *= 0.95
-#             factor_mob  *= 0.95
-#
-#     # Final SCIM score: add a small random boost, capped at 100.
-#     scim_final = min(100, int(weekly_scim[-1] + random.uniform(0, 5)))
-#     cost_efficiency = scim_final / (total_therapy_cost + 1)
-#
-#     record = {
-#         "Patient ID": patient_id,
-#         "Age": age,
-#         "Gender": gender,
-#         "Health Condition": condition,
-#         "Therapy Plan": therapy_stages[0],
-#         "Therapy Adjustments": adjustment_types,     # Array of adjustments (suggested changes)
-#         "Adjustment Weeks": adjustment_weeks,          # Array of weeks when adjustments occurred
-#         "Therapy Stages": therapy_stages,              # The actual therapy plan history (T1, T2, ...)
-#         "Initial Sessions per Week": sessions_per_week,
-#         "Duration (weeks)": duration_weeks,
-#         "Baseline SCIM": base_scim,
-#         "SCIM Final": scim_final,
-#         "Weekly SCIM Scores": weekly_scim,             # List from week 0 to week 24
-#         "Weekly Self-Care": weekly_self,
-#         "Weekly Respiration": weekly_resp,
-#         "Weekly Mobility": weekly_mob,
-#         "Total Therapy Cost": total_therapy_cost,
-#         "Cost Efficiency": cost_efficiency,
-#         # Additional measures
-#         "Height (cm)": random.randint(150, 200),
-#         "Weight (kg)": round(random.uniform(50, 120), 1),
-#         "BMI": round(random.uniform(18, 35), 1),
-#         "Patient Engagement Score": random.randint(1, 100),
-#         "Mental Health Scale": random.randint(1, 6),
-#         "Pain Level": random.randint(1, 11),
-#         "Fatigue Level": random.randint(1, 11),
-#         "Muscle Strength Upper": random.randint(1, 10),
-#         "Muscle Strength Lower": random.randint(1, 10),
-#         "Balance Test Score": random.randint(1, 101),
-#         "Mobility Score": random.randint(1, 101)
-#     }
-#     return record
-#
-# # ==========================
-# # Generate Dataset for 5000 Patients and Save as CSV
-# # ==========================
-# data = [generate_patient_record(pid) for pid in range(1, NUM_PATIENTS + 1)]
-# df = pd.DataFrame(data)
-# df.to_csv("synthetic_rehab_dataset.csv", index=False)
-#
-# print("Dataset generated and saved as 'synthetic_rehab_dataset.csv'.")
-# print(df.head(5))
+# quick summary
+print(df_out[
+          ['RawBaselineCost','RawOveruseCost','RawTotalCost',
+           'BaselineCost','OveruseCost','TotalCost',
+           'InsurancePays','PatientPays']
+      ].describe())
