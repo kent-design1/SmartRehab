@@ -1,4 +1,3 @@
-// components/Nav.tsx
 'use client';
 
 import Link from 'next/link';
@@ -19,6 +18,7 @@ const LINKS = [
 export default function Nav() {
     const router = useRouter();
     const [auth, setAuth] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [menuOpen, setMenuOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
     const { scrollY } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -27,8 +27,15 @@ export default function Nav() {
     useEffect(() => {
         fetch('/api/auth/session')
             .then(r => r.json())
-            .then(d => setAuth(!!d.authenticated))
-            .catch(() => setAuth(false));
+            .then(d => {
+                console.log('Auth session:', d);
+                setAuth(!!d.authenticated);
+                setLoading(false);
+            })
+            .catch(() => {
+                setAuth(false);
+                setLoading(false);
+            });
     }, []);
 
     useMotionValueEvent(scrollY, 'change', y => setScrolled(y > 50));
@@ -47,34 +54,24 @@ export default function Nav() {
             )}
         >
             <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-4 lg:px-8">
-                {/* Logo */}
                 <Link href="/" className="text-2xl font-extrabold text-gray-800">
                     SmartRehab
                 </Link>
 
-                {/* Desktop Links */}
-                <div className="hidden lg:flex space-x-8">
+                <div className="hidden lg:flex space-x-8 font-black">
                     {LINKS.map(l => (
                         <Link
                             key={l.href}
                             href={l.href}
-                            className="text-gray-800 hover:text-blue-500 font-medium transition"
+                            className="text-gray-800 hover:text-blue-500 font-black transition"
                         >
                             {l.name}
                         </Link>
                     ))}
                 </div>
 
-                {/* Auth + Mobile Toggle */}
                 <div className="flex items-center space-x-4 lg:space-x-6">
-                    {!auth ? (
-                        <Link
-                            href="/auth/login"
-                            className="hidden lg:inline-block bg-blue-500 hover:bg-blue-600 text-white  py-1.5 px-4 rounded-full shadow transition"
-                        >
-                            Sign In
-                        </Link>
-                    ) : (
+                    {loading ? null : auth ? (
                         <>
                             <div className="hidden lg:flex items-center justify-center w-8 h-8 bg-white/20 rounded-full">
                                 <User className="w-5 h-5 text-gray-800" />
@@ -86,9 +83,15 @@ export default function Nav() {
                                 Sign Out
                             </button>
                         </>
+                    ) : (
+                        <Link
+                            href="/auth/login"
+                            className="hidden lg:inline-block bg-blue-500 hover:bg-blue-600 text-white py-1.5 px-4 rounded-full shadow transition"
+                        >
+                            Sign In
+                        </Link>
                     )}
 
-                    {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMenuOpen(o => !o)}
                         className="lg:hidden p-2 text-gray-800"
@@ -98,7 +101,6 @@ export default function Nav() {
                 </div>
             </div>
 
-            {/* Mobile Menu */}
             <AnimatePresence>
                 {menuOpen && (
                     <motion.div
@@ -113,12 +115,22 @@ export default function Nav() {
                                     key={l.href}
                                     href={l.href}
                                     onClick={() => setMenuOpen(false)}
-                                    className="text-gray-800 hover:text-blue-500 font-medium"
+                                    className="text-gray-800 hover:text-blue-500 font-medium drop-shadow-lg"
                                 >
                                     {l.name}
                                 </Link>
                             ))}
-                            {!auth ? (
+                            {loading ? null : auth ? (
+                                <button
+                                    onClick={() => {
+                                        logout();
+                                        setMenuOpen(false);
+                                    }}
+                                    className="mt-2 bg-red-500 text-white py-2 rounded-full"
+                                >
+                                    Sign Out
+                                </button>
+                            ) : (
                                 <Link
                                     href="/auth/login"
                                     onClick={() => setMenuOpen(false)}
@@ -126,13 +138,6 @@ export default function Nav() {
                                 >
                                     Sign In
                                 </Link>
-                            ) : (
-                                <button
-                                    onClick={() => { logout(); setMenuOpen(false); }}
-                                    className="mt-2 bg-red-500 text-white py-2 rounded-full"
-                                >
-                                    Sign Out
-                                </button>
                             )}
                         </div>
                     </motion.div>

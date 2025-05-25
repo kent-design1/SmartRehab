@@ -28,23 +28,23 @@ export default function Home() {
                     SmartRehab SCIM Predictor
                 </h1>
 
-                <p
-                    className="
-            mx-auto
-            text-gray-200/90
-            italic
-            max-w-prose
-            text-lg sm:text-xl md:text-2xl
-            tracking-wide
-            drop-shadow
-          "
-                >
-                    Instantly forecast patient recovery scores at{" "}
-                    <span className="font-semibold text-white">6</span>,{" "}
-                    <span className="font-semibold text-white">12</span>,{" "}
-                    <span className="font-semibold text-white">18</span> &{" "}
-                    <span className="font-semibold text-white">24</span> weeks.
-                </p>
+          {/*      <p*/}
+          {/*          className="*/}
+          {/*  mx-auto*/}
+          {/*  text-gray-200/90*/}
+          {/*  italic*/}
+          {/*  max-w-prose*/}
+          {/*  text-lg sm:text-xl md:text-2xl*/}
+          {/*  tracking-wide*/}
+          {/*  drop-shadow*/}
+          {/*"*/}
+          {/*      >*/}
+          {/*          Instantly forecast patient recovery scores at{" "}*/}
+          {/*          <span className="font-semibold text-white">6</span>,{" "}*/}
+          {/*          <span className="font-semibold text-white">12</span>,{" "}*/}
+          {/*          <span className="font-semibold text-white">18</span> &{" "}*/}
+          {/*          <span className="font-semibold text-white">24</span> weeks.*/}
+          {/*      </p>*/}
 
                 <Link
                     href="/predict"
