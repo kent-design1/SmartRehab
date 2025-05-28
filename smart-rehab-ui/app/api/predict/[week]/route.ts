@@ -1,11 +1,11 @@
-// app/api/predict/[week]/route.ts
+//predict/[week]/route
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(
     req: NextRequest,
     { params }: { params: { week: string } }
 ) {
-    // 1) parse & validate the week
+    // parse & validate the week
     const wk = Number(params.week);
     if (![6, 12, 18, 24].includes(wk)) {
         return NextResponse.json(
@@ -14,7 +14,7 @@ export async function POST(
         );
     }
 
-    // 2) parse the incoming body and pull out .features
+    // parse the incoming body and pull out features
     let body: any;
     try {
         body = await req.json();
@@ -31,7 +31,7 @@ export async function POST(
         );
     }
 
-    // 3) proxy to your FastAPI server
+    // proxy to your FastAPI server
     const upstream = await fetch(
         `http://localhost:8000/predict/${wk}`,   // <-- raw number in URL
         {

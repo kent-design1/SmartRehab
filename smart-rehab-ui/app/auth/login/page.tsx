@@ -1,4 +1,4 @@
-// app/auth/login/route.ts
+//auth/login/route
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';

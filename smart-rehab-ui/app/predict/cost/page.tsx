@@ -1,4 +1,4 @@
-// app/predict/cost/page.tsx
+// predict/cost/page
 'use client';
 
 import { useSearchParams, useRouter } from 'next/navigation';

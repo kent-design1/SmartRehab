@@ -1,4 +1,4 @@
-// File: app/api/auth/session/route.ts
+//auth/session/route
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 

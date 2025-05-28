@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { HeroBg } from '@/assets';
 
-// Dummy team data
+
 const team = [
     { name: 'Dr. Alice Smith', role: 'Lead Data Scientist', contribution: 'Model design & feature engineering' },
     { name: 'Dr. Brian Lee', role: 'Clinical Advisor', contribution: 'Clinical validation & domain expertise' },

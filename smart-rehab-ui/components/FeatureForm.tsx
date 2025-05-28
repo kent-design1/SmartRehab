@@ -1,4 +1,4 @@
-// app/predict/FeatureForm.tsx
+//predict/FeatureForm
 'use client';
 
 import { useState, useEffect } from 'react';

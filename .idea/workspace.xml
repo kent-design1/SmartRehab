@@ -5,8 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/unused models" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/api/auth/session/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/auth/session/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/api/predict/[week]/route.ts" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/predict/[week]/route.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/auth/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/predict/cost/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/predict/cost/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/About.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/About.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/FeatureForm.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,11 +79,11 @@
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/(auth)" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.unused" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/auth/session" />
       <recent name="$PROJECT_DIR$/ml_api" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/components" />
       <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api" />
-      <recent name="$PROJECT_DIR$/smart-rehab-ui/app/api/logout" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -103,7 +110,7 @@
       <workItem from="1743242724932" duration="92668000" />
       <workItem from="1745876372152" duration="78743000" />
       <workItem from="1747126017787" duration="5452000" />
-      <workItem from="1747602705867" duration="31922000" />
+      <workItem from="1747602705867" duration="33519000" />
     </task>
     <servers />
   </component>
@@ -125,7 +132,7 @@
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/SmartRehab.py</url>
+          <url>file://$PROJECT_DIR$/.unused/SmartRehab.py</url>
           <line>134</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
