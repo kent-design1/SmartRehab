@@ -29,7 +29,7 @@ mlb = MultiLabelBinarizer()
 all_plans = sorted({p for col in plan_cols for p in df[col].explode().dropna()})
 mlb.fit([all_plans])
 
-# create one-hot for each week×plan
+# one-hot for each week×plan
 for col in plan_cols:
     bin_df = pd.DataFrame(
         mlb.transform(df[col]),
