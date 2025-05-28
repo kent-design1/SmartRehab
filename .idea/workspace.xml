@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9142e6c2-1475-4715-9a53-5246d51d8f36" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/smart-rehab-ui/app/api/auth/session/route.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Graphs.py" beforeDir="false" afterPath="$PROJECT_DIR$/Graphs.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scatter_week12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scatter_week18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scatter_week24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scatter_week6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shap_summary_week12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shap_summary_week18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shap_summary_week24.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/shap_summary_week6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/auth/SignIn/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/auth/login/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/app/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/smart-rehab-ui/components/Nav.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,7 +103,7 @@
       <workItem from="1743242724932" duration="92668000" />
       <workItem from="1745876372152" duration="78743000" />
       <workItem from="1747126017787" duration="5452000" />
-      <workItem from="1747602705867" duration="25344000" />
+      <workItem from="1747602705867" duration="30835000" />
     </task>
     <servers />
   </component>
